@@ -1,5 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# rescript
+/lib/
+.bsb.lock
+.merlin
+
 # dependencies
 /node_modules
 /.pnp
