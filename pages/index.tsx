@@ -1,15 +1,17 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import { useRecoilValue } from 'recoil';
+import { randomItemState } from '../lib/recoil-atoms';
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
+
+const IndexPage = () => {
+  const randomItem = useRecoilValue(randomItemState)
+  return (
+    <div>
+      <h1>Hello Next.js 👋</h1>
+      <p>
+        {randomItem}
+      </p>
+    </div>
+  )
+}
 
 export default IndexPage
