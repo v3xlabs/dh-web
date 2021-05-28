@@ -1,0 +1,80 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - v*
+
+env:
+  PACKAGE_NAME: lvk.sh/dh/web
+  URL: dogehouse.online
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    name: 🔨 Build Package
+    steps:
+      - uses: actions/checkout@v2
+      - name: Log into Lucemans registry
+        run: echo "${{ secrets.LVK_REGISTRY }}" | docker login lvk.sh -u lucemans --password-stdin
+      - name: Pull old image if possible
+        run: docker pull ${{ env.PACKAGE_NAME }}:latest || true
+      - name: Build Deploy Package
+        run: docker build --tag ${{ env.PACKAGE_NAME }} --cache-from ${{ env.PACKAGE_NAME }}:latest .
+      - name: Push image
+        run: |
+          IMAGE_ID=${{ env.PACKAGE_NAME }}
+          VERSION=$(echo "${{ github.sha }}" | sed -e 's,.*/\(.*\),\1,')
+          echo $IMAGE_ID
+          echo $VERSION
+          docker tag ${{ env.PACKAGE_NAME }} $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
+          docker tag $IMAGE_ID:$VERSION $IMAGE_ID:latest
+          docker push $IMAGE_ID:latest
+  terraform:
+    name: '📦 Deploy'
+    runs-on: ubuntu-20.04
+    needs: ['build']
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TERRAFORM_TOKEN }}
+
+    - name: Dump Kubeconfig file
+      run: mkdir ~/.kube && echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > ~/.kube/config && KUBECONFIG=~/.kube/config
+      working-directory: terraform
+
+    - name: Terraform Init
+      run: terraform init
+      working-directory: terraform
+
+    - name: Terraform Plan
+      run: export TF_VAR_container="${{ env.PACKAGE_NAME }}:$(echo "${{ github.sha }}" | sed -e 's,.*/\(.*\),\1,')" && terraform plan
+      working-directory: terraform
+      env:
+        TF_VAR_deployurl: ${{ env.URL }}
+
+    - name: Terraform Apply
+      run: export TF_VAR_container="${{ env.PACKAGE_NAME }}:$(echo "${{ github.sha }}" | sed -e 's,.*/\(.*\),\1,')" && terraform apply -auto-approve
+      working-directory: terraform
+      env:
+        TF_VAR_deployurl: ${{ env.URL }}
+
+  validate:
+    name: '✔️ Validate Deployment'
+    runs-on: ubuntu-20.04
+    needs: ['terraform']
+    steps:
+    - name: Check that the page has been deployed successfully
+      uses: jtalk/url-health-check-action@v1.2
+      with:
+        url: "https://${{ env.URL }}"
+        follow-redirect: no
+        max-attempts: 5
+        retry-delay: 5s
