@@ -6,6 +6,7 @@ RUN apk update
 RUN apk add python2
 RUN apk add re2c
 RUN apk add g++
+RUN apk add make
 
 COPY package.json .
 COPY next.config.js .
