@@ -4,7 +4,7 @@
 
 import * as React from 'react';
 
-const $$toRE818596289: { [key: string]: any } = { "Red": 0, "Blue": 1 };
+const $$toRE818596289: { [key: string]: any } = {"Red": 0, "Blue": 1};
 
 // @ts-ignore: Implicit any on import
 import * as ColorComponentBS__Es6Import from './ColorComponent.bs';
@@ -17,7 +17,7 @@ export type color = "Red" | "Blue";
 export type Props = { readonly color: color; readonly name: string };
 
 export const make: React.ComponentType<{ readonly color: color; readonly name: string }> = function ColorComponent(Arg1: any) {
-  const $props = { color: $$toRE818596289[Arg1.color], name: Arg1.name };
+  const $props = {color:$$toRE818596289[Arg1.color], name:Arg1.name};
   const result = React.createElement(ColorComponentBS.make, $props);
   return result
 };
