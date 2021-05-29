@@ -4,6 +4,7 @@ WORKDIR /app
 
 RUN apk update
 RUN apk add python2
+RUN apk add re2c
 
 COPY package.json .
 COPY next.config.js .
