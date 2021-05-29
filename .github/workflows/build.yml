@@ -22,7 +22,7 @@ jobs:
       - name: Pull old image if possible
         run: docker pull ${{ env.PACKAGE_NAME }}:latest || true
       - name: Build Deploy Package
-        run: docker build --tag ${{ env.PACKAGE_NAME }} --cache-from ${{ env.PACKAGE_NAME }}:latest .
+        run: docker build --tag ${{ env.PACKAGE_NAME }} .
       - name: Push image
         run: |
           IMAGE_ID=${{ env.PACKAGE_NAME }}
