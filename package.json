@@ -20,7 +20,7 @@
     "react-dom": "^17.0.1",
     "recoil": "^0.3.1",
     "rescript": "^9.1.2",
-    "styled-components": "^5.3.0",
+    "styled-components": "^5.3.0"
   },
   "devDependencies": {
     "@types/node": "^12.12.21",
