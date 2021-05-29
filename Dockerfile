@@ -14,7 +14,7 @@ RUN yarn
 
 COPY src src
 
-RUN yarn res:build
+# RUN yarn res:build
 RUN yarn build
 
 CMD ["yarn", "start"]
