@@ -5,6 +5,8 @@ WORKDIR /app
 COPY package.json .
 COPY next.config.js .
 COPY next-env.d.ts .
+COPY bsconfig.json .
+COPY next-env.d.ts .
 COPY yarn.lock .
 COPY tsconfig.json .
 
