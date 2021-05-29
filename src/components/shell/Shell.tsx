@@ -61,6 +61,8 @@ const Wrapper = styled.div`
     width: 100vw;
     height: 100vh;
     background: ${({ theme }) => theme.palette.primary['900']};
+    overflow-y: auto;
+    overflow-x: hidden;
 `;
 
 export const Shell: FC<ShellProps> = ({ children }: ShellProps) => {

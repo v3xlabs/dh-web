@@ -1,10 +1,14 @@
 import { Authorize } from "../library/auth/Authorize";
 import { useUser } from "../library/auth/useUser";
-import { Grid } from "../components/grid/grid";
-import { Search } from "../components/search/search";
+import { Grid } from "../components/grid/Grid";
+import { Search } from "../components/search/Search";
 import styled from 'styled-components';
-import { Card } from "../components/card/card";
+import { Card } from "../components/card/Card";
 import Link from "next/link";
+import { Logo } from "../components/logo/Logo";
+import { Button } from "../components/button/Button";
+import { Schedule } from "../components/schedule/Schedule";
+import { ProfileWidget } from "../components/user/ProfileWidget";
 
 const Column = styled.div`
     margin-top: 30px;
@@ -12,7 +16,7 @@ const Column = styled.div`
 
 const Dashboard = Authorize({
     SEO: () => ({
-        title: 'Dashboard2',
+        title: 'Dashboard',
         description: 'Description2',
         openGraph: {
             title: 'Dashboard',
@@ -28,18 +32,14 @@ const Dashboard = Authorize({
         return (
             <Grid>
                 <Column>
-                    <Card padding>
-                        Hey
-                    </Card>
+                    <Logo />
                 </Column>
                 <Column>
                     <Search />
                 </Column>
                 <Column>
-                    <Card padding>
-                        Hello {user?.id}
-                        <Link href="/profile">Profile</Link>
-                    </Card>
+                    <ProfileWidget />
+                    <Schedule />
                 </Column>
             </Grid>
         )
