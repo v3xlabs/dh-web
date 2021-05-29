@@ -4,6 +4,7 @@ import NProgress from 'nprogress';
 import Router from 'next/router';
 import "nprogress/nprogress.css";
 import { Suspense } from "react";
+import { Shell } from "../components/shell/Shell";
 
 Router.events.on("routeChangeStart", () => {
   NProgress.start();
@@ -15,7 +16,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <RecoilRoot>
-      <Component {...pageProps} />
+      <Shell>
+        <Component {...pageProps} />
+      </Shell>
     </RecoilRoot>
   );
 }

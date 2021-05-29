@@ -11,6 +11,7 @@
     "res:start": "rescript build -w"
   },
   "dependencies": {
+    "@apollo/client": "^3.3.19",
     "@material-ui/core": "^4.11.4",
     "@rescript/react": "^0.10.3",
     "@types/next-seo": "^2.1.2",
@@ -18,6 +19,7 @@
     "@types/styled-components": "^5.1.9",
     "@types/url-parse": "^1.4.3",
     "build-url": "^6.0.1",
+    "graphql": "^15.5.0",
     "next": "latest",
     "next-seo": "^4.24.0",
     "nprogress": "^0.2.0",
