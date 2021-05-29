@@ -3,7 +3,7 @@ FROM node:alpine
 WORKDIR /app
 
 RUN apk update
-RUN apk add python
+RUN apk add python2
 
 COPY package.json .
 COPY next.config.js .
