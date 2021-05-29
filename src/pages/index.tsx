@@ -1,16 +1,9 @@
-import { useRecoilValue } from 'recoil';
-import { randomItemState } from '../library/recoil-atoms';
+import { useEffect } from 'react';
 
 const IndexPage = () => {
-  const randomItem = useRecoilValue(randomItemState);
-  return (
-    <div>
-      <h1>Hello Next.js 👋</h1>
-      <p>
-        {randomItem}
-      </p>
-    </div>
-  )
+  useEffect(() => {
+    document.location.replace('/dashboard');
+  });
 }
 
 export default IndexPage
