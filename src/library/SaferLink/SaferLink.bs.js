@@ -4,11 +4,13 @@ import * as React from "react";
 
 function SaferLink(Props) {
   var href = Props.href;
+  var target = Props.target;
   var children = Props.children;
+  var targetStr = target ? "" : "__blank";
   return React.createElement("a", {
               href: href,
               rel: "noreferrer noopener",
-              target: "__blank"
+              target: targetStr
             }, children);
 }
 

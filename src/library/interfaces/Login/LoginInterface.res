@@ -4,15 +4,15 @@ let make = () => {
     <h1> {React.string("Login Page")} </h1>
     <ul>
       <li>
-        <SaferLink href=Constant.discord_login_uri>
+        <SaferLink target=Internal href=Constant.discord_login_uri>
           {React.string("Login with Discord")}
         </SaferLink>
       </li>
       <li>
-        <SaferLink href=Constant.google_login_uri> {React.string("Login with Google")} </SaferLink>
+        <SaferLink target=Internal href=Constant.google_login_uri> {React.string("Login with Google")} </SaferLink>
       </li>
       <li>
-        <SaferLink href=Constant.github_login_uri> {React.string("Login with Github")} </SaferLink>
+        <SaferLink target=Internal href=Constant.github_login_uri> {React.string("Login with Github")} </SaferLink>
       </li>
     </ul>
   </div>

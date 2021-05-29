@@ -1,16 +1,14 @@
-import { useRecoilValue } from 'recoil';
-import { randomItemState } from '../library/recoil-atoms';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const IndexPage = () => {
-  const randomItem = useRecoilValue(randomItemState);
-  return (
-    <div>
-      <h1>Hello Next.js 👋</h1>
-      <p>
-        {randomItem}
-      </p>
-    </div>
-  )
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace('/dashboard');
+  });
+  
+  return <></>;
 }
 
 export default IndexPage
