@@ -1,7 +1,5 @@
 import { useRecoilValue } from 'recoil';
 import { randomItemState } from '../library/recoil-atoms';
-import { make as ColorComponent } from '../library/Demo/ColorComponent.gen';
-
 
 const IndexPage = () => {
   const randomItem = useRecoilValue(randomItemState);
@@ -11,7 +9,6 @@ const IndexPage = () => {
       <p>
         {randomItem}
       </p>
-      <ColorComponent color="Blue" name="Shashan" />
     </div>
   )
 }
