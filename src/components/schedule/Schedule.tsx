@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { userSelector } from '../../library/auth/useUser';
 import { Card } from '../card/Card';
 import { notDraggable } from '../../library/mixin/mixin'
-import { useRecoilValue } from 'recoil';
 import { gql, useQuery } from '@apollo/client';
 
 const Title = styled.div`
