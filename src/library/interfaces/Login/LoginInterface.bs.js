@@ -6,15 +6,15 @@ import * as SaferLink from "../../SaferLink/SaferLink.bs.js";
 
 function LoginInterface(Props) {
   return React.createElement("div", undefined, React.createElement("h1", undefined, "Login Page"), React.createElement("ul", undefined, React.createElement("li", undefined, React.createElement(SaferLink.make, {
-                          href: Constant.discord_login_uri,
+                          href: Constant.Constant.discord_login_uri,
                           target: /* Internal */1,
                           children: "Login with Discord"
                         })), React.createElement("li", undefined, React.createElement(SaferLink.make, {
-                          href: Constant.google_login_uri,
+                          href: Constant.Constant.google_login_uri,
                           target: /* Internal */1,
                           children: "Login with Google"
                         })), React.createElement("li", undefined, React.createElement(SaferLink.make, {
-                          href: Constant.github_login_uri,
+                          href: Constant.Constant.github_login_uri,
                           target: /* Internal */1,
                           children: "Login with Github"
                         }))));

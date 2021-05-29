@@ -5,9 +5,12 @@ import * as React from "react";
 function SaferLink(Props) {
   var href = Props.href;
   var target = Props.target;
+  var classNameOpt = Props.className;
   var children = Props.children;
+  var className = classNameOpt !== undefined ? classNameOpt : "";
   var targetStr = target ? "" : "__blank";
   return React.createElement("a", {
+              className: className,
               href: href,
               rel: "noreferrer noopener",
               target: targetStr

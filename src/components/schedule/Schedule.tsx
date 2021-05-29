@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { useUser } from '../../library/auth/useUser';
 import { Card } from '../card/Card';
+import { notDraggable } from '../../library/mixin/mixin'
 
 const Title = styled.div`
     font-size: 2rem;
@@ -62,6 +63,7 @@ const MiniImage = styled.img`
     height: 1.8rem;
     width: 1.8rem;
     border-radius: 50%;
+    ${notDraggable}
 `;
 
 const Owner = styled.div`
@@ -71,7 +73,7 @@ const Owner = styled.div`
     span {
         padding-left: 0.5rem;
         font-size: 1rem;
-        color: ${({theme}) => theme.palette.primary[300]};
+        color: ${({ theme }) => theme.palette.primary[300]};
     }
 `;
 

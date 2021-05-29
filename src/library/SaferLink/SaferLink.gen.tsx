@@ -16,16 +16,18 @@ export type target = "External" | "Internal";
 // tslint:disable-next-line:interface-over-type-literal
 export type Props = {
   readonly children: React.ReactNode; 
+  readonly className?: string; 
   readonly href: string; 
   readonly target: target
 };
 
 export const make: React.ComponentType<{
   readonly children: React.ReactNode; 
+  readonly className?: string; 
   readonly href: string; 
   readonly target: target
 }> = function SaferLink(Arg1: any) {
-  const $props = {children:Arg1.children, href:Arg1.href, target:$$toRE258795630[Arg1.target]};
+  const $props = {children:Arg1.children, className:Arg1.className, href:Arg1.href, target:$$toRE258795630[Arg1.target]};
   const result = React.createElement(SaferLinkBS.make, $props);
   return result
 };

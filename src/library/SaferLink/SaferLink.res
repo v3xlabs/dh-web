@@ -4,10 +4,11 @@ type target =
   | Internal
 
 @genType @react.component
-let make = (~href: string, ~target: target, ~children) => {
+let make = (~href: string, ~target: target, ~className: string="", ~children) => {
   let targetStr = switch target {
-    | External => "__blank"
-    | Internal => ""
+  | External => "__blank"
+  | Internal => ""
   }
-  <a rel="noreferrer noopener" target=targetStr href> children </a>
+
+  <a rel="noreferrer noopener" className target=targetStr href> children </a>
 }

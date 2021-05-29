@@ -1,3 +1,5 @@
+open Constant
+
 @genType @react.component
 let make = () => {
   <div>
@@ -9,10 +11,14 @@ let make = () => {
         </SaferLink>
       </li>
       <li>
-        <SaferLink target=Internal href=Constant.google_login_uri> {React.string("Login with Google")} </SaferLink>
+        <SaferLink target=Internal href=Constant.google_login_uri>
+          {React.string("Login with Google")}
+        </SaferLink>
       </li>
       <li>
-        <SaferLink target=Internal href=Constant.github_login_uri> {React.string("Login with Github")} </SaferLink>
+        <SaferLink target=Internal href=Constant.github_login_uri>
+          {React.string("Login with Github")}
+        </SaferLink>
       </li>
     </ul>
   </div>
