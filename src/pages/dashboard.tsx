@@ -13,6 +13,7 @@ const Dashboard = Authorize({
     })
 },
     () => {
+        console.log('Loading dashboard')
         const user = useUser();
 
         return (

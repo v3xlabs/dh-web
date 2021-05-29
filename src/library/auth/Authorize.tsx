@@ -2,6 +2,7 @@ import { FC, useEffect } from "react";
 import { useUser } from "./useUser";
 import { NextSeo, NextSeoProps } from 'next-seo';
 import { Shell } from "../shell/shell";
+import { useRouter } from 'next/router';
 
 type AuthorizationSettings = {
     SEO: () => NextSeoProps;
@@ -18,11 +19,12 @@ export const Authorize = (settings: AuthorizationSettings, Page: FC) => {
     settings = Object.assign(defaultAuthorizationSettings, settings || {});
 
     return () => {
+        const router = useRouter();
         const user = useUser();
 
         if (user == null && settings.authRequired) {
             useEffect(() => {
-                document.location.replace('/login');
+                router.push('/login');
             });
 
             return (
