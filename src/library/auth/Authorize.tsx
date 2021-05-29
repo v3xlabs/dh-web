@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { useUser } from "./useUser";
 import { NextSeo, NextSeoProps } from 'next-seo';
-import { Shell } from "../shell/shell";
+import { Shell } from "../../components/shell/shell";
 import { useRouter } from 'next/router';
 
 type AuthorizationSettings = {

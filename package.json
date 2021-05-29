@@ -13,9 +13,11 @@
   "dependencies": {
     "@rescript/react": "^0.10.3",
     "@types/next-seo": "^2.1.2",
+    "@types/nprogress": "^0.2.0",
     "@types/styled-components": "^5.1.9",
     "next": "latest",
     "next-seo": "^4.24.0",
+    "nprogress": "^0.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "recoil": "^0.3.1",
