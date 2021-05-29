@@ -88,7 +88,7 @@ const Explore = styled.div`
 
 const PROFILE_WIDGET_QUERY = gql`
 query {
-              getMe {
+              me {
                   id
                   avatar
                   username
@@ -119,9 +119,9 @@ export const Schedule: FC = () => {
             <Line />
             {
                 [
-                    { name: 'Hello World', time: '9:00 PM', owner: data.getMe },
-                    { name: 'Hello World', time: '9:00 PM', owner: data.getMe },
-                    { name: 'Hello World', time: '9:00 PM', owner: data.getMe }
+                    { name: 'Hello World', time: '9:00 PM', owner: data.me },
+                    { name: 'Hello World', time: '9:00 PM', owner: data.me },
+                    { name: 'Hello World', time: '9:00 PM', owner: data.me }
                 ].map((room, index) => (
                     <React.Fragment key={index}>
                         <ScheduleEntry>

@@ -20,7 +20,7 @@ const TextPlaceholder = styled.div<{ w?: string }>`
 
 const PROFILE_WIDGET_QUERY = gql`
   query {
-                getMe {
+                me {
                     id
                     avatar
                     username
@@ -46,8 +46,8 @@ export const ProfileWidget = () => {
 
     return (
         <Card padding>
-            <ProfilePicture src={data.getMe?.avatar}></ProfilePicture>
-            Hello {data.getMe?.username}
+            <ProfilePicture src={data.me?.avatar}></ProfilePicture>
+            Hello {data.me?.username}
             <Link href="/profile">Profile</Link>
         </Card>
     );
