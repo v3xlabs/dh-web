@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { DarkTheme } from '../../library/theme';
+import { DarkTheme, LightTheme } from '../../library/theme';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Head from 'next/head';
 

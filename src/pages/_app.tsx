@@ -3,9 +3,9 @@ import { RecoilRoot } from "recoil";
 import NProgress from 'nprogress';
 import Router from 'next/router';
 import "nprogress/nprogress.css";
+import { Suspense } from "react";
 
 Router.events.on("routeChangeStart", () => {
-  console.log('start');
   NProgress.start();
 });
 Router.events.on("routeChangeComplete", () => NProgress.done());

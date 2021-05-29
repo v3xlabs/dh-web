@@ -13,7 +13,7 @@ const ProfilePicture = styled.img`
 `;
 
 export const ProfileWidget = () => {
-    const user = useUser();
+    const {user} = useUser();
 
     return (
         <Card padding>

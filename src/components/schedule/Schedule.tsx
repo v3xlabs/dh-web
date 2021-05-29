@@ -86,7 +86,7 @@ const Explore = styled.div`
 `;
 
 export const Schedule: FC = () => {
-    const user = useUser();
+    const {user} = useUser();
 
     return (
         <Card margin>
