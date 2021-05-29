@@ -2,8 +2,8 @@ FROM node:16-buster
 
 WORKDIR /app
 
-COPY *.json .
-COPY yarn.lock .
+COPY *.json ./
+COPY yarn.lock ./
 
 RUN yarn
 
