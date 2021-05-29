@@ -3,9 +3,10 @@ import { RecoilRoot } from "recoil";
 import NProgress from 'nprogress';
 import Router from 'next/router';
 import "nprogress/nprogress.css";
+import { Suspense } from "react";
+import { Shell } from "../components/shell/Shell";
 
 Router.events.on("routeChangeStart", () => {
-  console.log('start');
   NProgress.start();
 });
 Router.events.on("routeChangeComplete", () => NProgress.done());
@@ -15,7 +16,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <RecoilRoot>
-      <Component {...pageProps} />
+      <Shell>
+        <Component {...pageProps} />
+      </Shell>
     </RecoilRoot>
   );
 }
