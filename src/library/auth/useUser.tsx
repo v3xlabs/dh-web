@@ -11,7 +11,7 @@ const userState = selector<User | null>({
     get: ({get}) => {
         const token = get(accessState);
 
-        return {id: 'Hey'};
+        return {id: 'Hey ' + token};
     },
 });
 
