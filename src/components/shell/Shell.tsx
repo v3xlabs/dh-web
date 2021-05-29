@@ -15,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         font-family: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
         color: ${({ theme }) => theme.palette.buttonText};
+        background: ${({theme}) => theme.palette.primary[900]};
         font-size: 1.4rem;
     }
     * {

@@ -23,7 +23,9 @@ const Wrapper = styled.div`
     }
 
     @media(max-width: ${({theme}) => theme.breakpoints.one}px) {
-        grid-template-columns: 0 100%;
+        grid-template-columns: 100%;
+        width: 100%;
+        padding: 0 1rem;
     }
 `;
 

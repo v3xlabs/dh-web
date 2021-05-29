@@ -19,7 +19,7 @@ export const ProfileWidget = () => {
         <Card padding>
             <ProfilePicture src={user?.avatar}></ProfilePicture>
             Hello {user?.username}
-            {/* <Link href="/profile">Profile</Link> */}
+            <Link href="/profile">Profile</Link>
         </Card>
     );
 };
