@@ -2,6 +2,7 @@ FROM node:alpine
 
 WORKDIR /app
 
+RUN apk update
 RUN apk add python
 
 COPY package.json .
