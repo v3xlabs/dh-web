@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { useUser } from '../../library/auth/useUser';
 import { Card } from '../card/Card';
 import { notDraggable } from '../../library/mixin/mixin';
+import { gql, useQuery } from '@apollo/client';
+
 
 const ProfilePicture = styled.img`
     border-radius: 50%;
@@ -12,13 +13,41 @@ const ProfilePicture = styled.img`
     ${notDraggable}
 `;
 
+const TextPlaceholder = styled.div<{ w?: string }>`
+    height: 1em;
+    width: ${({ w }) => w ? w : '10em'}
+`;
+
+const PROFILE_WIDGET_QUERY = gql`
+  query {
+                me {
+                    id
+                    avatar
+                    username
+                }
+            }
+`;
+
 export const ProfileWidget = () => {
-    const user = useUser();
+    const { loading, data } = useQuery(
+        PROFILE_WIDGET_QUERY,
+        { fetchPolicy: "network-only" }
+    );
+
+    if (loading) {
+        return (
+            <Card padding>
+                <ProfilePicture></ProfilePicture>
+                <TextPlaceholder />
+                <Link href="/profile">Profile</Link>
+            </Card>
+        );
+    }
 
     return (
         <Card padding>
-            <ProfilePicture src={user?.avatar}></ProfilePicture>
-            Hello {user?.username}
+            <ProfilePicture src={data.me?.avatar}></ProfilePicture>
+            Hello {data.me?.username}
             <Link href="/profile">Profile</Link>
         </Card>
     );

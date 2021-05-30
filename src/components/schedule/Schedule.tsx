@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { useUser } from '../../library/auth/useUser';
 import { Card } from '../card/Card';
 import { notDraggable } from '../../library/mixin/mixin'
+import { gql, useQuery } from '@apollo/client';
 
 const Title = styled.div`
     font-size: 2rem;
@@ -85,8 +85,30 @@ const Explore = styled.div`
     border-end-start-radius: ${({ theme }) => theme.borderRadius};
 `;
 
+
+const PROFILE_WIDGET_QUERY = gql`
+query {
+              me {
+                  id
+                  avatar
+                  username
+              }
+          }
+`;
+
+
 export const Schedule: FC = () => {
-    const user = useUser();
+
+    const { loading, data } = useQuery(
+        PROFILE_WIDGET_QUERY,
+        { fetchPolicy: "network-only" }
+    );
+
+    if (loading) {
+        return (
+            <p>Loading....</p>
+        )
+    }
 
     return (
         <Card margin>
@@ -97,9 +119,9 @@ export const Schedule: FC = () => {
             <Line />
             {
                 [
-                    { name: 'Hello World', time: '9:00 PM', owner: user },
-                    { name: 'Hello World', time: '9:00 PM', owner: user },
-                    { name: 'Hello World', time: '9:00 PM', owner: user }
+                    { name: 'Hello World', time: '9:00 PM', owner: data.me },
+                    { name: 'Hello World', time: '9:00 PM', owner: data.me },
+                    { name: 'Hello World', time: '9:00 PM', owner: data.me }
                 ].map((room, index) => (
                     <React.Fragment key={index}>
                         <ScheduleEntry>

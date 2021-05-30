@@ -1,7 +1,7 @@
 import { DefaultTheme } from "styled-components";
 
 export const DarkTheme: DefaultTheme = {
-    borderRadius: '10px',
+    borderRadius: '8px',
     palette: {
         primary: {
             100: "#dee3ea",
@@ -37,7 +37,7 @@ export const DarkTheme: DefaultTheme = {
 
 
 export const LightTheme: DefaultTheme = {
-    borderRadius: '10px',
+    borderRadius: '0px',
     palette: {
         primary: {
             100: "#0b0e11",

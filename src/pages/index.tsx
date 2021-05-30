@@ -7,7 +7,7 @@ const IndexPage = () => {
   useEffect(() => {
     router.replace('/dashboard');
   });
-  
+
   return <></>;
 }
 
