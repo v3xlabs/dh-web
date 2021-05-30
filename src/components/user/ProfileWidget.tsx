@@ -5,36 +5,41 @@ import { Card } from '../card/Card';
 import { notDraggable } from '../../library/mixin/mixin';
 import { gql, useQuery } from '@apollo/client';
 
-
-const ProfilePicture = styled.img`
+const ProfilePicture = styled.div`
+    background: ${({theme}) => theme.palette.primary[700]};
     border-radius: 50%;
+    overflow: hidden;
     width: 8rem;
     height: 8rem;
-    ${notDraggable}
+    img {
+        width: 8rem;
+        height: 8rem;
+        ${notDraggable}
+    }
 `;
 
 const TextPlaceholder = styled.div<{ w?: string }>`
     height: 1em;
-    width: ${({ w }) => w ? w : '10em'}
+    width: ${({ w }) => w ? w : '10em'};
 `;
 
 const PROFILE_WIDGET_QUERY = gql`
-  query {
-                me {
-                    id
-                    avatar
-                    username
-                }
-            }
+    query {
+        me {
+            id
+            avatar
+            username
+        }
+    }
 `;
 
 export const ProfileWidget = () => {
-    const { loading, data } = useQuery(
+    const { loading, data, error } = useQuery(
         PROFILE_WIDGET_QUERY,
         { fetchPolicy: "network-only" }
     );
 
-    if (loading) {
+    if (loading || error) {
         return (
             <Card padding>
                 <ProfilePicture></ProfilePicture>
@@ -43,10 +48,12 @@ export const ProfileWidget = () => {
             </Card>
         );
     }
-
+    
     return (
         <Card padding>
-            <ProfilePicture src={data.me?.avatar}></ProfilePicture>
+            <ProfilePicture>
+                <img src={data.me?.avatar} />
+            </ProfilePicture>
             Hello {data.me?.username}
             <Link href="/profile">Profile</Link>
         </Card>
