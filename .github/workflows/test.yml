@@ -8,7 +8,6 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-20.04
-    needs: ['lint']
     name: 🧪 Lint Package
     steps:
       - uses: actions/checkout@v2
@@ -18,6 +17,7 @@ jobs:
         run: yarn lint
   build:
     runs-on: ubuntu-20.04
+    needs: ['lint']
     name: 📦 Build Docker Image
     steps:
       - uses: actions/checkout@v2
