@@ -72,9 +72,9 @@ const Dot = styled.div`
 
 export const FriendsList: FC = () => {
 
-    const friends: User[] = [
-        { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", room: "main room", online: true },
-        { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", room: "", online: true },
+    const friends = [
+        { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", current_room: "main room", online: true },
+        { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", current_room: "", online: true },
     ];
 
     const theme = useTheme();
@@ -99,9 +99,9 @@ export const FriendsList: FC = () => {
                     { three &&
                         <UserName>
                             {user?.username}
-                            {user?.room != "" &&
+                            {user?.current_room != "" &&
                                 <UserRoom>
-                                    {user?.room}
+                                    {user?.current_room}
                                 </UserRoom>
                             }
                         </UserName>
