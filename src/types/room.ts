@@ -1,8 +1,11 @@
-import { User } from "./user";
+import { Member } from "./member";
+
+type RoomState = 'audio';
 
 export type Room = {
     id: string;
     name: string;
     description: string;
-    members: User[];
+    state: RoomState;
+    members: Member[];
 }
