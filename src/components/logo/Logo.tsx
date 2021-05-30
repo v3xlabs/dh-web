@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{small: boolean}>`
     display: flex;
-    justify-content: flex-start;
+    justify-content: ${({small}) => small ? 'center' : 'flex-start'};
     align-items: center;
     width: 100%;
 `;
@@ -34,7 +34,7 @@ const Text = styled.div`
 export const Logo: FC<{ small?: boolean }> = ({ small }) => {
 
     return (
-        <Wrapper>
+        <Wrapper small={small}>
             <Icon>
                 <img src="https://cdn.lvk.sh/dogehouse/logo.svg" alt="" />
             </Icon>
