@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
-import { DarkTheme, LightTheme } from '../../library/theme';
+import { DarkTheme } from '../../library/theme';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Head from 'next/head';
 import NoSsr from '../../library/ssr/NoSSR';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-
 
 type ShellProps = {
     children: React.ReactNode;

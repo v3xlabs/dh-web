@@ -11,7 +11,5 @@ jobs:
     name: 🧪 Lint Package
     steps:
       - uses: actions/checkout@v2
-      - name: Log into Lucemans registry
-        run: echo "${{ secrets.LVK_REGISTRY }}" | docker login lvk.sh -u lucemans --password-stdin
       - name: Build Deploy Package
         run: docker build .

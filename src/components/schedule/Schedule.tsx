@@ -87,26 +87,35 @@ const Explore = styled.div`
 
 
 const PROFILE_WIDGET_QUERY = gql`
-query {
-              me {
-                  id
-                  avatar
-                  username
-              }
-          }
+    query {
+        me {
+            id
+            avatar
+            username
+        }
+    }
 `;
 
 
 export const Schedule: FC = () => {
 
-    const { loading, data } = useQuery(
+    const { loading, data, error } = useQuery(
         PROFILE_WIDGET_QUERY,
         { fetchPolicy: "network-only" }
     );
 
-    if (loading) {
+    if (loading || error) {
         return (
-            <p>Loading....</p>
+            <Card margin>
+                <Title>
+                    Scheduled Rooms
+                    <AddButton>+</AddButton>
+                </Title>
+                <Line />
+                <Explore>
+                    Explore more rooms
+                </Explore>
+            </Card>
         )
     }
 
