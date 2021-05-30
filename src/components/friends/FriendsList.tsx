@@ -1,8 +1,11 @@
+import Link from 'next/link';
 import React, { FC } from 'react';
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
+import { Card } from '../card/Card';
 import { notDraggable } from '../../library/mixin/mixin';
+import { gql, useQuery } from '@apollo/client';
 import { User } from '../../types/user';
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+
 
 const Title = styled.div`
     display: block;
@@ -25,7 +28,7 @@ const SubTitle = styled.div`
 const ProfilePicture = styled.div`
     margin-top: 15px;
     margin-bottom: 15px;
-    background: ${({ theme }) => theme.palette.primary[700]};
+    background: ${({theme}) => theme.palette.primary[700]};
     border-radius: 50%;
     overflow: hidden;
     width: 5rem;
@@ -40,8 +43,7 @@ const ProfilePicture = styled.div`
 const UserName = styled.div`
     font-weight: 700;
     padding: 2rem;
-    display: inline;
-    text-overflow: ellipsis;
+    display: online
 `;
 
 const Line = styled.div`
@@ -50,64 +52,37 @@ const Line = styled.div`
     align-items: center;
 `;
 
-const UserRoom = styled.div`
-    display: block;
-    text-decoration: none;
-    cursor: pointer;
-    font-weight: 300;
-    text-transform: capitalize;
-    text-overflow: ellipsis;
-    color: ${({ theme }) => theme.palette.primary[300]};
-`;
-
-const Dot = styled.div`
-    height: 8px;
-    width: 8px;
-    margin-left: -2rem;
-    margin-bottom: -3rem;
-    background-color: ${({ theme }) => theme.palette.accent.default};
-    border-radius: 50%;
-    display: inline-block;
-`;
-
-export const FriendsList: FC = () => {
+export const FriendsList = () => {
 
     const friends: User[] = [
-        { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", room: "main room", online: true },
-        { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", room: "", online: true },
+
+                { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" },
+                { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" },
+
     ];
-
-    const theme = useTheme();
-    const three = useMediaQuery(`(min-width:${theme.breakpoints.three + 1}px)`);
-
+    
     return (
         <div>
-            { three &&
-                <Title>
-                    People
-                    <SubTitle>
-                        ONLINE
-                    </SubTitle>
-                </Title>
-            }
-            {friends.map((user, index) => (
+
+            <Title>
+                People
+                <SubTitle>
+                    ONLINE
+                </SubTitle>
+            </Title>
+
+            {friends.map((user, index)=>(
                 <Line>
-                    <ProfilePicture>
+
+                <ProfilePicture>
                         <img src={user?.avatar} />
-                    </ProfilePicture>
-                    { user?.online && <Dot />}
-                    { three &&
-                        <UserName>
-                            {user?.username}
-                            {user?.room != "" &&
-                                <UserRoom>
-                                    {user?.room}
-                                </UserRoom>
-                            }
-                        </UserName>
-                    }
+                </ProfilePicture>
+                <UserName> {user?.username} </UserName>
+
                 </Line>
             ))}
+
+            
         </div>
     );
 };
