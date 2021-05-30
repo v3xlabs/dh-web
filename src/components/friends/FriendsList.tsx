@@ -26,7 +26,7 @@ const SubTitle = styled.div`
 const ProfilePicture = styled.div`
     margin-top: 15px;
     margin-bottom: 15px;
-    background: ${({theme}) => theme.palette.primary[700]};
+    background: ${({ theme }) => theme.palette.primary[700]};
     border-radius: 50%;
     overflow: hidden;
     width: 5rem;
@@ -76,13 +76,13 @@ export const FriendsList = () => {
     const friends: User[] = [
 
         { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", room: "main room", online: true },
-        { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", room: "main room", online: true },
+        { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", room: "", online: true },
 
     ];
 
     const theme = useTheme();
     const three = useMediaQuery(`(min-width:${theme.breakpoints.three + 1}px)`);
-    
+
     return (
         <div>
             { three &&
@@ -93,29 +93,31 @@ export const FriendsList = () => {
                     </SubTitle>
                 </Title>
             }
-            {friends.map((user, index)=>(
+            {friends.map((user, index) => (
                 <Line>
 
-                <ProfilePicture>
+                    <ProfilePicture>
                         <img src={user?.avatar} />
-                </ProfilePicture>
+                    </ProfilePicture>
 
-                { user?.online && <Dot /> }
+                    { user?.online && <Dot />}
 
-                { three &&
-                    <UserName> 
-                        {user?.username}
-                        <UserRoom>
-                            {user?.room}
-                        </UserRoom>
-                    </UserName>
-                }
+                    { three &&
+                        <UserName>
+                            {user?.username}
+                            {user?.room != "" &&
+                                <UserRoom>
+                                    {user?.room}
+                                </UserRoom>
+                            }
+                        </UserName>
+                    }
 
                 </Line>
 
             ))}
 
-            
+
         </div>
     );
 };
