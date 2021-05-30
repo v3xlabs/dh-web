@@ -5,4 +5,6 @@ export type User = {
     bio?: string;
     follower_count?: number;
     following_count?: number;
+    online?: boolean;
+    room?: string;
 }
