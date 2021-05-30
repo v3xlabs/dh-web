@@ -41,7 +41,8 @@ const ProfilePicture = styled.div`
 const UserName = styled.div`
     font-weight: 700;
     padding: 2rem;
-    display: online
+    display: inline;
+    text-overflow: ellipsis;
 `;
 
 const Line = styled.div`
@@ -50,8 +51,14 @@ const Line = styled.div`
     align-items: center;
 `;
 
-const NewLine = styled.div`
+const UserRoom = styled.div`
     display: block;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 300;
+    text-transform: capitalize;
+    text-overflow: ellipsis;
+    color: ${({ theme }) => theme.palette.primary[300]};
 `;
 
 const Dot = styled.div`
@@ -96,7 +103,12 @@ export const FriendsList = () => {
                 { user?.online && <Dot /> }
 
                 { three &&
-                    <UserName> {user?.username} </UserName>
+                    <UserName> 
+                        {user?.username}
+                        <UserRoom>
+                            {user?.room}
+                        </UserRoom>
+                    </UserName>
                 }
 
                 </Line>
