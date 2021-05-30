@@ -3,7 +3,7 @@ import { Search } from "../components/search/Search";
 import styled, { useTheme } from 'styled-components';
 import { Logo } from "../components/logo/Logo";
 import { Schedule } from "../components/schedule/Schedule";
-import { ProfileWidget } from "../components/user/ProfileWidget";
+import { ProfileWidgetDataContainer } from "../components/user/ProfileWidget";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import NoSSR from "../library/ssr/NoSSR";
 import { useAuth } from "../library/auth/useAuth";
@@ -59,7 +59,7 @@ function Dashboard() {
                         <ProfileIcon />
                     </ProfileWrapper>
                     <div>
-                        <ProfileWidget />
+                        <ProfileWidgetDataContainer />
                         <Schedule />
                     </div>
                 </Column>
