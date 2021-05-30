@@ -8,6 +8,7 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-20.04
+    needs: ['lint']
     name: 🧪 Lint Package
     steps:
       - uses: actions/checkout@v2

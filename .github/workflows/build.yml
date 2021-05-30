@@ -23,6 +23,7 @@ jobs:
         run: yarn lint
   build:
     runs-on: ubuntu-20.04
+    needs: ['lint']
     name: 🔨 Build Package
     steps:
       - uses: actions/checkout@v2
