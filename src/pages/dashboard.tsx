@@ -9,6 +9,7 @@ import NoSSR from "../library/ssr/NoSSR";
 import { useAuth } from "../library/auth/useAuth";
 import { ProfileIcon } from "../components/user/ProfileIcon";
 import { Rooms } from "../components/rooms/Rooms";
+import { FriendsList } from "../components/friends/FriendsList";
 
 const Column = styled.div`
     margin-top: 30px;
@@ -41,6 +42,7 @@ function Dashboard() {
                 one &&
                 <Column>
                     <Logo small={!three} />
+                    <FriendsList />
                 </Column>
             }
             <Column>
