@@ -5,7 +5,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "dev:debug": "NODE_OPTIONS='--inspect' next dev"
   },
   "dependencies": {
     "@apollo/client": "^3.3.19",
