@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { DarkTheme } from '../../library/theme';
+import { LightTheme } from '../../library/theme';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Head from 'next/head';
 
@@ -69,7 +69,7 @@ const Wrapper = styled.div`
 export const Shell: FC<ShellProps> = ({ children }: ShellProps) => {
 
     return (
-        <ThemeProvider theme={DarkTheme}>
+        <ThemeProvider theme={LightTheme}>
             <GlobalStyle />
             <Head>
                 <link rel="preconnect" href="https://fonts.gstatic.com" />

@@ -6,11 +6,13 @@ export const DarkTheme: DefaultTheme = {
         primary: {
             100: "#dee3ea",
             200: "#b2bdcd",
-            300: "#5d7290",
-            600: "#323d4d",
-            700: "#242c37",
-            800: "#151a21",
-            900: "#0b0e11"
+            300: "#5d7290", // Searchbar text color
+            400: "#5d7290", // Items hover
+            500: "#5d7290", // "+" hover
+            600: "#323d4d", // Separators and +
+            700: "#242c37", // Bg (Explore more rooms)
+            800: "#151a21", // Bg boxes
+            900: "#0b0e11" // Main bg
         },
         accent: {
             default: "#fd4d4d",
@@ -40,11 +42,13 @@ export const LightTheme: DefaultTheme = {
         primary: {
             100: "#0b0e11",
             200: "#151a21",
-            300: "#242c37",
-            600: "#323d4d",
-            700: "#5d7290",
-            800: "#b2bdcd",
-            900: "white"
+            300: "#242c37", // Searchbar text color
+            400: "#F1F1F1", // Items hover
+            500: "#adadad", // "+" hover
+            600: "#bdbdbd", // Separators and +
+            700: "#ededed", // Bg (Explore more rooms)
+            800: "#FFF", // Bg boxes
+            900: "#F6F6F6" // Main Bg
         },
         accent: {
             default: "#fd4d4d",
@@ -55,7 +59,7 @@ export const LightTheme: DefaultTheme = {
             default: "#5575e7",
             washedOut: "#879eed"
         },
-        buttonText: '#fff'
+        buttonText: '#2b2b2b'
     },
     animation: {
         micro: '180ms'
