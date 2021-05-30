@@ -60,7 +60,7 @@ const ProfileContainer = styled.div`
 
 export const RoomList = () => {
 
-    const rooms: Room[] = [
+    const rooms = [
 
         {
             name: 'Dogehouse to the moon',
