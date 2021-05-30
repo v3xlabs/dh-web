@@ -7,7 +7,7 @@ export const DarkTheme: DefaultTheme = {
             100: "#dee3ea",
             200: "#b2bdcd",
             300: "#5d7290", // Searchbar text color
-            400: "#242c37", // Items hover
+            400: "#5d7290", // Items hover
             500: "#5d7290", // "+" hover
             600: "#323d4d", // Separators and +
             700: "#242c37", // Bg (Explore more rooms)
