@@ -1,8 +1,10 @@
 import { useRouter } from "next/router";
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import parseURL from "url-parse";
 
-export const useAuth: (Page: FC<{}>) => React.ReactNode = (Page: FC<{}>) => (() => {
+type AuthFunction = (page: React.ReactNode) => React.ReactNode;
+
+export const useAuth: AuthFunction = (Page: FC) => (() => {
 
     const [loggedIn, setLoggedIn] = useState(0);
     const router = useRouter();
@@ -11,18 +13,18 @@ export const useAuth: (Page: FC<{}>) => React.ReactNode = (Page: FC<{}>) => (() 
         if (process.browser) {
             const query = parseURL(location.href, true).query;
 
-            let token = localStorage.getItem('@dh/token') || '';
+            let token = localStorage.getItem("@dh/token") || "";
 
-            if (query['token']) {
-                localStorage.setItem('@dh/token', query['token']);
-                token = query['token'];
+            if (query["token"]) {
+                localStorage.setItem("@dh/token", query["token"]);
+                token = query["token"];
                 router.push({
-                    query: ' '
+                    query: " "
                 });
             }
 
-            if (token.length == 0) {
-                router.push('/login?redirect_uri='+encodeURIComponent(location.href));
+            if (token.length === 0) {
+                router.push("/login?redirect_uri="+encodeURIComponent(location.href));
                 return;
             }
 

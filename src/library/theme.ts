@@ -1,7 +1,7 @@
 import { DefaultTheme } from "styled-components";
 
 export const DarkTheme: DefaultTheme = {
-    borderRadius: '8px',
+    borderRadius: "8px",
     palette: {
         primary: {
             100: "#dee3ea",
@@ -23,10 +23,10 @@ export const DarkTheme: DefaultTheme = {
             default: "#5575e7",
             washedOut: "#879eed"
         },
-        buttonText: '#fff'
+        buttonText: "#fff"
     },
     animation: {
-        micro: '180ms'
+        micro: "180ms"
     },
     breakpoints: {
         one: 800,
@@ -37,7 +37,7 @@ export const DarkTheme: DefaultTheme = {
 
 
 export const LightTheme: DefaultTheme = {
-    borderRadius: '0px',
+    borderRadius: "0px",
     palette: {
         primary: {
             100: "#0b0e11",
@@ -59,10 +59,10 @@ export const LightTheme: DefaultTheme = {
             default: "#5575e7",
             washedOut: "#879eed"
         },
-        buttonText: '#2b2b2b'
+        buttonText: "#2b2b2b"
     },
     animation: {
-        micro: '180ms'
+        micro: "180ms"
     },
     breakpoints: {
         one: 800,

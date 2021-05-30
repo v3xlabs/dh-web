@@ -1,10 +1,9 @@
-import React, { FC, useState } from 'react';
-import styled from 'styled-components';
-import { Room } from '../../types/room';
-import { Button } from '../button/Button';
-import { Card } from '../card/Card';
-import { notDraggable } from '../../library/mixin/mixin';
+import React, { FC, useState } from "react";
+import styled from "styled-components";
 
+import { notDraggable } from "../../library/mixin/mixin";
+import { Button } from "../button/Button";
+import { Card } from "../card/Card";
 
 const Description = styled.div`
     display: flex;
@@ -58,27 +57,27 @@ const ProfileContainer = styled.div`
     margin-left: 5px;
 `;
 
-export const RoomList = () => {
+const temporaryUser = { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" };
 
-    const rooms: Room[] = [
+export const RoomList: FC = () => {
 
+    const rooms = [
         {
-            name: 'Dogehouse to the moon',
-            description: 'Hello World',
-            id: '1',
+            name: "Dogehouse to the moon",
+            description: "Hello World",
+            id: "1",
             members: [
-                { username:"carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" },
-                { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" },
+                temporaryUser,
+                temporaryUser,
             ]
         },
-
         {
-            name: 'Dogehouse to the moon',
-            description: 'Hello World',
-            id: '1',
+            name: "Dogehouse and beyond",
+            description: "Hello Universe",
+            id: "2",
             members: [
-                { username:"carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" },
-                { username:"carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" },
+                temporaryUser,
+                temporaryUser,
             ]
         },
 
@@ -91,24 +90,24 @@ export const RoomList = () => {
                     <Card padding margin key={index}>
                         {room.name}
                         <MemberCount>
-                            <Dot/>{room.members?.length || 0}
+                            <Dot />{room.members?.length || 0}
                         </MemberCount>
-                        <br/>
-                        
+                        <br />
+
                         <Description>
                             <ProfileContainer>
                                 {
-                                    room.members.map((member, indexOfMember) => (
-                                        <ProfilePicture key={indexOfMember}>
+                                    room.members.map((member, index) => (
+                                        <ProfilePicture key={index}>
                                             <img srcSet={member.avatar} src={member.avatar} />
                                         </ProfilePicture>
                                     ))
                                 }
-                            </ProfileContainer> 
+                            </ProfileContainer>
                             <VerticallyCenterAlign>
                                 {
-                                    room.members.map((member, indexOfMember) => (
-                                        member.username + ', '
+                                    room.members.map((member) => (
+                                        member.username + ", "
                                     ))
                                 }
                             </VerticallyCenterAlign>
@@ -118,7 +117,7 @@ export const RoomList = () => {
             }
         </>
     );
-}
+};
 
 
 /**
@@ -174,7 +173,7 @@ const RoomCreationMenuItem = styled.div`
 `;
 
 
-export const Rooms = () => {
+export const Rooms: FC = () => {
     const [expanded, setExpanded] = useState(false);
     const toggleExpanded = () => setExpanded(!expanded);
 

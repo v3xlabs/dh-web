@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import styled from 'styled-components';
+import React, { FC } from "react";
+import styled from "styled-components";
 
 const Flex = styled.div`
     width: 100vw;
@@ -29,7 +29,11 @@ const Wrapper = styled.div`
     }
 `;
 
-export const Grid: FC = ({children}) => {
+type GridProperties = {
+    children: React.ReactNode;
+};
+
+export const Grid: FC<GridProperties> = ({children}: GridProperties) => {
 
     return (
         <Flex>

@@ -6,9 +6,19 @@ on:
       - master
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-20.04
     name: 🧪 Lint Package
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn
+      - name: Lint package
+        run: yarn lint
+  build:
+    runs-on: ubuntu-20.04
+    needs: ['lint']
+    name: 📦 Build Docker Image
     steps:
       - uses: actions/checkout@v2
       - name: Build Deploy Package

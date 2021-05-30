@@ -1,3 +1,5 @@
+import { Room } from "./Room";
+
 export type User = {
     id?: string;
     username?: string;
@@ -5,4 +7,6 @@ export type User = {
     bio?: string;
     follower_count?: number;
     following_count?: number;
+    current_room: Room;
+    online?: boolean;
 }

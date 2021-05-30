@@ -1,12 +1,13 @@
-import React, { FC } from 'react';
-import { DarkTheme } from '../../library/theme';
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
-import Head from 'next/head';
-import NoSsr from '../../library/ssr/NoSSR';
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import { ApolloClient, ApolloProvider, createHttpLink,InMemoryCache } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import Head from "next/head";
+import React, { FC } from "react";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 
-type ShellProps = {
+import NoSsr from "../../library/ssr/NoSsr";
+import { DarkTheme } from "../../library/theme";
+
+type ShellProperties = {
     children: React.ReactNode;
 };
 
@@ -64,25 +65,25 @@ const GlobalStyle = createGlobalStyle`
 const Wrapper = styled.div`
     width: 100vw;
     height: 100vh;
-    background: ${({ theme }) => theme.palette.primary['900']};
+    background: ${({ theme }) => theme.palette.primary["900"]};
     overflow-y: auto;
     overflow-x: hidden;
 `;
 
 const httpLink = createHttpLink({
-    uri: 'https://api.dogehouse.online/graphql',
+    uri: "https://api.dogehouse.online/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
-    const token = process.browser ? localStorage.getItem('@dh/token') || '' : '';
+    const token = process.browser ? localStorage.getItem("@dh/token") || "" : "";
     // return the headers to the context so httpLink can read them
     return {
         headers: {
             ...headers,
             authorization: token ? `Bearer ${token}` : "",
         }
-    }
+    };
 });
 
 const client = new ApolloClient({
@@ -90,7 +91,7 @@ const client = new ApolloClient({
     cache: new InMemoryCache()
 });
 
-export const Shell: FC<ShellProps> = ({ children }: ShellProps) => {
+export const Shell: FC<ShellProperties> = ({ children }: ShellProperties) => {
 
     return (
         <ThemeProvider theme={DarkTheme}>

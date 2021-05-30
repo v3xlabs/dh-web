@@ -1,9 +1,10 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { FC } from 'react';
-import { useRecoilState, useResetRecoilState } from 'recoil';
-import styled from 'styled-components';
-import { accessTokenState } from '../../library/auth/useUser';
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { FC } from "react";
+import { useResetRecoilState } from "recoil";
+import styled from "styled-components";
+
+import { accessTokenState } from "../../library/auth/useUser";
 
 const Wrapper = styled.div`
     position: absolute;
@@ -32,7 +33,7 @@ const Item = styled.div`
     }
 `;
 
-export const ProfilePopup = () => {
+export const ProfilePopup: FC = () => {
     const router = useRouter();
     const resetToken = useResetRecoilState(accessTokenState);
     
@@ -40,19 +41,19 @@ export const ProfilePopup = () => {
         <Wrapper>
             {
                 [
-                    { label: 'Profile', route: '/profile' }
+                    { label: "Profile", route: "/profile" }
                 ].map((entry, index) => (
-                    <Link href={entry.route}>
-                        <Item key={index}>
+                    <Link href={entry.route} key={index}>
+                        <Item>
                             {entry.label}
                         </Item>
                     </Link>
                 ))
             }
             <Item onClick={() => {
-                localStorage.removeItem('@dh/token');
+                localStorage.removeItem("@dh/token");
                 resetToken();
-                router.push('/login');
+                router.push("/login");
             }}>
                 Logout
             </Item>
