@@ -4,7 +4,6 @@ import { notDraggable } from '../../library/mixin/mixin';
 import { User } from '../../types/user';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-
 const Title = styled.div`
     display: block;
     font-size: 2rem;
@@ -62,22 +61,20 @@ const UserRoom = styled.div`
 `;
 
 const Dot = styled.div`
-        height: 8px;
-        width: 8px;
-        margin-left: -2rem;
-        margin-bottom: -3rem;
-        background-color: ${({ theme }) => theme.palette.accent.default};
-        border-radius: 50%;
-        display: inline-block;
+    height: 8px;
+    width: 8px;
+    margin-left: -2rem;
+    margin-bottom: -3rem;
+    background-color: ${({ theme }) => theme.palette.accent.default};
+    border-radius: 50%;
+    display: inline-block;
 `;
 
-export const FriendsList = () => {
+export const FriendsList: FC = () => {
 
     const friends: User[] = [
-
         { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", room: "main room", online: true },
         { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", room: "", online: true },
-
     ];
 
     const theme = useTheme();
@@ -95,13 +92,10 @@ export const FriendsList = () => {
             }
             {friends.map((user, index) => (
                 <Line>
-
                     <ProfilePicture>
                         <img src={user?.avatar} />
                     </ProfilePicture>
-
                     { user?.online && <Dot />}
-
                     { three &&
                         <UserName>
                             {user?.username}
@@ -112,12 +106,8 @@ export const FriendsList = () => {
                             }
                         </UserName>
                     }
-
                 </Line>
-
             ))}
-
-
         </div>
     );
 };
