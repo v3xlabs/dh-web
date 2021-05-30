@@ -96,7 +96,7 @@ export const ProfileWidgetDataContainer: FC = () => {
 };
 
 type ProfileWidgetProperties = Readonly<{
-    data: unknown | {me?: User};
+    data: unknown & {me: User};
     loading: unknown;
     error: unknown;
 }>
