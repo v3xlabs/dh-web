@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { Room } from '../../types/room';
 import { Button } from '../button/Button';
 import { Card } from '../card/Card';
 
 export const RoomList = () => {
-    const rooms = [
-        { name: 'Dogehouse to the moon' },
-        { name: 'Crypto Talks with Steve' }
+    const rooms: Room[] = [
+        { name: 'Dogehouse to the moon', description: 'Hello World', id: '1', members: [] },
+        { name: 'Crypto Talks with Steve', description: 'Hello World', id: '1', members: [] }
     ];
 
     return (
@@ -35,7 +36,7 @@ const Title = styled.div`
     line-height: 3.1rem;
     font-weight: 700;
     padding-top: 0.8rem;
-    color: ${({theme}) => theme.palette.primary[100]};
+    color: ${({ theme }) => theme.palette.primary[100]};
 `;
 
 export const Rooms = () => {
