@@ -1,9 +1,5 @@
 import React, { FC } from 'react';
-<<<<<<< HEAD
-import { LightTheme } from '../../library/theme';
-=======
 import { DarkTheme, LightTheme } from '../../library/theme';
->>>>>>> eeeafe1ee370fd4f7d8818027321568597e6efb0
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Head from 'next/head';
 import NoSsr from '../../library/ssr/NoSSR';
@@ -98,19 +94,6 @@ const client = new ApolloClient({
 export const Shell: FC<ShellProps> = ({ children }: ShellProps) => {
 
     return (
-<<<<<<< HEAD
-        <ThemeProvider theme={LightTheme}>
-            <GlobalStyle />
-            <Head>
-                <link rel="preconnect" href="https://fonts.gstatic.com" />
-                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
-            </Head>
-            <Wrapper>
-                {
-                    children
-                }
-            </Wrapper>
-=======
         <ThemeProvider theme={DarkTheme}>
             <ApolloProvider client={client}>
                 <GlobalStyle />
@@ -127,7 +110,6 @@ export const Shell: FC<ShellProps> = ({ children }: ShellProps) => {
                     </NoSsr>
                 </Wrapper>
             </ApolloProvider>
->>>>>>> eeeafe1ee370fd4f7d8818027321568597e6efb0
         </ThemeProvider>
     );
 };
