@@ -1,10 +1,8 @@
-import Link from 'next/link';
 import React, { FC } from 'react';
-import styled from 'styled-components';
-import { Card } from '../card/Card';
+import styled, { useTheme } from 'styled-components';
 import { notDraggable } from '../../library/mixin/mixin';
-import { gql, useQuery } from '@apollo/client';
 import { User } from '../../types/user';
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 
 const Title = styled.div`
@@ -52,34 +50,57 @@ const Line = styled.div`
     align-items: center;
 `;
 
+const NewLine = styled.div`
+    display: block;
+`;
+
+const Dot = styled.div`
+        height: 8px;
+        width: 8px;
+        margin-left: -2rem;
+        margin-bottom: -3rem;
+        background-color: ${({ theme }) => theme.palette.accent.default};
+        border-radius: 50%;
+        display: inline-block;
+`;
+
 export const FriendsList = () => {
 
     const friends: User[] = [
 
-                { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" },
-                { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" },
+        { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", room: "main room", online: true },
+        { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", room: "main room", online: true },
 
     ];
+
+    const theme = useTheme();
+    const three = useMediaQuery(`(min-width:${theme.breakpoints.three + 1}px)`);
     
     return (
         <div>
-
-            <Title>
-                People
-                <SubTitle>
-                    ONLINE
-                </SubTitle>
-            </Title>
-
+            { three &&
+                <Title>
+                    People
+                    <SubTitle>
+                        ONLINE
+                    </SubTitle>
+                </Title>
+            }
             {friends.map((user, index)=>(
                 <Line>
 
                 <ProfilePicture>
                         <img src={user?.avatar} />
                 </ProfilePicture>
-                <UserName> {user?.username} </UserName>
+
+                { user?.online && <Dot /> }
+
+                { three &&
+                    <UserName> {user?.username} </UserName>
+                }
 
                 </Line>
+
             ))}
 
             
