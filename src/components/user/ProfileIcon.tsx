@@ -1,9 +1,10 @@
-import { useQuery } from '@apollo/client';
-import gql from 'graphql-tag';
-import React, { FC, useState } from 'react';
-import styled from 'styled-components';
-import { User } from '../../types/user';
-import { ProfilePopup } from './ProfilePopup';
+import { useQuery } from "@apollo/client";
+import gql from "graphql-tag";
+import React, { FC, useState } from "react";
+import styled from "styled-components";
+
+import { User } from "../../types/User";
+import { ProfilePopup } from "./ProfilePopup";
 
 const Wrapper = styled.div`
     position: relative;

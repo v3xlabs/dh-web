@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
-import styled, { useTheme } from 'styled-components';
-import { notDraggable } from '../../library/mixin/mixin';
-import { User } from '../../types/user';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import React, { FC } from "react";
+import styled, { useTheme } from "styled-components";
+
+import { notDraggable } from "../../library/mixin/mixin";
 
 const Title = styled.div`
     display: block;
@@ -91,7 +91,7 @@ export const FriendsList: FC = () => {
                 </Title>
             }
             {friends.map((user, index) => (
-                <Line>
+                <Line key={index}>
                     <ProfilePicture>
                         <img src={user?.avatar} />
                     </ProfilePicture>

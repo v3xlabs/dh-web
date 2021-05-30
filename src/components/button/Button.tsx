@@ -1,8 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-type ButtonProps = {};
-
-export const Button = styled.button<ButtonProps>`
+export const Button = styled.button`
     background: ${({ theme }) => theme.palette.accent.default};
     border: none;
     outline: none;

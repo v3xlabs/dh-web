@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
-import styled from 'styled-components';
+import React, { FC } from "react";
+import styled from "styled-components";
 
 const Wrapper = styled.div<{small: boolean}>`
     display: flex;
-    justify-content: ${({small}) => small ? 'center' : 'flex-start'};
+    justify-content: ${({small}) => small ? "center" : "flex-start"};
     align-items: center;
     width: 100%;
 `;
@@ -31,7 +31,11 @@ const Text = styled.div`
     }
 `;
 
-export const Logo: FC<{ small?: boolean }> = ({ small }) => {
+type LogoProperties = {
+    small?: boolean;
+}
+
+export const Logo: FC<LogoProperties> = ({ small }: LogoProperties) => {
 
     return (
         <Wrapper small={small}>

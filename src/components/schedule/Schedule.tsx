@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
-import styled from 'styled-components';
-import { Card } from '../card/Card';
-import { notDraggable } from '../../library/mixin/mixin'
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery } from "@apollo/client";
+import React, { FC } from "react";
+import styled from "styled-components";
+
+import { notDraggable } from "../../library/mixin/mixin";
+import { Card } from "../card/Card";
 
 const Title = styled.div`
     font-size: 2rem;
@@ -116,7 +117,7 @@ export const Schedule: FC = () => {
                     Explore more rooms
                 </Explore>
             </Card>
-        )
+        );
     }
 
     return (
@@ -128,9 +129,9 @@ export const Schedule: FC = () => {
             <Line />
             {
                 [
-                    { name: 'Hello World', time: '9:00 PM', owner: data.me },
-                    { name: 'Hello World', time: '9:00 PM', owner: data.me },
-                    { name: 'Hello World', time: '9:00 PM', owner: data.me }
+                    { name: "Hello World1", time: "9:00 PM", owner: data.me },
+                    { name: "Hello World2", time: "10:00 PM", owner: data.me },
+                    { name: "Hello World3", time: "11:00 PM", owner: data.me }
                 ].map((room, index) => (
                     <React.Fragment key={index}>
                         <ScheduleEntry>

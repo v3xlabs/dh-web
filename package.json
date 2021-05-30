@@ -6,7 +6,15 @@
     "build": "next build",
     "start": "next start",
     "type-check": "tsc",
-    "dev:debug": "NODE_OPTIONS='--inspect' next dev"
+    "dev:debug": "NODE_OPTIONS='--inspect' next dev",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint src --fix"
+    ]
   },
   "dependencies": {
     "@apollo/client": "^3.3.19",
@@ -16,6 +24,9 @@
     "@types/styled-components": "^5.1.9",
     "@types/url-parse": "^1.4.3",
     "build-url": "^6.0.1",
+    "eslint-plugin-radar": "^0.2.1",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-unused-imports": "^1.1.1",
     "graphql": "^15.5.0",
     "next": "latest",
     "next-seo": "^4.24.0",
@@ -30,6 +41,13 @@
     "@types/node": "^12.12.21",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
+    "eslint": "^7.27.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-unicorn": "^32.0.1",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "typescript": "4.0"
   },
   "license": "MIT"

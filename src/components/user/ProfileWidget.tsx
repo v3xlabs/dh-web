@@ -1,9 +1,11 @@
-import Link from 'next/link';
-import React, { FC } from 'react';
-import styled from 'styled-components';
-import { Card } from '../card/Card';
-import { notDraggable } from '../../library/mixin/mixin';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery } from "@apollo/client";
+import Link from "next/link";
+import React, { FC } from "react";
+import styled from "styled-components";
+
+import { notDraggable } from "../../library/mixin/mixin";
+import { User } from "../../types/User";
+import { Card } from "../card/Card";
 
 /* Top */
 const ProfileContainer = styled.div`
@@ -68,7 +70,7 @@ const ProfileBio = styled.div`
 
 const TextPlaceholder = styled.div<{ w?: string }>`
     height: 1em;
-    width: ${({ w }) => w ? w : '10em'};
+    width: ${({ w }) => w ? w : "10em"};
 `;
 
 const PROFILE_WIDGET_QUERY = gql`
@@ -82,24 +84,24 @@ const PROFILE_WIDGET_QUERY = gql`
             following_count
         }
     }
-`; // name | follower_count | following_count | bio
+`;
 
-export const ProfileWidgetDataContainer = () => {
+export const ProfileWidgetDataContainer: FC = () => {
     const { loading, data, error } = useQuery(
         PROFILE_WIDGET_QUERY,
         { fetchPolicy: "network-only" }
     );
     
-    return <ProfileWidget data={data} loading={loading} error={error}></ProfileWidget>
+    return <ProfileWidget data={data} loading={loading} error={error}></ProfileWidget>;
 };
 
-type ProfileWidgetProps = Readonly<{
-    data:any;
-    loading:any;
-    error:any;
+type ProfileWidgetProperties = Readonly<{
+    data: unknown & {me: User};
+    loading: unknown;
+    error: unknown;
 }>
 
-export const ProfileWidget = ({data,loading,error}:ProfileWidgetProps) => {
+export const ProfileWidget: FC<ProfileWidgetProperties> = ({data,loading,error}: ProfileWidgetProperties) => {
     if (loading || error) {
         return (
             <Card padding>
