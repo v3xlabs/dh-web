@@ -42,9 +42,6 @@ const GlobalStyle = createGlobalStyle`
     input::placeholder {
         color: ${({ theme }) => theme.palette.primary[300]};
     }
-    img {
-        content:url("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
-    }
     #nprogress {
         position: relative;
         z-index: 9999999;
