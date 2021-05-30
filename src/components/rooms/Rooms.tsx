@@ -4,10 +4,19 @@ import { Room } from '../../types/room';
 import { Button } from '../button/Button';
 import { Card } from '../card/Card';
 
+
+const Description = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem 1rem;
+    cursor: pointer;
+`;
+
 export const RoomList = () => {
-    const rooms: Room[] = [
         { name: 'Dogehouse to the moon', description: 'Hello World', id: '1', members: [] },
         { name: 'Crypto Talks with Steve', description: 'Hello World', id: '1', members: [] }
+    const rooms: Room[] = [
     ];
 
     return (
@@ -16,6 +25,9 @@ export const RoomList = () => {
                 rooms.map((room, index) => (
                     <Card padding margin key={index}>
                         {room.name}
+                        <Description>
+                            {room.description}
+                        </Description>
                     </Card>
                 ))
             }
