@@ -33,7 +33,7 @@ const AddButton = styled.button`
     height: 3rem;
     width: 3rem;
     &:hover {
-        background: ${({ theme }) => theme.palette.primary[300]};
+        background: ${({ theme }) => theme.palette.primary[500]};
     }
 `;
 
@@ -46,7 +46,7 @@ const Line = styled.div`
 const ScheduleEntry = styled.div`
     padding: 0.5rem 2rem;
     &:hover {
-        background: ${({ theme }) => theme.palette.primary[300]};
+        background: ${({ theme }) => theme.palette.primary[400]};
     }
 `;
 
