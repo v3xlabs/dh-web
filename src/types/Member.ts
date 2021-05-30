@@ -1,5 +1,5 @@
-import { Room } from "./room";
-import { User } from "./user";
+import { Room } from "./Room";
+import { User } from "./User";
 
 export type Member = {
     role: string;

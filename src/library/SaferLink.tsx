@@ -1,26 +1,26 @@
-import React from "react";
+import React, { FC } from "react";
 
-type Props = Readonly<{
+type Properties = Readonly<{
   target: "external" | "internal";
   href: string;
   className?: string;
   children: React.ReactNode;
 }>;
 
-function SaferLink({ target, href, className, children }: Props) {
-  const targetStr = (target === "external") ? "__blank" : "";
+const SaferLink: FC<Properties> = ({ target, href, className, children }: Properties) => {
+    const targetString = (target === "external") ? "__blank" : "";
 
-  return (
-    <a
-      rel="noreferrer noopener"
-      className={className}
-      target={targetStr}
-      href={href}
-    >
-      { children}
-    </a >
-  );
-}
+    return (
+        <a
+            rel="noreferrer noopener"
+            className={className}
+            target={targetString}
+            href={href}
+        >
+            { children}
+        </a >
+    );
+};
 
 
 export default SaferLink;

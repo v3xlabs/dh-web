@@ -1,7 +1,6 @@
-import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
-import { User } from "../../types/user";
+import { atom, } from "recoil";
 
 export const accessTokenState = atom<string>({
-    key: 'token',
-    default: process.browser ? localStorage.getItem('@dh/token') || '' : ''
+    key: "token",
+    default: process.browser ? localStorage.getItem("@dh/token") || "" : ""
 });

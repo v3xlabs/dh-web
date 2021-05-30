@@ -1,27 +1,31 @@
-import { AppProps } from "next/dist/next-server/lib/router/router";
-import { RecoilRoot } from "recoil";
-import NProgress from 'nprogress';
-import Router from 'next/router';
 import "nprogress/nprogress.css";
-import { Suspense } from "react";
+
+import { AppProps } from "next/dist/next-server/lib/router/router";
+import Router from "next/router";
+import NProgress from "nprogress";
+import { FC } from "react";
+import { RecoilRoot } from "recoil";
+
 import { Shell } from "../components/shell/Shell";
 
 Router.events.on("routeChangeStart", () => {
-  NProgress.start();
+    NProgress.start();
 });
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+const App: FC<AppProps> = ({ Component, pageProps }: AppProps) => {
 
-  return (
-    <RecoilRoot>
-      <Shell>
-        <Component {...pageProps} />
-      </Shell>
-    </RecoilRoot>
-  );
-}
+    return (
+        <RecoilRoot>
+            <Shell>
+                <Component {...pageProps} />
+            </Shell>
+        </RecoilRoot>
+    );
+};
+
+export default App;
 
 
 /// useUser() => UserObject

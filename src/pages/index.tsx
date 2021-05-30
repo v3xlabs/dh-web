@@ -1,14 +1,14 @@
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useRouter } from "next/router";
+import { FC, useEffect } from "react";
 
-const IndexPage = () => {
-  const router = useRouter();
+const IndexPage: FC = () => {
+    const router = useRouter();
 
-  useEffect(() => {
-    router.replace('/dashboard');
-  });
+    useEffect(() => {
+        router.replace("/dashboard");
+    });
 
-  return <></>;
-}
+    return <></>;
+};
 
-export default IndexPage
+export default IndexPage;

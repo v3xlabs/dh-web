@@ -1,25 +1,25 @@
+import { FC, useEffect, useState } from "react";
 import parseURL from "url-parse";
-import { useEffect, useState } from 'react';
-import SaferLink from '../library/SaferLink';
 
-function Login() {
+import SaferLink from "../library/SaferLink";
 
-    const [google_uri, on_change_google_uri] = useState("http://auth.dogehouse.online/google/login")
-    const [github_uri, on_change_github_uri] = useState("http://auth.dogehouse.online/github/login")
-    const [discord_uri, on_change_discord_uri] = useState("http://auth.dogehouse.online/discord/login")
+const Login: FC = () => {
+
+    const [google_uri, on_change_google_uri] = useState("http://auth.dogehouse.online/google/login");
+    const [github_uri, on_change_github_uri] = useState("http://auth.dogehouse.online/github/login");
+    const [discord_uri, on_change_discord_uri] = useState("http://auth.dogehouse.online/discord/login");
 
     useEffect(() => {
         const redirect_uri = parseURL(location.href, true).query["redirect_uri"];
-        const handle_change_with_uri = prev => prev + "?redirect_uri=" + encodeURI(redirect_uri)
+        const handle_change_with_uri = previous => previous + "?redirect_uri=" + encodeURI(redirect_uri);
 
         if (redirect_uri !== undefined) {
-            on_change_discord_uri(handle_change_with_uri)
-            on_change_google_uri(handle_change_with_uri)
-            on_change_github_uri(handle_change_with_uri)
+            on_change_discord_uri(handle_change_with_uri);
+            on_change_google_uri(handle_change_with_uri);
+            on_change_github_uri(handle_change_with_uri);
         }
 
-        return
-    }, [])
+    }, []);
 
     return (
         <div>
@@ -38,7 +38,7 @@ function Login() {
                 </li>
             </ul>
         </div >
-    )
-}
+    );
+};
 
 export default Login;

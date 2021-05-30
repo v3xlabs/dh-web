@@ -1,15 +1,15 @@
-import { Grid } from "../components/grid/Grid";
-import { Search } from "../components/search/Search";
-import styled, { useTheme } from 'styled-components';
-import { Logo } from "../components/logo/Logo";
-import { Schedule } from "../components/schedule/Schedule";
-import { ProfileWidgetDataContainer } from "../components/user/ProfileWidget";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import NoSSR from "../library/ssr/NoSSR";
-import { useAuth } from "../library/auth/useAuth";
-import { ProfileIcon } from "../components/user/ProfileIcon";
-import { Rooms } from "../components/rooms/Rooms";
+import styled, { useTheme } from "styled-components";
+
 import { FriendsList } from "../components/friends/FriendsList";
+import { Grid } from "../components/grid/Grid";
+import { Logo } from "../components/logo/Logo";
+import { Rooms } from "../components/rooms/Rooms";
+import { Schedule } from "../components/schedule/Schedule";
+import { Search } from "../components/search/Search";
+import { ProfileIcon } from "../components/user/ProfileIcon";
+import { ProfileWidgetDataContainer } from "../components/user/ProfileWidget";
+import { useAuth } from "../library/auth/useAuth";
 
 const Column = styled.div`
     margin-top: 30px;
@@ -67,7 +67,7 @@ function Dashboard() {
                 </Column>
             }
         </Grid >
-    )
+    );
 }
 
 export default useAuth(Dashboard);
