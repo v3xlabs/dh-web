@@ -1,13 +1,87 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Room } from '../../types/room';
 import { Button } from '../button/Button';
 import { Card } from '../card/Card';
+import { notDraggable } from '../../library/mixin/mixin';
+
+
+const Description = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem 0rem;
+    font-size: smaller;
+    font-weight: 500;
+    color: ${({ theme }) => theme.palette.primary[300]};
+`;
+
+const VerticallyCenterAlign = styled.div`
+    margin-top: -3px;
+    text-transform:capitalize;
+`;
+
+const ProfilePicture = styled.div`
+    overflow: hidden;
+    width: 2rem;
+    height: 2rem;
+    display: inline;
+    img {
+        border-radius: 50%;
+        margin-left: -0.5rem;
+        width: 2.3rem;
+        height: 2.3rem;
+        ${notDraggable}
+    }
+`;
+
+const MemberCount = styled.div`
+    display: inline;
+    float: right;
+    font-weight: 700;
+    color: ${({ theme }) => theme.palette.primary[100]};
+`;
+
+const Dot = styled.div`
+        height: 10px;
+        width: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        background-color: ${({ theme }) => theme.palette.accent.default};
+        border-radius: 50%;
+        display: inline-block;
+`;
+
+const ProfileContainer = styled.div`
+    display: inline;
+    margin-right: 5px;
+    margin-left: 5px;
+`;
 
 export const RoomList = () => {
+
     const rooms: Room[] = [
-        { name: 'Dogehouse to the moon', description: 'Hello World', id: '1', members: [] },
-        { name: 'Crypto Talks with Steve', description: 'Hello World', id: '1', members: [] }
+
+        {
+            name: 'Dogehouse to the moon',
+            description: 'Hello World',
+            id: '1',
+            members: [
+                { username:"carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" },
+                { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" },
+            ]
+        },
+
+        {
+            name: 'Dogehouse to the moon',
+            description: 'Hello World',
+            id: '1',
+            members: [
+                { username:"carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" },
+                { username:"carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" },
+            ]
+        },
+
     ];
 
     return (
@@ -16,12 +90,40 @@ export const RoomList = () => {
                 rooms.map((room, index) => (
                     <Card padding margin key={index}>
                         {room.name}
+                        <MemberCount>
+                            <Dot/>{room.members?.length || 0}
+                        </MemberCount>
+                        <br/>
+                        
+                        <Description>
+                            <ProfileContainer>
+                                {
+                                    room.members.map((member, indexOfMember) => (
+                                        <ProfilePicture key={indexOfMember}>
+                                            <img srcSet={member.avatar} src={member.avatar} />
+                                        </ProfilePicture>
+                                    ))
+                                }
+                            </ProfileContainer> 
+                            <VerticallyCenterAlign>
+                                {
+                                    room.members.map((member, indexOfMember) => (
+                                        member.username + ', '
+                                    ))
+                                }
+                            </VerticallyCenterAlign>
+                        </Description>
                     </Card>
                 ))
             }
         </>
     );
 }
+
+
+/**
+ * Header Content Stuff
+ */
 
 const Header = styled.div`
     display: flex;
@@ -39,7 +141,42 @@ const Title = styled.div`
     color: ${({ theme }) => theme.palette.primary[100]};
 `;
 
+const RoomCreationWrapper = styled.div`
+    position: relative;
+`;
+
+
+const RoomCreationPopupWrapper = styled.div`
+    position: absolute;
+    top: 100%;
+    margin-top: 1rem;
+    min-width: 20rem;
+    right: 0;
+    background: ${({ theme }) => theme.palette.primary[800]};
+    border: 1px solid ${({ theme }) => theme.palette.primary[600]};
+    border-radius: ${({ theme }) => theme.borderRadius};
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    overflow: hidden;
+`;
+
+const RoomCreationMenuItem = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem 1rem;
+    cursor: pointer;
+    &:hover {
+        background: ${({ theme }) => theme.palette.primary[700]};
+    }
+`;
+
+
 export const Rooms = () => {
+    const [expanded, setExpanded] = useState(false);
+    const toggleExpanded = () => setExpanded(!expanded);
 
     return (
         <div>
@@ -47,7 +184,14 @@ export const Rooms = () => {
                 <Title>
                     Your feed
                 </Title>
-                <Button>New room</Button>
+                <RoomCreationWrapper>
+                    <Button onClick={toggleExpanded}>New room</Button>
+                    {expanded && <RoomCreationPopupWrapper>
+                        <RoomCreationMenuItem>
+                            <p>Todo! Insert Form with Mutation. And Redirect.</p>
+                        </RoomCreationMenuItem>
+                    </RoomCreationPopupWrapper>}
+                </RoomCreationWrapper>
             </Header>
             <RoomList />
         </div>
