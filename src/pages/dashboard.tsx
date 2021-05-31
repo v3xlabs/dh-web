@@ -5,9 +5,9 @@ import { FriendsList } from "../components/friends/FriendsList";
 import { Grid } from "../components/grid/Grid";
 import { Logo } from "../components/logo/Logo";
 import { Rooms } from "../components/rooms/Rooms";
-import { Schedule } from "../components/schedule/Schedule";
+import { ScheduleDataContainer } from "../components/schedule/Schedule";
 import { Search } from "../components/search/Search";
-import { ProfileIcon } from "../components/user/ProfileIcon";
+import { ProfileIconDataContainer } from "../components/user/ProfileIcon";
 import { ProfileWidgetDataContainer } from "../components/user/ProfileWidget";
 import { useAuth } from "../library/auth/useAuth";
 
@@ -32,9 +32,9 @@ const SearchWrapper = styled.div`
 
 function Dashboard() {
     const theme = useTheme();
-    const one = useMediaQuery(`(min-width:${theme.breakpoints.one+1}px)`);
-    const two = useMediaQuery(`(min-width:${theme.breakpoints.two+1}px)`);
-    const three = useMediaQuery(`(min-width:${theme.breakpoints.three+1}px)`);
+    const one = useMediaQuery(`(min-width:${theme.breakpoints.one + 1}px)`);
+    const two = useMediaQuery(`(min-width:${theme.breakpoints.two + 1}px)`);
+    const three = useMediaQuery(`(min-width:${theme.breakpoints.three + 1}px)`);
 
     return (
         <Grid>
@@ -48,7 +48,7 @@ function Dashboard() {
             <Column>
                 <SearchWrapper>
                     <Search />
-                    { !two && <ProfileIcon /> }
+                    {!two && <ProfileIconDataContainer />}
                 </SearchWrapper>
                 <div>
                     <Rooms />
@@ -58,11 +58,11 @@ function Dashboard() {
                 two &&
                 <Column>
                     <ProfileWrapper>
-                        <ProfileIcon />
+                        <ProfileIconDataContainer />
                     </ProfileWrapper>
                     <div>
                         <ProfileWidgetDataContainer />
-                        <Schedule />
+                        <ScheduleDataContainer />
                     </div>
                 </Column>
             }
