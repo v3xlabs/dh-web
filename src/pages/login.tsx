@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import parseURL from "url-parse";
 
+import { Card } from "../components/card/Card";
+import { Static } from "../components/static/static";
 import SaferLink from "../library/SaferLink";
 
 const Login: FC = () => {
@@ -22,22 +24,25 @@ const Login: FC = () => {
     }, []);
 
     return (
-        <div>
-            <h1> Login Page </h1>
-            <ul>
-                <li>
-                    <SaferLink target="internal" href={discord_uri}>
-                        Login with Discord
-                    </SaferLink>
-                </li>
-                <li>
-                    <SaferLink target="internal" href={google_uri}> Login with Google </SaferLink>
-                </li>
-                <li>
-                    <SaferLink target="internal" href={github_uri}> Login with Github </SaferLink>
-                </li>
-            </ul>
-        </div >
+        <>
+            <Static />
+            <div>
+                <h1> Login Page </h1>
+                <ul>
+                    <li>
+                        <SaferLink target="internal" href={discord_uri}>
+                            Login with Discord
+                        </SaferLink>
+                    </li>
+                    <li>
+                        <SaferLink target="internal" href={google_uri}> Login with Google </SaferLink>
+                    </li>
+                    <li>
+                        <SaferLink target="internal" href={github_uri}> Login with Github </SaferLink>
+                    </li>
+                </ul>
+            </div >
+        </>
     );
 };
 

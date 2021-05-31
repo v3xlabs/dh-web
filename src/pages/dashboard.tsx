@@ -7,6 +7,7 @@ import { Logo } from "../components/logo/Logo";
 import { Rooms } from "../components/rooms/Rooms";
 import { Schedule } from "../components/schedule/Schedule";
 import { Search } from "../components/search/Search";
+import { Static } from "../components/static/static";
 import { ProfileIcon } from "../components/user/ProfileIcon";
 import { ProfileWidgetDataContainer } from "../components/user/ProfileWidget";
 import { useAuth } from "../library/auth/useAuth";
@@ -37,25 +38,27 @@ function Dashboard() {
     const three = useMediaQuery(`(min-width:${theme.breakpoints.three+1}px)`);
 
     return (
-        <Grid>
-            {
-                one &&
+        <>
+            <Static />
+            <Grid>
+                {
+                    one &&
                 <Column>
                     <Logo small={!three} />
                     <FriendsList />
                 </Column>
-            }
-            <Column>
-                <SearchWrapper>
-                    <Search />
-                    { !two && <ProfileIcon /> }
-                </SearchWrapper>
-                <div>
-                    <Rooms />
-                </div>
-            </Column>
-            {
-                two &&
+                }
+                <Column>
+                    <SearchWrapper>
+                        <Search />
+                        { !two && <ProfileIcon /> }
+                    </SearchWrapper>
+                    <div>
+                        <Rooms />
+                    </div>
+                </Column>
+                {
+                    two &&
                 <Column>
                     <ProfileWrapper>
                         <ProfileIcon />
@@ -65,8 +68,9 @@ function Dashboard() {
                         <Schedule />
                     </div>
                 </Column>
-            }
-        </Grid >
+                }
+            </Grid >
+        </>
     );
 }
 
