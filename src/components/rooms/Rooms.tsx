@@ -1,9 +1,10 @@
-import { useQuery, useSubscription } from "@apollo/client";
+import { ApolloError, useQuery, useSubscription } from "@apollo/client";
 import gql from "graphql-tag";
 import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { notDraggable } from "../../library/mixin/mixin";
+import { Room } from "../../types/Room";
 import { Button } from "../button/Button";
 import { Card } from "../card/Card";
 
@@ -93,8 +94,7 @@ const ROOM_LIST_SUBSCRIPTION = gql`
 `;
 
 
-
-export const RoomList: FC = () => {
+export const RoomListDataContainer: FC = () => {
 
     const [rooms, setRooms] = useState([]);
 
@@ -111,18 +111,29 @@ export const RoomList: FC = () => {
     useEffect(() => {
         if (!loading && !error) {
             setRooms(data.rooms);
-            console.log("Adding initial data" + subscriptionData);
         }
 
     }, [data]);
 
     useEffect(() => {
-        console.log("Adding update", subscriptionData);
         if (!subError && subscriptionData && subscriptionData.roomChange.event === "CREATE") {
             setRooms([...rooms, subscriptionData.roomChange.room]);
         }
     }, [subscriptionData]);
 
+    return (
+        <RoomList loading={loading} error={error} subError={subError} rooms={rooms} />
+    );
+};
+
+type RoomListProperties = Readonly<{
+    rooms: ReadonlyArray<any>,
+    loading: boolean,
+    error: ApolloError
+    subError: ApolloError
+}>
+
+export const RoomList: FC<RoomListProperties> = ({ rooms, loading, error, subError }: RoomListProperties) => {
 
     if (loading) {
         return (<p>...Loading</p>);
@@ -243,7 +254,7 @@ export const Rooms: FC = () => {
                     </RoomCreationPopupWrapper>}
                 </RoomCreationWrapper>
             </Header>
-            <RoomList />
+            <RoomListDataContainer />
         </div>
     );
 };
