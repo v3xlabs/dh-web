@@ -3,10 +3,12 @@ import gql from "graphql-tag";
 import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 
+import { RoomListQuery, RoomListQuery_rooms } from "../../__generated__/RoomListQuery";
+import { RoomListSubscription } from "../../__generated__/RoomListSubscription";
 import { notDraggable } from "../../library/mixin/mixin";
-import { Room } from "../../types/Room";
 import { Button } from "../button/Button";
 import { Card } from "../card/Card";
+
 
 const Wrapper = styled.div`
     display: flex;
@@ -67,7 +69,7 @@ const ProfileContainer = styled.div`
 `;
 
 const ROOM_LIST_QUERY = gql`
-    query {
+    query RoomListQuery {
         rooms {
             id
             name
@@ -82,7 +84,7 @@ const ROOM_LIST_QUERY = gql`
 `;
 
 const ROOM_LIST_SUBSCRIPTION = gql`
-    subscription{
+    subscription RoomListSubscription {
         roomChange {
             event
             room {
@@ -104,12 +106,12 @@ export const RoomListDataContainer: FC = () => {
 
     const [rooms, setRooms] = useState([]);
 
-    const { loading, data, error } = useQuery(
+    const { loading, data, error } = useQuery<RoomListQuery>(
         ROOM_LIST_QUERY,
         { fetchPolicy: "network-only" }
     );
 
-    const { data: subscriptionData, error: subError } = useSubscription(
+    const { data: subscriptionData, error: subscriptionError } = useSubscription<RoomListSubscription>(
         ROOM_LIST_SUBSCRIPTION,
         { fetchPolicy: "network-only" }
     );
@@ -122,28 +124,28 @@ export const RoomListDataContainer: FC = () => {
     }, [data]);
 
     useEffect(() => {
-        if (!subError && subscriptionData && subscriptionData.roomChange.event === "CREATE") {
+        if (!subscriptionError && subscriptionData && subscriptionData.roomChange.event === "CREATE") {
             setRooms([...rooms, subscriptionData.roomChange.room]);
         }
     }, [subscriptionData]);
 
     return (
-        <RoomList loading={loading} error={error} subError={subError} rooms={rooms} />
+        <RoomList loading={loading} error={error} subscriptionError={subscriptionError} rooms={rooms} />
     );
 };
 
 type RoomListProperties = Readonly<{
-    rooms: ReadonlyArray<any>,
+    rooms: ReadonlyArray<RoomListQuery_rooms>,
     loading: boolean,
     error: ApolloError
-    subError: ApolloError
+    subscriptionError: ApolloError
 }>
 
-export const RoomList: FC<RoomListProperties> = ({ rooms, loading, error, subError }: RoomListProperties) => {
+export const RoomList: FC<RoomListProperties> = ({ rooms, loading, error, subscriptionError }: RoomListProperties) => {
 
     if (loading) {
         return (<p>...Loading</p>);
-    } else if (error || subError) {
+    } else if (error || subscriptionError) {
         return (<p>...Query or Subscription Failed</p>);
     }
 
@@ -160,14 +162,14 @@ export const RoomList: FC<RoomListProperties> = ({ rooms, loading, error, subErr
                         <MemberCount>
                             <Dot />{room.members?.length || 0}
                         </MemberCount>
-                        
+
 
                         <Description>
                             <ProfileContainer>
                                 {
                                     room.members.map((member, index) => (
                                         <ProfilePicture key={index}>
-                                            <img srcSet={member.avatar} src={member.avatar} />
+                                            <img srcSet={member.user.avatar} src={member.user.avatar} />
                                         </ProfilePicture>
                                     ))
                                 }
@@ -175,7 +177,7 @@ export const RoomList: FC<RoomListProperties> = ({ rooms, loading, error, subErr
                             <VerticallyCenterAlign>
                                 {
                                     room.members.map((member) => (
-                                        member.username + ", "
+                                        member.user.username + ", "
                                     ))
                                 }
                             </VerticallyCenterAlign>

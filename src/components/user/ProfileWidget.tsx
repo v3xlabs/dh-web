@@ -1,10 +1,10 @@
-import { gql, useQuery } from "@apollo/client";
+import { ApolloError, gql, useQuery } from "@apollo/client";
 import Link from "next/link";
 import React, { FC } from "react";
 import styled from "styled-components";
 
+import { ProfileWidgetQuery } from "../../__generated__/ProfileWidgetQuery";
 import { notDraggable } from "../../library/mixin/mixin";
-import { User } from "../../types/User";
 import { Card } from "../card/Card";
 
 /* Top */
@@ -13,7 +13,7 @@ const ProfileContainer = styled.div`
 `;
 
 const ProfilePicture = styled.div`
-    background: ${({theme}) => theme.palette.primary[700]};
+    background: ${({ theme }) => theme.palette.primary[700]};
     border-radius: 50%;
     overflow: hidden;
     width: 8rem;
@@ -30,14 +30,14 @@ const ProfileNames = styled.div`
 `;
 
 const ProfileUsername = styled.div`
-    color: ${({theme}) => theme.palette.primary[300]};
+    color: ${({ theme }) => theme.palette.primary[300]};
     font-weight: 10;
 `;
 /* End Top */
 
 /* Bottom */
 const ProfileStats = styled.div`
-    border-radius: ${({theme}) => theme.borderRadius};
+    border-radius: ${({ theme }) => theme.borderRadius};
     margin: 1.6rem 0rem 0 0rem;
     display: inline-block;
     width: 9.31rem;
@@ -57,13 +57,13 @@ const ProfileStatsValue = styled.div`
 
 const ProfileStatsType = styled.div`
     display: inline-block;
-    color: ${({theme}) => theme.palette.primary[300]};
+    color: ${({ theme }) => theme.palette.primary[300]};
     font-weight: 10;
 `;
 
 const ProfileBio = styled.div`
     margin-top: 1.5rem;
-    color: ${({theme}) => theme.palette.primary[300]};
+    color: ${({ theme }) => theme.palette.primary[300]};
     font-weight: 10;
 `;
 /* End Bottom */
@@ -74,7 +74,7 @@ const TextPlaceholder = styled.div<{ w?: string }>`
 `;
 
 const PROFILE_WIDGET_QUERY = gql`
-    query {
+    query ProfileWidgetQuery {
         me {
             id
             bio
@@ -87,21 +87,21 @@ const PROFILE_WIDGET_QUERY = gql`
 `;
 
 export const ProfileWidgetDataContainer: FC = () => {
-    const { loading, data, error } = useQuery(
+    const { loading, data, error } = useQuery<ProfileWidgetQuery>(
         PROFILE_WIDGET_QUERY,
         { fetchPolicy: "network-only" }
     );
-    
+
     return <ProfileWidget data={data} loading={loading} error={error}></ProfileWidget>;
 };
 
 type ProfileWidgetProperties = Readonly<{
-    data: unknown & {me: User};
-    loading: unknown;
-    error: unknown;
+    data: ProfileWidgetQuery;
+    loading: boolean;
+    error: ApolloError;
 }>
 
-export const ProfileWidget: FC<ProfileWidgetProperties> = ({data,loading,error}: ProfileWidgetProperties) => {
+export const ProfileWidget: FC<ProfileWidgetProperties> = ({ data, loading, error }: ProfileWidgetProperties) => {
     if (loading || error) {
         return (
             <Card padding>
@@ -111,32 +111,34 @@ export const ProfileWidget: FC<ProfileWidgetProperties> = ({data,loading,error}:
             </Card>
         );
     }
-    
+
+    const { avatar, username, follower_count, following_count, bio } = data.me;
+
     return (
         <Card padding>
             <ProfileContainer>
                 <ProfilePicture>
-                    <img src={data.me?.avatar} alt="Avatar"/>
+                    <img src={avatar} alt="Avatar" />
                 </ProfilePicture>
 
                 <ProfileNames>
-                    {data.me?.username}
-                    <ProfileUsername>@{data.me?.username}</ProfileUsername> 
+                    {username}
+                    <ProfileUsername>@{username}</ProfileUsername>
                 </ProfileNames>
             </ProfileContainer>
 
-            
+
             <ProfileStats>
-                <ProfileStatsValue>{data.me?.follower_count}</ProfileStatsValue>
+                <ProfileStatsValue>{follower_count}</ProfileStatsValue>
                 <ProfileStatsType>followers</ProfileStatsType>
             </ProfileStats>
 
             <ProfileStats>
-                <ProfileStatsValue>{data.me?.following_count}</ProfileStatsValue>
+                <ProfileStatsValue>{following_count}</ProfileStatsValue>
                 <ProfileStatsType>following</ProfileStatsType>
             </ProfileStats>
-    
-            <ProfileBio>{data.me?.bio}</ProfileBio>
+
+            <ProfileBio>{bio}</ProfileBio>
         </Card>
     );
 };

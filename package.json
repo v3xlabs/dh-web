@@ -9,7 +9,9 @@
     "dev:debug": "NODE_OPTIONS='--inspect' next dev",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "graphql:pull-schema": "npx apollo service:download --endpoint=https://api.dogehouse.online/graphql graphql-schema.json",
+    "graphql:generate-types": "npx apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --tagName=gql --outputFlat './src/__generated__'"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
@@ -19,10 +21,12 @@
   "dependencies": {
     "@apollo/client": "^3.3.19",
     "@material-ui/core": "^4.11.4",
+    "@types/graphql": "^14.5.0",
     "@types/next-seo": "^2.1.2",
     "@types/nprogress": "^0.2.0",
     "@types/styled-components": "^5.1.9",
     "@types/url-parse": "^1.4.3",
+    "apollo": "^2.33.4",
     "build-url": "^6.0.1",
     "eslint-plugin-radar": "^0.2.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",

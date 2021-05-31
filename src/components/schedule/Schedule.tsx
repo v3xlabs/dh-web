@@ -1,7 +1,8 @@
-import { gql, useQuery } from "@apollo/client";
+import { ApolloError, gql, useQuery } from "@apollo/client";
 import React, { FC } from "react";
 import styled from "styled-components";
 
+import { ScheduleQuery } from "../../__generated__/ScheduleQuery";
 import { notDraggable } from "../../library/mixin/mixin";
 import { Card } from "../card/Card";
 
@@ -87,8 +88,8 @@ const Explore = styled.div`
 `;
 
 
-const PROFILE_WIDGET_QUERY = gql`
-    query {
+const SCHEDULE_QUERY = gql`
+    query ScheduleQuery {
         me {
             id
             avatar
@@ -97,14 +98,22 @@ const PROFILE_WIDGET_QUERY = gql`
     }
 `;
 
-
-export const Schedule: FC = () => {
-
-    const { loading, data, error } = useQuery(
-        PROFILE_WIDGET_QUERY,
+export const ScheduleDataContainer: FC = () => {
+    const { loading, data, error } = useQuery<ScheduleQuery>(
+        SCHEDULE_QUERY,
         { fetchPolicy: "network-only" }
     );
+    return (<Schedule loading={loading} data={data} error={error} />);
+};
 
+type ScheduleProperties = Readonly<{
+    data: ScheduleQuery;
+    loading: boolean;
+    error: ApolloError;
+}>
+
+
+export const Schedule: FC<ScheduleProperties> = ({ data, loading, error }: ScheduleProperties) => {
     if (loading || error) {
         return (
             <Card margin>

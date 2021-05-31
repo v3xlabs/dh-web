@@ -1,9 +1,9 @@
-import { useQuery } from "@apollo/client";
+import { ApolloError, useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import React, { FC, useState } from "react";
 import styled from "styled-components";
 
-import { User } from "../../types/User";
+import { ProfileIconQuery } from "../../__generated__/ProfileIconQuery";
 import { ProfilePopup } from "./ProfilePopup";
 
 const Wrapper = styled.div`
@@ -18,12 +18,9 @@ const Icon = styled.img`
     cursor: pointer;
 `;
 
-type PROFILE_ICON_TYPE = {
-    me: User
-};
 
 const PROFILE_ICON_QUERY = gql`
-    query {
+    query ProfileIconQuery {
         me {
             id
             avatar
@@ -32,11 +29,22 @@ const PROFILE_ICON_QUERY = gql`
     }
 `;
 
-export const ProfileIcon: FC = () => {
-    const { loading, data, error } = useQuery<PROFILE_ICON_TYPE>(
+export const ProfileIconDataContainer: FC = () => {
+    const { loading, data, error } = useQuery<ProfileIconQuery>(
         PROFILE_ICON_QUERY,
         { fetchPolicy: "network-only" }
     );
+    return (<ProfileIcon loading={loading} data={data} error={error} />);
+};
+
+
+type ProfileIconProperties = Readonly<{
+    data: ProfileIconQuery;
+    loading: boolean;
+    error: ApolloError;
+}>
+
+export const ProfileIcon: FC<ProfileIconProperties> = ({ loading, error, data }: ProfileIconProperties) => {
     const [expanded, setExpanded] = useState(false);
 
     if (loading || error) {
