@@ -1,4 +1,3 @@
-import BuildUrl from "build-url";
 import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import parseURL from "url-parse";
@@ -25,7 +24,7 @@ export const useAuth: AuthFunction = (Page: FC) => (() => {
             }
 
             if (token.length === 0) {
-                router.push("/login?redirect_uri="+encodeURIComponent(location.href));
+                router.push("/login?redirect_uri=" + encodeURIComponent(location.href));
                 return;
             }
 

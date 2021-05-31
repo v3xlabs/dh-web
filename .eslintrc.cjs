@@ -26,7 +26,7 @@ module.exports = {
         "simple-import-sort",
         "radar"
     ],
-    "ignorePatterns": [".eslintrc.cjs", "**/src/pages/_document.js"],
+    "ignorePatterns": [".eslintrc.cjs", "**/src/pages/_document.js", "**/__generated__"],
     "rules": {
         "indent": [
             "error",
