@@ -20,6 +20,7 @@ const Wrapper = styled.div`
     justify-content: flex-start;
     align-items: stretch;
     overflow: hidden;
+    z-index: 1;
 `;
 
 const Item = styled.div`
