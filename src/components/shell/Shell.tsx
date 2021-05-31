@@ -1,5 +1,6 @@
-import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache, split } from "@apollo/client";
+import { ApolloClient, ApolloProvider, createHttpLink, from, InMemoryCache, split } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { onError } from "@apollo/client/link/error";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 import Head from "next/head";
@@ -45,6 +46,9 @@ const GlobalStyle = createGlobalStyle`
     }
     input::placeholder {
         color: ${({ theme }) => theme.palette.primary[300]};
+    }
+    a {
+        text-decoration: none;
     }
     #nprogress {
         position: relative;
@@ -104,6 +108,25 @@ const authLink = setContext((_, { headers }) => {
     };
 });
 
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+        for (const { message, locations, path } of graphQLErrors) {
+            console.log(
+                `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+            );
+        }
+    }
+    if (networkError) {
+        console.log(`[Network error]: ${networkError}`);
+        if (networkError.message.includes("500")) {
+            console.error("500 Yup");
+            if (!location.href.includes("/login")) {
+                localStorage.removeItem("@dh/token");
+                location.replace("/login?redirect_uri=" + encodeURIComponent(location.href));
+            }
+        }
+    }
+});
 
 const splitLink = split(
     ({ query }) => {
@@ -114,12 +137,12 @@ const splitLink = split(
         );
     },
     wsLink,
-    authLink.concat(httpLink),
+    (authLink.concat(httpLink)),
 );
 
 const client = new ApolloClient({
-    link: splitLink,
-    cache: new InMemoryCache()
+    link: from([errorLink, splitLink]),
+    cache: new InMemoryCache(),
 });
 
 export const Shell: FC<ShellProperties> = ({ children }: ShellProperties) => {
@@ -132,7 +155,6 @@ export const Shell: FC<ShellProperties> = ({ children }: ShellProperties) => {
                     <link rel="preconnect" href="https://fonts.gstatic.com" />
                     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
                 </Head>
-
                 <Wrapper>
                     <NoSsr>
                         {
