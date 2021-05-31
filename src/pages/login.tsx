@@ -1,27 +1,23 @@
 import { FC, useEffect, useState } from "react";
-import styled, { useTheme } from "styled-components";
+import styled from "styled-components";
 import parseURL from "url-parse";
 
-import { SecondaryButton } from "../components/button/SecondaryButton";
+import { Button } from "../components/button/Button";
 import { Card } from "../components/card/Card";
 import SaferLink from "../library/SaferLink";
 
-const Title = styled.div`
-    display: block;
-    font-size: 2rem;
-    line-height: 3.1rem;
-    font-weight: 700;
-    padding-top: 0.5rem;
-    color: ${({ theme }) => theme.palette.primary[100]};
-`;
-
 const Block = styled.div`
     padding: 3rem;
-`;
-
-const PrimaryAccent = styled.div`
     display: flex;
-    color: ${({ theme }) => theme.palette.accent.default};
+    justify-content: stretch;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 1rem;
+    button {
+        flex: 1;
+        width: 100%;
+        text-align: center;
+    }
 `;
 
 const Center = styled.div`
@@ -33,9 +29,18 @@ const Center = styled.div`
     height: 50%;
 `;
 
+const Title = styled.div`
+    display: block;
+    font-size: 2.4rem;
+    line-height: 3.1rem;
+    font-weight: 700;
+    padding-top: 0.5rem;
+    color: ${({ theme }) => theme.palette.primary[100]};
+`;
+
 const SubTitle = styled.div`
     display: block;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     line-height: 3.1rem;
     font-weight: 700;
     padding-top: 0.8rem;
@@ -43,9 +48,6 @@ const SubTitle = styled.div`
 `;
 
 const Login: FC = () => {
-
-    const theme = useTheme();
-
     const [google_uri, on_change_google_uri] = useState("http://auth.dogehouse.online/google/login");
     const [github_uri, on_change_github_uri] = useState("http://auth.dogehouse.online/github/login");
     const [discord_uri, on_change_discord_uri] = useState("http://auth.dogehouse.online/discord/login");
@@ -59,7 +61,6 @@ const Login: FC = () => {
             on_change_google_uri(handle_change_with_uri);
             on_change_github_uri(handle_change_with_uri);
         }
-
     }, []);
 
     return (
@@ -67,31 +68,24 @@ const Login: FC = () => {
             <Center>
                 <Card>
                     <Block>
-                        <Title> Welcome </Title>
-
+                        <Title>Welcome</Title>
                         <SubTitle>
-                            By logging in you accept our Privacy Policy
-                            and
-                            Terms of Service.
+                            Please choose one of the following platforms for authentication
                         </SubTitle>
-                    </Block>
-                    <Block>
                         <SaferLink target="internal" href={discord_uri}>
-                            <SecondaryButton>
-                                Log in with Discord
-                            </SecondaryButton>
+                            <Button variant="PRIMARY">
+                                Discord
+                            </Button>
                         </SaferLink>
-                        <br/>
                         <SaferLink target="internal" href={google_uri}>
-                            <SecondaryButton>
-                                Log in with Google
-                            </SecondaryButton>
+                            <Button variant="PRIMARY">
+                                Google
+                            </Button>
                         </SaferLink>
-                        <br />
                         <SaferLink target="internal" href={github_uri}>
-                            <SecondaryButton>
-                                Log in with Github
-                            </SecondaryButton>
+                            <Button variant="PRIMARY">
+                                Github
+                            </Button>
                         </SaferLink>
                     </Block>
                 </Card >

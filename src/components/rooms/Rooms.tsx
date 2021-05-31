@@ -252,7 +252,7 @@ export const Rooms: FC = () => {
                     Your feed
                 </Title>
                 <RoomCreationWrapper>
-                    <Button onClick={toggleExpanded}>New room</Button>
+                    <Button variant="ACCENT" onClick={toggleExpanded}>New room</Button>
                     {expanded && <RoomCreationPopupWrapper>
                         <RoomCreationMenuItem>
                             <p>Todo! Insert Form with Mutation. And Redirect.</p>

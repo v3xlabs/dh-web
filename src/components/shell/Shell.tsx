@@ -47,6 +47,9 @@ const GlobalStyle = createGlobalStyle`
     input::placeholder {
         color: ${({ theme }) => theme.palette.primary[300]};
     }
+    a {
+        text-decoration: none;
+    }
     #nprogress {
         position: relative;
         z-index: 9999999;
@@ -106,13 +109,13 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors)
+    if (graphQLErrors) {
         for (const { message, locations, path } of graphQLErrors) {
             console.log(
                 `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
             );
         }
-
+    }
     if (networkError) {
         console.log(`[Network error]: ${networkError}`);
         if (networkError.message.includes("500")) {
@@ -124,8 +127,6 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
         }
     }
 });
-
-
 
 const splitLink = split(
     ({ query }) => {
@@ -154,7 +155,6 @@ export const Shell: FC<ShellProperties> = ({ children }: ShellProperties) => {
                     <link rel="preconnect" href="https://fonts.gstatic.com" />
                     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
                 </Head>
-
                 <Wrapper>
                     <NoSsr>
                         {
