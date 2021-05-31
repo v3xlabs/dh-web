@@ -1,11 +1,10 @@
-import { ApolloClient, ApolloLink, ApolloProvider, createHttpLink, from, InMemoryCache, split } from "@apollo/client";
+import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache, split } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import ws from "ws";
 
