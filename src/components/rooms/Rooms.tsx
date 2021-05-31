@@ -1,4 +1,6 @@
-import React, { FC, useState } from "react";
+import { useQuery, useSubscription } from "@apollo/client";
+import gql from "graphql-tag";
+import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { notDraggable } from "../../library/mixin/mixin";
@@ -59,29 +61,80 @@ const ProfileContainer = styled.div`
 
 const temporaryUser = { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" };
 
+const ROOM_LIST_QUERY = gql`
+    query {
+        rooms {
+            id
+            name
+            members {
+                user {
+                    avatar
+                    username
+                }
+            }
+        }
+    }
+`;
+
+const ROOM_LIST_SUBSCRIPTION = gql`
+    subscription{
+        roomChange {
+            event
+            room {
+                id
+                name
+                members {
+                    user {
+                        avatar 
+                        username
+                    }
+                }
+            }
+        }
+    }
+`;
+
+
+
 export const RoomList: FC = () => {
 
-    const rooms = [
-        {
-            name: "Dogehouse to the moon",
-            description: "Hello World",
-            id: "1",
-            members: [
-                temporaryUser,
-                temporaryUser,
-            ]
-        },
-        {
-            name: "Dogehouse and beyond",
-            description: "Hello Universe",
-            id: "2",
-            members: [
-                temporaryUser,
-                temporaryUser,
-            ]
-        },
+    const [rooms, setRooms] = useState([]);
 
-    ];
+    const { loading, data, error } = useQuery(
+        ROOM_LIST_QUERY,
+        { fetchPolicy: "network-only" }
+    );
+
+    const { data: subscriptionData, error: subError } = useSubscription(
+        ROOM_LIST_SUBSCRIPTION,
+        { fetchPolicy: "network-only" }
+    );
+
+    useEffect(() => {
+        if (!loading && !error) {
+            setRooms(data.rooms);
+            console.log("Adding initial data" + subscriptionData);
+        }
+
+    }, [data]);
+
+    useEffect(() => {
+        console.log("Adding update", subscriptionData);
+        if (!subError && subscriptionData && subscriptionData.roomChange.event === "CREATE") {
+            setRooms([...rooms, subscriptionData.roomChange.room]);
+        }
+    }, [subscriptionData]);
+
+
+    if (loading) {
+        return (<p>...Loading</p>);
+    } else if (error || subError) {
+        return (<p>...Query or Subscription Failed</p>);
+    }
+
+    if (rooms.length === 0) {
+        return (<p>No Rooms.</p>);
+    }
 
     return (
         <>
