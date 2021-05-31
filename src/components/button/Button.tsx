@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
-    background: ${({ theme }) => theme.palette.accent.default};
+type ButtonVariant = "ACCENT" | "PRIMARY";
+
+export const Button = styled.button<{variant: ButtonVariant}>`
+    background: ${({ theme, variant }) => variant == "ACCENT" ? theme.palette.accent.default : theme.palette.primary[700]};
     border: none;
     outline: none;
     padding: 10px 40px;
@@ -13,8 +15,10 @@ export const Button = styled.button`
     font-size: 1.225rem;
     line-height: 1.8rem;
     display: flex;  
+    justify-content: center;
+    align-items: center;
     height: fit-content;
     &:hover {
-        background: ${({ theme }) => theme.palette.accent.hover};
+        background: ${({ theme, variant }) => variant == "ACCENT" ? theme.palette.accent.hover : theme.palette.primary[600]};
     }
 `;
