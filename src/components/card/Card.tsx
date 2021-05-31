@@ -6,5 +6,5 @@ export const Card = styled.div<{padding?: boolean, margin?: boolean}>`
     width: 100%;
     font-weight: 700;
     padding: ${({padding}) => padding ? "2rem" : "0"};
-    margin-top: ${({margin}) => margin ? "1rem" : "0"};
+    margin-top: ${({margin}) => margin ? "3rem" : "0"};
 `;

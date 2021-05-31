@@ -8,6 +8,12 @@ import { Room } from "../../types/Room";
 import { Button } from "../button/Button";
 import { Card } from "../card/Card";
 
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+`;
+
 const Description = styled.div`
     display: flex;
     justify-content: flex-start;
@@ -146,15 +152,15 @@ export const RoomList: FC<RoomListProperties> = ({ rooms, loading, error, subErr
     }
 
     return (
-        <>
+        <Wrapper>
             {
                 rooms.map((room, index) => (
-                    <Card padding margin key={index}>
+                    <Card padding key={index}>
                         {room.name}
                         <MemberCount>
                             <Dot />{room.members?.length || 0}
                         </MemberCount>
-                        <br />
+                        
 
                         <Description>
                             <ProfileContainer>
@@ -177,7 +183,7 @@ export const RoomList: FC<RoomListProperties> = ({ rooms, loading, error, subErr
                     </Card>
                 ))
             }
-        </>
+        </Wrapper>
     );
 };
 
