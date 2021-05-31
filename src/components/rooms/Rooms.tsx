@@ -59,8 +59,6 @@ const ProfileContainer = styled.div`
     margin-left: 5px;
 `;
 
-const temporaryUser = { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4" };
-
 const ROOM_LIST_QUERY = gql`
     query {
         rooms {
