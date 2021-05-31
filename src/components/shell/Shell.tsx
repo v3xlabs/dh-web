@@ -1,9 +1,11 @@
-import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache, split } from "@apollo/client";
+import { ApolloClient, ApolloLink, ApolloProvider, createHttpLink, from, InMemoryCache, split } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { onError } from "@apollo/client/link/error";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 import Head from "next/head";
-import React, { FC } from "react";
+import { useRouter } from "next/router";
+import React, { FC, useEffect } from "react";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import ws from "ws";
 
@@ -104,8 +106,28 @@ const authLink = setContext((_, { headers }) => {
     };
 });
 
+const errorControl = onError(({ networkError, graphQLErrors, operation }) => {
+    if (graphQLErrors) {
+        graphQLErrors.map(({ message, locations, path }) =>
+            console.log(
+                " [GraphQL error]: Message", message, ", Location:", locations, ", Path:", path)
+        );
+    }
+    if (networkError) {
+        console.log(" [Network error]:", networkError);
+
+        const statusCode = operation.getContext().response?.status;
+
+        if (statusCode == 500){
+            // useRouter().push('/login')
+        }
+        
+    }
+
+});
 
 const splitLink = split(
+
     ({ query }) => {
         const definition = getMainDefinition(query);
         return (
@@ -114,8 +136,9 @@ const splitLink = split(
         );
     },
     wsLink,
-    authLink.concat(httpLink),
+    errorControl.concat(authLink.concat(httpLink)),
 );
+
 
 const client = new ApolloClient({
     link: splitLink,
