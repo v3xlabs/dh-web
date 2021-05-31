@@ -6,6 +6,14 @@ import { Button } from "../components/button/Button";
 import { Card } from "../components/card/Card";
 import SaferLink from "../library/SaferLink";
 
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+`;
+
+
 const Block = styled.div`
     padding: 3rem;
     display: flex;
@@ -21,12 +29,9 @@ const Block = styled.div`
 `;
 
 const Center = styled.div`
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 40%;
-    height: 50%;
+    height: auto;
+    width: 300px;
+    max-width: calc(100%-4rem)
 `;
 
 const Title = styled.div`
@@ -64,7 +69,7 @@ const Login: FC = () => {
     }, []);
 
     return (
-        <div>
+        <Wrapper>
             <Center>
                 <Card>
                     <Block>
@@ -90,7 +95,7 @@ const Login: FC = () => {
                     </Block>
                 </Card >
             </Center>
-        </div>
+        </Wrapper>
     );
 };
 
