@@ -10,7 +10,7 @@ export const DarkTheme: DefaultTheme = {
             400: "#5d7290", // Items hover
             500: "#5d7290", // "+" hover
             600: "#323d4d", // Separators and +
-            700: "#242c37", // Bg (Explore more rooms)
+            700: "#242c37", // Bg (Explore more rooms) + hover
             800: "#151a21", // Bg boxes
             900: "#0b0e11" // Main bg
         },

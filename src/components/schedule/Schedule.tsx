@@ -47,7 +47,7 @@ const Line = styled.div`
 const ScheduleEntry = styled.div`
     padding: 0.5rem 2rem;
     &:hover {
-        background: ${({ theme }) => theme.palette.primary[400]};
+        background: ${({ theme }) => theme.palette.primary[700]};
     }
 `;
 

@@ -46,7 +46,7 @@ const ProfileStats = styled.div`
     text-align: center;
     &:hover {
         cursor: pointer;
-        background: ${({ theme }) => theme.palette.primary[400]};
+        background: ${({ theme }) => theme.palette.primary[700]};
     }
 `;
 
@@ -112,7 +112,6 @@ export const ProfileWidget: FC<ProfileWidgetProperties> = ({data,loading,error}:
         );
     }
     
-    ///{data.me?.username}
     return (
         <Card padding>
             <ProfileContainer>
