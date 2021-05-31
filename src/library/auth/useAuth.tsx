@@ -1,3 +1,4 @@
+import BuildUrl from "build-url";
 import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import parseURL from "url-parse";
@@ -18,9 +19,9 @@ export const useAuth: AuthFunction = (Page: FC) => (() => {
             if (query["token"]) {
                 localStorage.setItem("@dh/token", query["token"]);
                 token = query["token"];
-                router.push({
-                    query: " "
-                });
+                console.log("Updated token");
+                location.replace(location.href.split("?")[0]);
+                return;
             }
 
             if (token.length === 0) {
