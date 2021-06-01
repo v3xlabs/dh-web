@@ -225,7 +225,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "User",
+                    "name": "Follow",
                     "ofType": null
                   }
                 }
@@ -249,7 +249,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "User",
+                    "name": "Follow",
                     "ofType": null
                   }
                 }
@@ -416,6 +416,42 @@
                 "name": "User",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Follow",
+        "description": null,
+        "specifiedByUrl": null,
+        "fields": [
+          {
+            "name": "follower",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "following",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
