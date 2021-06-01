@@ -138,9 +138,9 @@ export const Schedule: FC<ScheduleProperties> = ({ data, loading, error }: Sched
             <Line />
             {
                 [
-                    { name: "Hello World1", time: "9:00 PM", owner: data.me },
-                    { name: "Hello World2", time: "10:00 PM", owner: data.me },
-                    { name: "Hello World3", time: "11:00 PM", owner: data.me }
+                    { name: "Hello World1", time: "9:00 PM", owner: data?.me },
+                    { name: "Hello World2", time: "10:00 PM", owner: data?.me },
+                    { name: "Hello World3", time: "11:00 PM", owner: data?.me }
                 ].map((room, index) => (
                     <React.Fragment key={index}>
                         <ScheduleEntry>
