@@ -1,8 +1,8 @@
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { NextSeo } from "next-seo";
 import React from "react";
+import { FC } from "react";
 import styled, { useTheme } from "styled-components";
-
 import { FriendsList } from "../components/friends/FriendsList";
 import { Grid } from "../components/grid/Grid";
 import { Logo } from "../components/logo/Logo";
@@ -30,6 +30,7 @@ const SearchWrapper = styled.div`
     display: flex;
     gap: 2rem;
 `;
+
 const Profile: FC = () => {
     const theme = useTheme();
     const one = useMediaQuery(`(min-width:${theme.breakpoints.one + 1}px)`);
