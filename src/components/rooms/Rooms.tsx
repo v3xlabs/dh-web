@@ -173,7 +173,7 @@ export const RoomList: FC<RoomListProperties> = ({ rooms, loading, error, subscr
                                 {
                                     room.members.map((member, index) => (
                                         <ProfilePicture key={index}>
-                                            <img srcSet={member.user.avatar} src={member.user.avatar} />
+                                            <img srcSet={member.user.avatar} src={member.user.avatar} alt="Avatar"  />
                                         </ProfilePicture>
                                     ))
                                 }
