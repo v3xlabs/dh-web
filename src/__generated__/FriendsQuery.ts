@@ -7,16 +7,21 @@
 // GraphQL query operation: FriendsQuery
 // ====================================================
 
-export interface FriendsQuery_me_following_current_room {
+export interface FriendsQuery_me_following_following_current_room {
   __typename: "Room";
   name: string;
 }
 
-export interface FriendsQuery_me_following {
+export interface FriendsQuery_me_following_following {
   __typename: "User";
   avatar: string;
   username: string;
-  current_room: FriendsQuery_me_following_current_room | null;
+  current_room: FriendsQuery_me_following_following_current_room | null;
+}
+
+export interface FriendsQuery_me_following {
+  __typename: "Follow";
+  following: FriendsQuery_me_following_following | null;
 }
 
 export interface FriendsQuery_me {

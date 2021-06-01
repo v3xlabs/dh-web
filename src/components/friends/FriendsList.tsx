@@ -77,10 +77,12 @@ const FRIENDS_QUERY = gql`
     query FriendsQuery {
         me {
             following {
-                avatar
-                username
-                current_room {
-                    name
+                following {
+                    avatar
+                    username
+                    current_room {
+                        name
+                    }
                 }
             }
         }
@@ -96,7 +98,6 @@ export const FriendsList: FC = () => {
 
     const theme = useTheme();
     const three = useMediaQuery(`(min-width:${theme.breakpoints.three + 1}px)`);
-
 
     if (loading || error) {
         return (
@@ -126,7 +127,7 @@ export const FriendsList: FC = () => {
                 </Title>
             }
             {
-                data.me.following.map((user, index) => (
+                data.me.following.map(({following: user}, index) => (
                     <Line key={index}>
                         <ProfilePicture>
                             <img src={user.avatar} />
