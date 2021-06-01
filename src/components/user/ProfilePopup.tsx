@@ -37,7 +37,7 @@ const Item = styled.div`
 export const ProfilePopup: FC = () => {
     const router = useRouter();
     const resetToken = useResetRecoilState(accessTokenState);
-    const github = "https://github.com/dogehousetv/web";
+    const github = "https://github.com/dogehousetv/web/issues";
 
     return (
         <Wrapper>
