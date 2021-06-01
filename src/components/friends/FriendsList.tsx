@@ -1,7 +1,10 @@
+import { useQuery } from "@apollo/client";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import gql from "graphql-tag";
 import React, { FC } from "react";
 import styled, { useTheme } from "styled-components";
 
+import { FriendsQuery } from "../../__generated__/FriendsQuery";
 import { notDraggable } from "../../library/mixin/mixin";
 
 const Title = styled.div`
@@ -70,19 +73,51 @@ const Dot = styled.div`
     display: inline-block;
 `;
 
+const FRIENDS_QUERY = gql`
+    query FriendsQuery {
+        me {
+            following {
+                avatar
+                username
+                current_room {
+                    name
+                }
+            }
+        }
+    }
+`;
+
 export const FriendsList: FC = () => {
 
-    const friends = [
-        { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", current_room: "main room", online: true },
-        { username: "carlos", avatar: "https://avatars.githubusercontent.com/u/52023083?v=4", current_room: "", online: true },
-    ];
+    const { loading, data, error } = useQuery<FriendsQuery>(
+        FRIENDS_QUERY,
+        { fetchPolicy: "network-only" }
+    );
 
     const theme = useTheme();
     const three = useMediaQuery(`(min-width:${theme.breakpoints.three + 1}px)`);
 
+
+    if (loading || error) {
+        return (
+            <div>
+                {
+                    three &&
+                    <Title>
+                        People
+                        <SubTitle>
+                            ONLINE
+                        </SubTitle>
+                    </Title>
+                }
+            </div>
+        );
+    }
+
     return (
         <div>
-            { three &&
+            {
+                three &&
                 <Title>
                     People
                     <SubTitle>
@@ -90,24 +125,26 @@ export const FriendsList: FC = () => {
                     </SubTitle>
                 </Title>
             }
-            {friends.map((user, index) => (
-                <Line key={index}>
-                    <ProfilePicture>
-                        <img src={user?.avatar} alt="Avatar" />
-                    </ProfilePicture>
-                    { user?.online && <Dot />}
-                    { three &&
-                        <UserName>
-                            {user?.username}
-                            {user?.current_room != "" &&
-                                <UserRoom>
-                                    {user?.current_room}
-                                </UserRoom>
-                            }
-                        </UserName>
-                    }
-                </Line>
-            ))}
+            {
+                data.me.following.map((user, index) => (
+                    <Line key={index}>
+                        <ProfilePicture>
+                            <img src={user.avatar} />
+                        </ProfilePicture>
+                        { user && <Dot />}
+                        { three &&
+                            <UserName>
+                                {user.username}
+                                {user.current_room &&
+                                    <UserRoom>
+                                        {user.current_room.name}
+                                    </UserRoom>
+                                }
+                            </UserName>
+                        }
+                    </Line>
+                ))
+            }
         </div>
     );
 };
