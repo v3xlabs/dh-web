@@ -1,3 +1,4 @@
+import { NextSeo } from "next-seo";
 import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import parseURL from "url-parse";
@@ -69,33 +70,51 @@ const Login: FC = () => {
     }, []);
 
     return (
-        <Wrapper>
-            <Center>
-                <Card>
-                    <Block>
-                        <Title>Welcome</Title>
-                        <SubTitle>
-                            Please choose one of the following platforms for authentication
-                        </SubTitle>
-                        <SaferLink target="internal" href={discord_uri}>
-                            <Button variant="PRIMARY">
-                                Discord
-                            </Button>
-                        </SaferLink>
-                        <SaferLink target="internal" href={google_uri}>
-                            <Button variant="PRIMARY">
-                                Google
-                            </Button>
-                        </SaferLink>
-                        <SaferLink target="internal" href={github_uri}>
-                            <Button variant="PRIMARY">
-                                Github
-                            </Button>
-                        </SaferLink>
-                    </Block>
-                </Card >
-            </Center>
-        </Wrapper>
+        <>
+            <NextSeo
+                defaultTitle="Dogehouse Revived"
+                title="Dogehouse Revived | Login"
+                description="Taking voice conversations to the moon 🚀"
+                additionalLinkTags={[
+                    {
+                        rel: "icon",
+                        href: "https://cdn.lvk.sh/dogehouse/logo.svg",
+                    },
+                    {
+                        rel: "apple-touch-icon",
+                        href: "https://cdn.lvk.sh/dogehouse/logo.svg",
+                        sizes: "76x76"
+                    }
+                ]}
+            />
+            <Wrapper>
+                <Center>
+                    <Card>
+                        <Block>
+                            <Title>Welcome</Title>
+                            <SubTitle>
+                                Please choose one of the following platforms for authentication
+                            </SubTitle>
+                            <SaferLink target="internal" href={discord_uri}>
+                                <Button variant="PRIMARY">
+                                    Discord
+                                </Button>
+                            </SaferLink>
+                            <SaferLink target="internal" href={google_uri}>
+                                <Button variant="PRIMARY">
+                                    Google
+                                </Button>
+                            </SaferLink>
+                            <SaferLink target="internal" href={github_uri}>
+                                <Button variant="PRIMARY">
+                                    Github
+                                </Button>
+                            </SaferLink>
+                        </Block>
+                    </Card >
+                </Center>
+            </Wrapper>
+        </>
     );
 };
 

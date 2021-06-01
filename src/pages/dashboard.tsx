@@ -1,4 +1,6 @@
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { NextSeo } from "next-seo";
+import React from "react";
 import styled, { useTheme } from "styled-components";
 
 import { FriendsList } from "../components/friends/FriendsList";
@@ -37,36 +39,54 @@ function Dashboard() {
     const three = useMediaQuery(`(min-width:${theme.breakpoints.three + 1}px)`);
 
     return (
-        <Grid>
-            {
-                one &&
+        <>
+            <NextSeo
+                defaultTitle="Dogehouse Revived"
+                title="Dogehouse Revived | Dashboard"
+                description="Taking voice conversations to the moon 🚀"
+                additionalLinkTags={[
+                    {
+                        rel: "icon",
+                        href: "https://cdn.lvk.sh/dogehouse/logo.svg",
+                    },
+                    {
+                        rel: "apple-touch-icon",
+                        href: "https://cdn.lvk.sh/dogehouse/logo.svg",
+                        sizes: "76x76"
+                    }
+                ]}
+            />
+            <Grid>
+                {
+                    one &&
+                    <Column>
+                        <Logo small={!three} />
+                        <FriendsList />
+                    </Column>
+                }
                 <Column>
-                    <Logo small={!three} />
-                    <FriendsList />
-                </Column>
-            }
-            <Column>
-                <SearchWrapper>
-                    <Search />
-                    {!two && <ProfileIconDataContainer />}
-                </SearchWrapper>
-                <div>
-                    <Rooms />
-                </div>
-            </Column>
-            {
-                two &&
-                <Column>
-                    <ProfileWrapper>
-                        <ProfileIconDataContainer />
-                    </ProfileWrapper>
+                    <SearchWrapper>
+                        <Search />
+                        {!two && <ProfileIconDataContainer />}
+                    </SearchWrapper>
                     <div>
-                        <ProfileWidgetDataContainer />
-                        <ScheduleDataContainer />
+                        <Rooms />
                     </div>
                 </Column>
-            }
-        </Grid >
+                {
+                    two &&
+                    <Column>
+                        <ProfileWrapper>
+                            <ProfileIconDataContainer />
+                        </ProfileWrapper>
+                        <div>
+                            <ProfileWidgetDataContainer />
+                            <ScheduleDataContainer />
+                        </div>
+                    </Column>
+                }
+            </Grid >
+        </>
     );
 }
 
