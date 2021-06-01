@@ -56,7 +56,7 @@ export const ProfileIcon: FC<ProfileIconProperties> = ({ loading, error, data }:
 
     return (
         <Wrapper>
-            <Icon src={data.me.avatar} onClick={() => {
+            <Icon src={data?.me.avatar} onClick={() => {
                 setExpanded(!expanded);
             }} />
             {expanded && <ProfilePopup />}
