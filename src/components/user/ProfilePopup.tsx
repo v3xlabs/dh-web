@@ -37,7 +37,7 @@ const Item = styled.div`
 export const ProfilePopup: FC = () => {
     const router = useRouter();
     const resetToken = useResetRecoilState(accessTokenState);
-    
+
     return (
         <Wrapper>
             {
@@ -52,7 +52,6 @@ export const ProfilePopup: FC = () => {
                 ))
             }
             <Item onClick={() => {
-                localStorage.removeItem("@dh/token");
                 resetToken();
                 router.push("/login");
             }}>

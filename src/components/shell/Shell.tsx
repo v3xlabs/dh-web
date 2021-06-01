@@ -5,9 +5,12 @@ import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 import Head from "next/head";
 import React, { FC } from "react";
+import { useResetRecoilState } from "recoil";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import ws from "ws";
 
+import { accessTokenState, AccessTokenStateType } from "../../library/auth/useUser";
+import { UnSafeLocalStorageProvider } from "../../library/data/unSafeLocalStorageHelper";
 import NoSsr from "../../library/ssr/NoSsr";
 import { DarkTheme } from "../../library/theme";
 
@@ -78,8 +81,8 @@ const Wrapper = styled.div`
 `;
 
 // get the authentication token from local storage if it exists
-const authToken = process.browser ? localStorage.getItem("@dh/token") || "" : "";
-const bearerString = authToken ? `Bearer ${authToken}` : "";
+const authTokenData = process.browser ? UnSafeLocalStorageProvider.create().get<AccessTokenStateType>("@dh/token") : { token: "" };
+const bearerString = authTokenData ? `Bearer ${authTokenData.token || ""}` : "";
 // cross platform web socketing triage (tldr use node lib on server and web lib on browser)
 const webSocketImplementation = process.browser ? WebSocket : ws;
 
@@ -109,6 +112,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
+    const resetAccessToken = useResetRecoilState(accessTokenState);
     if (graphQLErrors) {
         for (const { message, locations, path } of graphQLErrors) {
             console.log(
@@ -121,7 +125,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
         if (networkError.message.includes("500")) {
             console.error("500 Yup");
             if (!location.href.includes("/login")) {
-                localStorage.removeItem("@dh/token");
+                resetAccessToken();
                 location.replace("/login?redirect_uri=" + encodeURIComponent(location.href));
             }
         }
