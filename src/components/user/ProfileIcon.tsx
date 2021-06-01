@@ -1,5 +1,4 @@
-import { ApolloError, useQuery } from "@apollo/client";
-import gql from "graphql-tag";
+import { ApolloError, gql, useQuery } from "@apollo/client";
 import React, { FC, useState } from "react";
 import styled from "styled-components";
 

@@ -1,13 +1,17 @@
-import { ApolloError, useQuery, useSubscription } from "@apollo/client";
-import gql from "graphql-tag";
+import { ApolloError, gql, useMutation, useQuery, useSubscription } from "@apollo/client";
+import { yupResolver } from "@hookform/resolvers/yup";
 import React, { FC, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import * as yup from "yup";
 
+import { CreateNewRoomMutation, CreateNewRoomMutationVariables } from "../../__generated__/CreateNewRoomMutation";
 import { RoomListQuery, RoomListQuery_rooms } from "../../__generated__/RoomListQuery";
 import { RoomListSubscription } from "../../__generated__/RoomListSubscription";
 import { notDraggable } from "../../library/mixin/mixin";
 import { Button } from "../button/Button";
 import { Card } from "../card/Card";
+
 
 
 const Wrapper = styled.div`
@@ -243,24 +247,77 @@ const RoomCreationMenuItem = styled.div`
 `;
 
 
-export const Rooms: FC = () => {
+
+
+
+type RoomCreationFormValidationVals = Readonly<{
+    name: string;
+    description?: string;
+}>;
+
+const roomCreationFormValidationSchema = yup.object().shape({
+    name: yup.string().required(),
+    description: yup.string().optional(),
+});
+
+const CREATE_NEW_ROOM_MUTATION = gql`
+    mutation CreateNewRoomMutation($name: String!, $description: String) {
+        createRoom(name: $name, description: $description) {
+            id
+            name
+        }
+    }
+`;
+
+export const RoomCreationForm: FC = () => {
     const [expanded, setExpanded] = useState(false);
     const toggleExpanded = () => setExpanded(!expanded);
 
+    const { register, handleSubmit, formState: { errors } } = useForm<RoomCreationFormValidationVals>({
+        resolver: yupResolver(roomCreationFormValidationSchema)
+    });
+
+    const [createNewRoom, { data, loading, error }] = useMutation<CreateNewRoomMutation, CreateNewRoomMutationVariables>(CREATE_NEW_ROOM_MUTATION);
+
+    const onSubmit = handleSubmit((data) => {
+        createNewRoom({ variables: { name: data.name, description: data.description } });
+    });
+
+
+    if (loading) {
+        return (<p>...Loading</p>);
+    } else if (error) {
+        return (<p>...Mutation Failed</p>);
+    }
+
+    return (
+        <RoomCreationWrapper>
+            <Button variant="ACCENT" onClick={toggleExpanded}>New room</Button>
+            {expanded && (<RoomCreationPopupWrapper>
+                <RoomCreationMenuItem>
+                    {data ? (<div>
+                        <p>Room {data.createRoom.id}: {data.createRoom.name} created</p>
+                    </div>) : (<form onSubmit={handleSubmit(onSubmit)}>
+                        <input placeholder="Room Name" {...register("name")} />
+                        <p>{errors.name?.message}</p>
+                        <input placeholder="Room Description" {...register("description")} />
+                        <p>{errors.description?.message}</p>
+                        <input type="Submit" />
+                    </form>)}
+                </RoomCreationMenuItem>
+            </RoomCreationPopupWrapper>)}
+        </RoomCreationWrapper>
+    );
+};
+
+export const Rooms: FC = () => {
     return (
         <div>
             <Header>
                 <Title>
                     Your feed
                 </Title>
-                <RoomCreationWrapper>
-                    <Button variant="ACCENT" onClick={toggleExpanded}>New room</Button>
-                    {expanded && <RoomCreationPopupWrapper>
-                        <RoomCreationMenuItem>
-                            <p>Todo! Insert Form with Mutation. And Redirect.</p>
-                        </RoomCreationMenuItem>
-                    </RoomCreationPopupWrapper>}
-                </RoomCreationWrapper>
+                <RoomCreationForm />
             </Header>
             <RoomListDataContainer />
         </div>
