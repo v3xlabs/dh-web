@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import parseURL from "url-parse";
 
 import { accessTokenState } from "./useUser";
@@ -8,7 +8,7 @@ import { accessTokenState } from "./useUser";
 type AuthFunction = (page: React.ReactNode) => React.ReactNode;
 
 export const useAuth: AuthFunction = (Page: FC) => (() => {
-    const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+    const setAccessToken = useSetRecoilState(accessTokenState);
 
     const [loggedIn, setLoggedIn] = useState(0);
     const router = useRouter();
@@ -17,25 +17,24 @@ export const useAuth: AuthFunction = (Page: FC) => (() => {
         if (process.browser) {
             const query = parseURL(location.href, true).query;
 
-            let accessTokenData = accessToken;
+            let token = localStorage.getItem("@dh/token") || "";
 
             if (query["token"]) {
                 setAccessToken({ token: query["token"] });
-
-                accessTokenData = { token: query["token"] };
+                token = query["token"];
                 console.log("Updated token");
                 location.replace(location.href.split("?")[0]);
                 return;
             }
 
-            if (accessTokenData.token.length === 0) {
+            if (token.length === 0) {
                 router.push("/login?redirect_uri=" + encodeURIComponent(location.href));
                 return;
             }
 
             setLoggedIn(1);
         }
-    }, [loggedIn, accessToken]);
+    }, [loggedIn]);
 
     if (loggedIn == 0) {
         return <></>;
