@@ -44,7 +44,6 @@ function Dashboard() {
                 defaultTitle="Dogehouse Revived"
                 title="Dogehouse Revived | Dashboard"
                 description="Taking voice conversations to the moon 🚀"
-                canonical="https://www.dogehouse.online/"
                 additionalLinkTags={[
                     {
                         rel: "icon",

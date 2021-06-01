@@ -12,7 +12,6 @@ const Dashboard: FC = () => {
                 defaultTitle="Dogehouse Revived"
                 title="Dogehouse Revived | Profile"
                 description="Taking voice conversations to the moon 🚀"
-                canonical="https://www.dogehouse.online/"
                 additionalLinkTags={[
                     {
                         rel: "icon",

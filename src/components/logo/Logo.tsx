@@ -40,7 +40,7 @@ export const Logo: FC<LogoProperties> = ({ small }: LogoProperties) => {
     return (
         <Wrapper small={small}>
             <Icon>
-                <img src="https://cdn.lvk.sh/dogehouse/logo.svg" alt="" />
+                <img src="https://cdn.lvk.sh/dogehouse/logo.svg" alt="Dogehouse Revived" />
             </Icon>
             { !small &&
                 <Text>

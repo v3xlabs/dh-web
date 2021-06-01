@@ -93,7 +93,7 @@ export const FriendsList: FC = () => {
             {friends.map((user, index) => (
                 <Line key={index}>
                     <ProfilePicture>
-                        <img src={user?.avatar} />
+                        <img src={user?.avatar} alt="Avatar" />
                     </ProfilePicture>
                     { user?.online && <Dot />}
                     { three &&
