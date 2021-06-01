@@ -67,6 +67,16 @@ const GlobalStyle = createGlobalStyle`
         border-top-color: ${({ theme }) => theme.palette.accent.hover} !important;
         border-left-color: ${({ theme }) => theme.palette.accent.hover} !important;
     }
+
+    ::-webkit-scrollbar { 
+        width: 8px;
+    }
+    
+    ::-webkit-scrollbar-thumb { 
+        background-color: ${({ theme }) => theme.palette.primary[700]};
+        border-radius: 5px;
+    }
+
 `;
 
 const Wrapper = styled.div`
