@@ -1,13 +1,9 @@
-import { useRouter } from "next/router";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
+/**
+ * DO NOT MODIFY
+ */
 const IndexPage: FC = () => {
-    const router = useRouter();
-
-    useEffect(() => {
-        router.replace("/dash");
-    });
-
     return <></>;
 };
 
