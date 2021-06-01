@@ -39,24 +39,19 @@ type LogoProperties = {
 
 
 export const Logo: FC<LogoProperties> = ({ small }: LogoProperties) => {
-
-    const router = useRouter();
-    const handleClick = (element) => {
-        element.preventDefault();
-        router.push("/dashboard");
-    };
-
     return (
-        <Wrapper small={small} onClick={handleClick}>
-            <Icon>
-                <img src="https://cdn.lvk.sh/dogehouse/logo.svg" alt="Dogehouse Revived" />
-            </Icon>
-            { !small &&
-                <Text>
-                    <span>Dogehouse</span>
-                    <span>Revived</span>
-                </Text>
-            }
-        </Wrapper>
+        <a href="/dashboard">
+            <Wrapper small={small}>
+                <Icon>
+                    <img src="https://cdn.lvk.sh/dogehouse/logo.svg" alt="Dogehouse Revived" />
+                </Icon>
+                { !small &&
+                    <Text>
+                        <span>Dogehouse</span>
+                        <span>Revived</span>
+                    </Text>
+                }
+            </Wrapper>
+        </a>
     );
 };
