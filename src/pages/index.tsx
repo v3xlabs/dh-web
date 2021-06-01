@@ -5,7 +5,7 @@ const IndexPage: FC = () => {
     const router = useRouter();
 
     useEffect(() => {
-        router.replace("/dashboard");
+        router.replace("/dash");
     });
 
     return <></>;
