@@ -42,7 +42,7 @@ function Dashboard() {
         <>
             <NextSeo
                 defaultTitle="Dogehouse Revived"
-                title="Dogehouse Revived | Dashboard"
+                title="Dashboard | Dogehouse Revived"
                 description="Taking voice conversations to the moon 🚀"
                 additionalLinkTags={[
                     {
