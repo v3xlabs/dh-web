@@ -7,7 +7,7 @@ module.exports = {
       {
         source: "/",
         destination: "/dash",
-        permanent: true,
+        permanent: false,
       },
     ];
   },
