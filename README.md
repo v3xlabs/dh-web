@@ -1,6 +1,6 @@
 <a href="https://dogehouse.online">
     <p align="center">
-        <img height=100 src="./assets/banner.png"/>
+        <img height=100 src="public/banner.png"/>
     </p>
 </a>
 <p align="center">
