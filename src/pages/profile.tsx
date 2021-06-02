@@ -42,7 +42,7 @@ const Profile: FC = () => {
         <>
             <NextSeo
                 defaultTitle="Dogehouse Revived"
-                title="Dogehouse Revived | Profile"
+                title="Profile | Dogehouse Revived"
                 description="Taking voice conversations to the moon 🚀"
                 additionalLinkTags={[
                     {

@@ -11,8 +11,7 @@ import { RoomListSubscription } from "../../__generated__/RoomListSubscription";
 import { notDraggable } from "../../library/mixin/mixin";
 import { Button } from "../button/Button";
 import { Card } from "../card/Card";
-
-
+import { NoRooms } from "../logo/NoRooms";
 
 const Wrapper = styled.div`
     display: flex;
@@ -154,7 +153,9 @@ export const RoomList: FC<RoomListProperties> = ({ rooms, loading, error, subscr
     }
 
     if (rooms.length === 0) {
-        return (<p>No Rooms.</p>);
+        return (
+            <NoRooms/>
+        );
     }
 
     return (
