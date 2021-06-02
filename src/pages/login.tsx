@@ -15,7 +15,6 @@ const Wrapper = styled.div`
     height: 100vh;
 `;
 
-
 const Block = styled.div`
     padding: 3rem;
     display: flex;
@@ -125,7 +124,7 @@ const Login: FC = () => {
         <>
             <NextSeo
                 defaultTitle="Dogehouse Revived"
-                title="Dogehouse Revived | Login"
+                title="Login | Dogehouse Revived"
                 description="Taking voice conversations to the moon 🚀"
                 additionalLinkTags={[
                     {

@@ -7,8 +7,13 @@ module.exports = {
       {
         source: "/",
         destination: "/dash",
-        permanent: true,
+        permanent: false,
       },
+      {
+        source: "/dashboard",
+        destination: "/dash",
+        permanent: false,
+      }
     ];
   },
 };
