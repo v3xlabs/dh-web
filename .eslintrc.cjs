@@ -21,6 +21,7 @@ module.exports = {
     },
     "plugins": [
         "react",
+        "react-hooks",
         "@typescript-eslint",
         "unicorn",
         "simple-import-sort",
@@ -44,6 +45,8 @@ module.exports = {
             "error",
             "always"
         ],
+        "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+        "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
         "react/react-in-jsx-scope": "off",
         "unicorn/filename-case": [
             "error", {
