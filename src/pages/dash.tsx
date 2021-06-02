@@ -3,6 +3,7 @@ import { NextSeo } from "next-seo";
 import React from "react";
 import styled, { useTheme } from "styled-components";
 
+import { Button } from "../components/button/Button";
 import { FriendsList } from "../components/friends/FriendsList";
 import { Grid } from "../components/grid/Grid";
 import { Logo } from "../components/logo/Logo";
@@ -12,6 +13,7 @@ import { Search } from "../components/search/Search";
 import { ProfileIconDataContainer } from "../components/user/ProfileIcon";
 import { ProfileWidgetDataContainer } from "../components/user/ProfileWidget";
 import { useAuth } from "../library/auth/useAuth";
+import Modal from "../library/portals/Modal";
 
 const Column = styled.div`
     margin-top: 30px;
