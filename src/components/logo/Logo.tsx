@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import styled from "styled-components";
@@ -40,7 +41,7 @@ type LogoProperties = {
 
 export const Logo: FC<LogoProperties> = ({ small }: LogoProperties) => {
     return (
-        <a href="/dashboard">
+        <Link href="/dash"><a>
             <Wrapper small={small}>
                 <Icon>
                     <img src="https://cdn.lvk.sh/dogehouse/logo.svg" alt="Dogehouse Revived" />
@@ -52,6 +53,6 @@ export const Logo: FC<LogoProperties> = ({ small }: LogoProperties) => {
                     </Text>
                 }
             </Wrapper>
-        </a>
+        </a></Link>
     );
 };
