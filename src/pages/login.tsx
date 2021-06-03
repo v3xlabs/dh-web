@@ -152,8 +152,6 @@ const Login: FC = () => {
         }
     }, []);
 
-
-
     return (
         <Wrapper>
             <NextSeo
