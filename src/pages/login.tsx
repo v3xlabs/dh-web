@@ -16,6 +16,8 @@ const Wrapper = styled.div`
     @media(max-width: 600px) {
         background: ${({ theme }) => theme.palette.primary[800]};
     }
+    *::-moz-selection { background: ${({ theme }) => theme.palette.primary[500]};; color: white;}
+    *::selection { background: ${({ theme }) => theme.palette.primary[500]};; color: white;}
 `;
 
 const Block = styled.div`
@@ -92,6 +94,8 @@ const Footer = styled.div`
     align-items: center;
     flex-wrap: wrap;
     padding: 0 6rem 3rem 6rem;
+    *::-moz-selection { background: ${({ theme }) => theme.palette.primary[500]};; color: white;}
+    *::selection { background: ${({ theme }) => theme.palette.primary[500]};; color: white;}
 `;
 
 const Icon = styled.div`
