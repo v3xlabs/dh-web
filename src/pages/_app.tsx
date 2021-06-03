@@ -4,9 +4,11 @@ import { AppProps } from "next/dist/next-server/lib/router/router";
 import Router from "next/router";
 import NProgress from "nprogress";
 import { FC } from "react";
-import { RecoilRoot } from "recoil";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 import { Shell } from "../components/shell/Shell";
+import store, { persistor } from "../store/store";
 
 Router.events.on("routeChangeStart", () => {
     NProgress.start();
@@ -17,11 +19,13 @@ Router.events.on("routeChangeError", () => NProgress.done());
 const App: FC<AppProps> = ({ Component, pageProps }: AppProps) => {
 
     return (
-        <RecoilRoot>
-            <Shell>
-                <Component {...pageProps} />
-            </Shell>
-        </RecoilRoot>
+        <Provider store={store}>
+            <PersistGate loading={undefined} persistor={persistor}>
+                <Shell>
+                    <Component {...pageProps} />
+                </Shell>
+            </PersistGate>
+        </Provider>
     );
 };
 
