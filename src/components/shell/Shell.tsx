@@ -102,7 +102,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
         if (networkError.message.includes("500")) {
             console.error("500 Yup");
             if (!location.href.includes("/login")) {
-                store.dispatch({ type: AuthResourceReducerAction.AUTH_RESOURCE_WRITE, payload: "" });
+                store.dispatch({ type: AuthResourceReducerAction.AUTH_RESOURCE_RESET });
                 location.replace("/login?redirect_uri=" + encodeURIComponent(location.href));
             }
         }
