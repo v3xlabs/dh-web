@@ -11,7 +11,8 @@ import ws from "ws";
 
 import NoSsr from "../../library/ssr/NoSsr";
 import { DarkTheme } from "../../library/theme";
-import store, { AuthResourceReducerAction, getAuthenticationToken } from "../../store/store";
+import { AuthResourceReducerAction, getAuthenticationToken } from "../../store/authResourceReducer";
+import store from "../../store/store";
 
 type ShellProperties = {
     children: React.ReactNode;

@@ -2,34 +2,12 @@ import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-type ReducerAction<ReduxTypeGeneric, ReduxPayloadGeneric> = {
-    type: ReduxTypeGeneric;
-    payload: ReduxPayloadGeneric;
-};
+import authResourceReducer from "./authResourceReducer";
 
-const initialAuthResourceReducerState = { token: "initial_token" };
-
-export enum AuthResourceReducerAction {
-    AUTH_RESOURCE_WRITE = "auth_resource/write",
-    AUTH_RESOURCE_RESET = "auth_resource/reset",
-}
-
-const authResourceReducer = (
-    state = initialAuthResourceReducerState,
-    action: ReducerAction<AuthResourceReducerAction, string>,
-) => {
-    switch (action.type) {
-    case AuthResourceReducerAction.AUTH_RESOURCE_WRITE:
-        return { token: action.payload };
-    case AuthResourceReducerAction.AUTH_RESOURCE_RESET:
-        return { token: "" };
-    default:
-        return state;
-    }
-};
-
-export const getAuthenticationToken = state => state.authResourceReducer.token;
-
+/**
+ * Only Whitelist Reducer groups we want 
+ * to cache in localstorage.
+ */
 const persistedReducer = persistReducer({
     key: "root",
     storage,
