@@ -12,7 +12,7 @@ export const Button = styled.button<{variant: ButtonVariant}>`
     transition: ${({ theme }) => theme.animation.micro};
     color: ${({ theme }) => theme.palette.buttonText};
     font-weight: 700;
-    font-size: 1.225rem;
+    font-size: 1em;
     line-height: 1.8rem;
     display: flex;  
     justify-content: center;
