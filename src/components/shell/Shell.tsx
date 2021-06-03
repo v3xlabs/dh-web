@@ -37,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
         font-size: 10px;
         line-height: 21px;
     }
-    input {
+    input, textarea {
         background: transparent;
         border: none;
         outline: none;
@@ -45,8 +45,15 @@ const GlobalStyle = createGlobalStyle`
         color: inherit;
         font-family: inherit;
         line-height: inherit;
+        padding: 1rem 1rem;
+        box-shadow: rgb(0 0 0 / 10%) -3px 4px 14px;
+        z-index: -1;
+        border-color: ${({ theme }) => theme.palette.primary[700]};
+        background: ${({ theme }) => theme.palette.primary[800]};
+        border-radius: ${({ theme }) => theme.borderRadius};
+        flex: 1;
     }
-    input::placeholder {
+    input::placeholder, textarea::placeholder {
         color: ${({ theme }) => theme.palette.primary[300]};
     }
     a {
