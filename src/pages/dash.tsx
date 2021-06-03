@@ -1,6 +1,7 @@
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { NextSeo } from "next-seo";
 import React from "react";
+import { useSelector } from "react-redux";
 import styled, { useTheme } from "styled-components";
 
 import { FriendsList } from "../components/friends/FriendsList";
@@ -12,6 +13,7 @@ import { Search } from "../components/search/Search";
 import { ProfileIconDataContainer } from "../components/user/ProfileIcon";
 import { ProfileWidgetDataContainer } from "../components/user/ProfileWidget";
 import { useAuth } from "../library/auth/useAuth";
+import { getToken } from "../store/store";
 
 const Column = styled.div`
     margin-top: 30px;
