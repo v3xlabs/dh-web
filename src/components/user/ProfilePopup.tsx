@@ -4,7 +4,7 @@ import React, { FC } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { AuthResourceReducerAction } from "../../store/store";
+import { AuthResourceReducerAction } from "../../store/authResourceReducer";
 
 const Wrapper = styled.div`
     position: absolute;

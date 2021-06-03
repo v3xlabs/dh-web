@@ -2,7 +2,8 @@ import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import parseURL from "url-parse";
 
-import store, { AuthResourceReducerAction } from "../../store/store";
+import { AuthResourceReducerAction } from "../../store/authResourceReducer";
+import store from "../../store/store";
 
 type AuthFunction = (page: React.ReactNode) => React.ReactNode;
 
