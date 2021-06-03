@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
-import { useResetRecoilState } from "recoil";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { accessTokenState } from "../../library/auth/useUser";
+import { AuthResourceReducerAction } from "../../store/store";
 
 const Wrapper = styled.div`
     position: absolute;
@@ -36,8 +36,8 @@ const Item = styled.div`
 
 export const ProfilePopup: FC = () => {
     const router = useRouter();
-    const resetToken = useResetRecoilState(accessTokenState);
     const github = "https://github.com/dogehousetv/web/issues";
+    const dispatch = useDispatch();
 
     return (
         <Wrapper>
@@ -54,8 +54,7 @@ export const ProfilePopup: FC = () => {
                 ))
             }
             <Item onClick={() => {
-                localStorage.removeItem("@dh/token");
-                resetToken();
+                dispatch({ type: AuthResourceReducerAction.AUTH_RESOURCE_RESET });
                 router.push("/login");
             }}>
                 Logout
