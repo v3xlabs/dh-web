@@ -9,6 +9,7 @@ import { CreateNewRoomMutation, CreateNewRoomMutationVariables } from "../../__g
 import { RoomListQuery } from "../../__generated__/RoomListQuery";
 import { RoomListSubscription } from "../../__generated__/RoomListSubscription";
 import { notDraggable } from "../../library/mixin/mixin";
+import Modal from "../../library/portals/Modal";
 import { Button } from "../button/Button";
 import { Card } from "../card/Card";
 import { NoRooms } from "../logo/NoRooms";
@@ -241,20 +242,57 @@ const RoomCreationPopupWrapper = styled.div`
     overflow: hidden;
 `;
 
+const CloseButton = styled.span`
+    float: right;
+    padding: 1rem;
+    border-radius: 0.5em;
+    background-color: ${({ theme }) => theme.palette.primary[700]};
+    &:hover{
+        padding: 1rem;
+        background-color: ${({ theme }) => theme.palette.primary[600]};
+    }
+`;
+
+const SubTitle = styled.div`
+    display: block;
+    font-size: 1.2rem;
+    line-height: 3.1rem;
+    font-weight: 700;
+    padding-top: 0.8rem;
+    padding: 0 0 0 2rem;
+    color: ${({ theme }) => theme.palette.primary[300]};
+`;
+
+const FormWrapper = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    input {
+        margin: 1rem;
+        margin-left: 2rem;
+        width: 100%;
+    }
+    textarea {
+        margin: 1rem;
+        margin-left: 2rem;
+        width: 100%;
+    }
+`;
+
+const FormHeader = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+`;
+
 const RoomCreationMenuItem = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
     padding: 1rem 1rem;
     cursor: pointer;
-    &:hover {
-        background: ${({ theme }) => theme.palette.primary[700]};
-    }
 `;
-
-
-
-
 
 type RoomCreationFormValidationVals = Readonly<{
     name: string;
@@ -289,29 +327,37 @@ export const RoomCreationForm: FC = () => {
         createNewRoom({ variables: { name: data.name, description: data.description } });
     });
 
-
     if (loading) {
         return (<p>...Loading</p>);
     } else if (error) {
         return (<p>...Mutation Failed</p>);
     }
 
+    const roomForm = <FormWrapper>
+        <FormHeader>
+            <Title>New room</Title>
+            <SubTitle>Fill the following fields to start a new room</SubTitle>
+        </FormHeader>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <input placeholder="Room Name" {...register("name")} />
+            <p>{errors.name?.message}</p>
+            <textarea placeholder="Room Description" {...register("description")} />
+            <p>{errors.description?.message}</p>
+            <input type="Submit" />
+        </form>
+    </FormWrapper>;
+
     return (
         <RoomCreationWrapper>
             <Button variant="ACCENT" onClick={toggleExpanded}>New room</Button>
-            {expanded && (<RoomCreationPopupWrapper>
+            {expanded && (<Modal>
+                <CloseButton style={{float:"right"}} onClick={toggleExpanded} > X </CloseButton>
                 <RoomCreationMenuItem>
                     {data ? (<div>
                         <p>Room {data.createRoom.id}: {data.createRoom.name} created</p>
-                    </div>) : (<form onSubmit={handleSubmit(onSubmit)}>
-                        <input placeholder="Room Name" {...register("name")} />
-                        <p>{errors.name?.message}</p>
-                        <input placeholder="Room Description" {...register("description")} />
-                        <p>{errors.description?.message}</p>
-                        <input type="Submit" />
-                    </form>)}
+                    </div>) : (roomForm)}
                 </RoomCreationMenuItem>
-            </RoomCreationPopupWrapper>)}
+            </Modal>)}
         </RoomCreationWrapper>
     );
 };
