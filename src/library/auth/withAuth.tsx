@@ -7,7 +7,7 @@ import store from "../../store/store";
 
 type AuthFunction = (page: React.ReactNode) => React.ReactNode;
 
-export const useAuth: AuthFunction = (Page: FC) => (() => {
+export const withAuth: AuthFunction = (Page: FC) => (() => {
 
     const [loggedIn, setLoggedIn] = useState(0);
     const router = useRouter();
@@ -34,7 +34,7 @@ export const useAuth: AuthFunction = (Page: FC) => (() => {
 
             setLoggedIn(1);
         }
-    });
+    }, [authenticationToken, router]);
 
     if (loggedIn == 0) {
         return <></>;

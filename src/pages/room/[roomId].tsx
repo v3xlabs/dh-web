@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import { FC } from "react";
 import styled from "styled-components";
 
+import { withAuth } from "../../library/auth/withAuth";
+
 
 const Wrapper = styled.div`
     width: 100vw;
@@ -26,4 +28,4 @@ const Room: FC = () => {
     );
 };
 
-export default Room;
+export default withAuth(Room);
