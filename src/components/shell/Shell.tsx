@@ -100,13 +100,13 @@ const Wrapper = styled.div`
 const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
         for (const { message, locations, path } of graphQLErrors) {
-            console.log(
+            console.error(
                 `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
             );
         }
     }
     if (networkError) {
-        console.log(`[Network error]: ${networkError}`);
+        console.error(`[Network error]: ${networkError}`);
         if (networkError.message.includes("500")) {
             console.error("500 Yup");
             if (!location.href.includes("/login")) {
@@ -167,9 +167,13 @@ export const Shell: FC<ShellProperties> = ({ children }: ShellProperties) => {
 
     const client = new ApolloClient({
         link: from([errorLink, splitLink]),
-        cache: new InMemoryCache({typePolicies: {Room: {
-            keyFields: ["name"]
-        }}}),
+        cache: new InMemoryCache({
+            typePolicies: {
+                Room: {
+                    keyFields: ["name"]
+                }
+            }
+        }),
     });
 
     return (

@@ -12,7 +12,7 @@ export const withAuth: AuthFunction = (Page: FC) => (() => {
     const [loggedIn, setLoggedIn] = useState(0);
     const router = useRouter();
 
-    const state: {authResourceReducer: {token: string}} = store.getState();
+    const state: { authResourceReducer: { token: string } } = store.getState();
     const authenticationToken = state.authResourceReducer.token;
 
     useEffect(() => {
@@ -22,7 +22,6 @@ export const withAuth: AuthFunction = (Page: FC) => (() => {
             if (query["token"]) {
                 store.dispatch({ type: AuthResourceReducerAction.AUTH_RESOURCE_WRITE, payload: query["token"] });
                 token = query["token"];
-                console.log("Updated token");
                 location.replace(location.href.split("?")[0]);
                 return;
             }

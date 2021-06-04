@@ -132,7 +132,6 @@ export const RoomListDataContainer: FC = () => {
                         };
                     }
 
-                    console.log("UB!");
                     return previous;
                 }
             })} />
@@ -150,7 +149,6 @@ export const RoomList: FC<RoomListProperties> = ({ loading, error, data, roomUpd
 
     useEffect(() => {
         roomUpdates();
-        console.log("REGISTRED DA FUCK");
     }, [0]);
 
     if (loading) {
