@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { FC } from "react";
 import styled from "styled-components";
 
-const Wrapper = styled.div<{small: boolean}>`
+const Wrapper = styled.div<{ small: boolean }>`
     display: flex;
-    justify-content: ${({small}) => small ? "center" : "flex-start"};
+    justify-content: ${({ small }) => small ? "center" : "flex-start"};
     align-items: center;
     width: 100%;
     cursor: pointer;
@@ -46,7 +45,7 @@ export const Logo: FC<LogoProperties> = ({ small }: LogoProperties) => {
                 <Icon>
                     <img src="https://cdn.lvk.sh/dogehouse/logo.svg" alt="Dogehouse Revived" />
                 </Icon>
-                { !small &&
+                {!small &&
                     <Text>
                         <span>Dogehouse</span>
                         <span>Revived</span>

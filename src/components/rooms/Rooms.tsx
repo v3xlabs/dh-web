@@ -124,13 +124,13 @@ export const RoomListDataContainer: FC = () => {
             setRooms(data.rooms);
         }
 
-    }, [data]);
+    }, [data, error, loading]);
 
     useEffect(() => {
         if (!subscriptionError && subscriptionData && subscriptionData.roomChange.event === "CREATE") {
             setRooms([...rooms, subscriptionData.roomChange.room]);
         }
-    }, [subscriptionData]);
+    }, [rooms, subscriptionData, subscriptionError]);
 
     return (
         <RoomList loading={loading} error={error} subscriptionError={subscriptionError} rooms={rooms} />
@@ -154,7 +154,7 @@ export const RoomList: FC<RoomListProperties> = ({ rooms, loading, error, subscr
 
     if (rooms.length === 0) {
         return (
-            <NoRooms/>
+            <NoRooms />
         );
     }
 
@@ -174,7 +174,7 @@ export const RoomList: FC<RoomListProperties> = ({ rooms, loading, error, subscr
                                 {
                                     room.members.map((member, index) => (
                                         <ProfilePicture key={index}>
-                                            <img srcSet={member.user.avatar} src={member.user.avatar} alt="Avatar"  />
+                                            <img srcSet={member.user.avatar} src={member.user.avatar} alt="Avatar" />
                                         </ProfilePicture>
                                     ))
                                 }
