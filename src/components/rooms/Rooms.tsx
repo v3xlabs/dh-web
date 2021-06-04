@@ -1,4 +1,4 @@
-import { ApolloError, gql, useMutation, useQuery, useSubscription } from "@apollo/client";
+import { ApolloError, gql, useMutation, useQuery } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -6,7 +6,7 @@ import styled from "styled-components";
 import * as yup from "yup";
 
 import { CreateNewRoomMutation, CreateNewRoomMutationVariables } from "../../__generated__/CreateNewRoomMutation";
-import { RoomListQuery, RoomListQuery_rooms } from "../../__generated__/RoomListQuery";
+import { RoomListQuery } from "../../__generated__/RoomListQuery";
 import { RoomListSubscription } from "../../__generated__/RoomListSubscription";
 import { notDraggable } from "../../library/mixin/mixin";
 import { Button } from "../button/Button";
@@ -104,55 +104,62 @@ const ROOM_LIST_SUBSCRIPTION = gql`
     }
 `;
 
-
 export const RoomListDataContainer: FC = () => {
 
-    const [rooms, setRooms] = useState([]);
-
-    const { loading, data, error } = useQuery<RoomListQuery>(
+    const { loading, data, error, subscribeToMore } = useQuery<RoomListQuery>(
         ROOM_LIST_QUERY,
-        { fetchPolicy: "network-only" }
+        { fetchPolicy: "cache-first" }
     );
-
-    const { data: subscriptionData, error: subscriptionError } = useSubscription<RoomListSubscription>(
-        ROOM_LIST_SUBSCRIPTION,
-        { fetchPolicy: "network-only" }
-    );
-
-    useEffect(() => {
-        if (!loading && !error) {
-            setRooms(data.rooms);
-        }
-
-    }, [data, error, loading]);
-
-    useEffect(() => {
-        if (!subscriptionError && subscriptionData && subscriptionData.roomChange.event === "CREATE") {
-            setRooms([...rooms, subscriptionData.roomChange.room]);
-        }
-    }, [rooms, subscriptionData, subscriptionError]);
 
     return (
-        <RoomList loading={loading} error={error} subscriptionError={subscriptionError} rooms={rooms} />
+        <RoomList loading={loading} error={error} data={data}
+            roomUpdates={() => subscribeToMore<RoomListSubscription>({
+                onError: console.error,
+                document: ROOM_LIST_SUBSCRIPTION, variables: {}, updateQuery: (previous, { subscriptionData }) => {
+                    if (!subscriptionData) return previous;
+
+                    if (subscriptionData.data.roomChange.event === "CREATE") {
+                        return {
+                            ...previous,
+                            rooms: [...previous.rooms, subscriptionData.data.roomChange.room]
+                        };
+                    }
+
+                    if (subscriptionData.data.roomChange.event === "DELETE") {
+                        return {
+                            ...previous,
+                            rooms: previous.rooms.filter(room => room.id !== subscriptionData.data.roomChange.room.id)
+                        };
+                    }
+
+                    console.log("UB!");
+                    return previous;
+                }
+            })} />
     );
 };
 
 type RoomListProperties = Readonly<{
-    rooms: ReadonlyArray<RoomListQuery_rooms>,
     loading: boolean,
-    error: ApolloError
-    subscriptionError: ApolloError
+    error: ApolloError,
+    data: RoomListQuery
+    roomUpdates: () => () => void
 }>
 
-export const RoomList: FC<RoomListProperties> = ({ rooms, loading, error, subscriptionError }: RoomListProperties) => {
+export const RoomList: FC<RoomListProperties> = ({ loading, error, data, roomUpdates }: RoomListProperties) => {
+
+    useEffect(() => {
+        roomUpdates();
+        console.log("REGISTRED DA FUCK");
+    }, [0]);
 
     if (loading) {
         return (<p>...Loading</p>);
-    } else if (error || subscriptionError) {
-        return (<p>...Query or Subscription Failed</p>);
+    } else if (error) {
+        return (<p>...Query Failed</p>);
     }
 
-    if (rooms.length === 0) {
+    if (data.rooms.length === 0) {
         return (
             <NoRooms />
         );
@@ -161,7 +168,7 @@ export const RoomList: FC<RoomListProperties> = ({ rooms, loading, error, subscr
     return (
         <Wrapper>
             {
-                rooms.map((room, index) => (
+                data.rooms.map((room, index) => (
                     <Card padding key={index}>
                         {room.name}
                         <MemberCount>

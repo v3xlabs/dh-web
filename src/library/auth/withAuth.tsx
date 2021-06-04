@@ -12,7 +12,7 @@ export const withAuth: AuthFunction = (Page: FC) => (() => {
     const [loggedIn, setLoggedIn] = useState(0);
     const router = useRouter();
 
-    const state: any = store.getState();
+    const state: {authResourceReducer: {token: string}} = store.getState();
     const authenticationToken = state.authResourceReducer.token;
 
     useEffect(() => {
