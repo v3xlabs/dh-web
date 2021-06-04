@@ -31,11 +31,11 @@ const ProfilePicture = styled.div`
     background: ${({ theme }) => theme.palette.primary[700]};
     border-radius: 50%;
     overflow: hidden;
-    width: 5rem;
-    height: 5rem;
+    width: 4rem;
+    height: 4rem;
     img {
-        width: 5rem;
-        height: 5rem;
+        width: 4rem;
+        height: 4rem;
         ${notDraggable}
     }
 `;
@@ -66,7 +66,7 @@ const UserRoom = styled.div`
 const Dot = styled.div`
     height: 8px;
     width: 8px;
-    margin-left: -2rem;
+    margin-left: -1.8rem;
     margin-bottom: -3rem;
     background-color: ${({ theme }) => theme.palette.accent.default};
     border-radius: 50%;
