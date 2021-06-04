@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { FC } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div<{ small: boolean }>`
@@ -38,7 +38,7 @@ type LogoProperties = {
 }
 
 
-export const Logo: FC<LogoProperties> = ({ small }: LogoProperties) => {
+export function Logo({ small }: LogoProperties): JSX.Element {
     return (
         <Link href="/dash"><a>
             <Wrapper small={small}>
@@ -54,4 +54,4 @@ export const Logo: FC<LogoProperties> = ({ small }: LogoProperties) => {
             </Wrapper>
         </a></Link>
     );
-};
+}

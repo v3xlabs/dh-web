@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import gql from "graphql-tag";
-import React, { FC } from "react";
+import React from "react";
 import styled, { useTheme } from "styled-components";
 
 import { FriendsQuery } from "../../__generated__/FriendsQuery";
@@ -89,7 +89,7 @@ const FRIENDS_QUERY = gql`
     }
 `;
 
-export const FriendsList: FC = () => {
+export function FriendsList(): JSX.Element {
 
     const { loading, data, error } = useQuery<FriendsQuery>(
         FRIENDS_QUERY,
@@ -127,7 +127,7 @@ export const FriendsList: FC = () => {
                 </Title>
             }
             {
-                data.me.following.map(({following: user}, index) => (
+                data.me.following.map(({ following: user }, index) => (
                     <Line key={index}>
                         <ProfilePicture>
                             <img src={user.avatar} />
@@ -148,4 +148,4 @@ export const FriendsList: FC = () => {
             }
         </div>
     );
-};
+}

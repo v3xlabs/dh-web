@@ -1,10 +1,13 @@
-import { FC } from "react";
+import React from "react";
 
 /**
  * DO NOT MODIFY
  */
-const IndexPage: FC = () => {
-    return <></>;
-};
+function IndexPage(): JSX.Element {
+    return (
+        <React.Fragment>
+        </React.Fragment>
+    );
+}
 
 export default IndexPage;

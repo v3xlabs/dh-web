@@ -1,5 +1,5 @@
 import { ApolloError, gql, useQuery } from "@apollo/client";
-import React, { FC, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { ProfileIconQuery } from "../../__generated__/ProfileIconQuery";
@@ -17,7 +17,6 @@ const Icon = styled.img`
     cursor: pointer;
 `;
 
-
 const PROFILE_ICON_QUERY = gql`
     query ProfileIconQuery {
         me {
@@ -28,14 +27,13 @@ const PROFILE_ICON_QUERY = gql`
     }
 `;
 
-export const ProfileIconDataContainer: FC = () => {
+export function ProfileIconDataContainer(): JSX.Element {
     const { loading, data, error } = useQuery<ProfileIconQuery>(
         PROFILE_ICON_QUERY,
         { fetchPolicy: "network-only" }
     );
     return (<ProfileIcon loading={loading} data={data} error={error} />);
-};
-
+}
 
 type ProfileIconProperties = Readonly<{
     data: ProfileIconQuery;
@@ -43,7 +41,7 @@ type ProfileIconProperties = Readonly<{
     error: ApolloError;
 }>
 
-export const ProfileIcon: FC<ProfileIconProperties> = ({ loading, error, data }: ProfileIconProperties) => {
+export function ProfileIcon({ loading, error, data }: ProfileIconProperties): JSX.Element {
     const [expanded, setExpanded] = useState(false);
 
     if (loading || error) {
@@ -62,4 +60,4 @@ export const ProfileIcon: FC<ProfileIconProperties> = ({ loading, error, data }:
             {expanded && <ProfilePopup />}
         </Wrapper>
     );
-};
+}

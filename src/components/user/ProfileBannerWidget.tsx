@@ -1,6 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import Link from "next/link";
-import React, { FC } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { notDraggable } from "../../library/mixin/mixin";
@@ -82,14 +82,14 @@ const PROFILE_WIDGET_QUERY = gql`
     }
 `;
 
-export const ProfileWidgetDataContainer: FC = () => {
+export function ProfileWidgetDataContainer(): JSX.Element {
     const { loading, data, error } = useQuery(
         PROFILE_WIDGET_QUERY,
         { fetchPolicy: "network-only" }
     );
 
     return <ProfileWidget data={data} loading={loading} error={error}></ProfileWidget>;
-};
+}
 
 type ProfileWidgetProperties = Readonly<{
     data: unknown & { me: User };
@@ -97,7 +97,7 @@ type ProfileWidgetProperties = Readonly<{
     error: unknown;
 }>
 
-export const ProfileWidget: FC<ProfileWidgetProperties> = ({ data, loading, error }: ProfileWidgetProperties) => {
+export function ProfileWidget({ data, loading, error }: ProfileWidgetProperties): JSX.Element {
     if (loading || error) {
         return (
             <Card padding>
@@ -135,4 +135,4 @@ export const ProfileWidget: FC<ProfileWidgetProperties> = ({ data, loading, erro
             <ProfileBio>{data.me?.bio}</ProfileBio>
         </Card>
     );
-};
+}

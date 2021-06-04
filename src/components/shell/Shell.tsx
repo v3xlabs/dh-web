@@ -4,7 +4,7 @@ import { onError } from "@apollo/client/link/error";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 import Head from "next/head";
-import React, { FC } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import ws from "ws";
@@ -117,7 +117,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     }
 });
 
-export const Shell: FC<ShellProperties> = ({ children }: ShellProperties) => {
+export function Shell({ children }: ShellProperties): JSX.Element {
 
     // get the authentication token from local storage if it exists
     const authToken = useSelector(getAuthenticationToken);
@@ -194,4 +194,4 @@ export const Shell: FC<ShellProperties> = ({ children }: ShellProperties) => {
             </ApolloProvider>
         </ThemeProvider>
     );
-};
+}

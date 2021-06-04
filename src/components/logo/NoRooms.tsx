@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div<{ small: boolean }>`
@@ -30,11 +30,13 @@ type LogoProperties = Readonly<{
     small?: boolean;
 }>
 
-export const NoRooms: FC<LogoProperties> = ({ small }: LogoProperties) => (
-    <Wrapper small={small}>
-        <Icon>
-            <img src="/no_rooms.svg" alt="No Rooms" width="100%" />
-            <Text>No Rooms, let&lsquo;s create one.</Text>
-        </Icon>
-    </Wrapper>
-);
+export function NoRooms({ small }: LogoProperties): JSX.Element {
+    return (
+        <Wrapper small={small}>
+            <Icon>
+                <img src="/no_rooms.svg" alt="No Rooms" width="100%" />
+                <Text>No Rooms, let&lsquo;s create one.</Text>
+            </Icon>
+        </Wrapper>
+    );
+}

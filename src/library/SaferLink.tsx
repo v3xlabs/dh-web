@@ -1,13 +1,13 @@
-import React, { FC } from "react";
+import React from "react";
 
 type Properties = Readonly<{
-  target: "external" | "internal";
-  href: string;
-  className?: string;
-  children: React.ReactNode;
+    target: "external" | "internal";
+    href: string;
+    className?: string;
+    children: React.ReactNode;
 }>;
 
-const SaferLink: FC<Properties> = ({ target, href, className, children }: Properties) => {
+export default function SaferLink({ target, href, className, children }: Properties): JSX.Element {
     const targetString = (target === "external") ? "__blank" : "";
 
     return (
@@ -20,7 +20,4 @@ const SaferLink: FC<Properties> = ({ target, href, className, children }: Proper
             { children}
         </a >
     );
-};
-
-
-export default SaferLink;
+}

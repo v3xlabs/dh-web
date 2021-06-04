@@ -1,6 +1,6 @@
 import { ApolloError, gql, useMutation, useQuery } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { FC, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import * as yup from "yup";
@@ -104,7 +104,7 @@ const ROOM_LIST_SUBSCRIPTION = gql`
     }
 `;
 
-export const RoomListDataContainer: FC = () => {
+export function RoomListDataContainer(): JSX.Element {
 
     const { loading, data, error, subscribeToMore } = useQuery<RoomListQuery>(
         ROOM_LIST_QUERY,
@@ -136,7 +136,7 @@ export const RoomListDataContainer: FC = () => {
                 }
             })} />
     );
-};
+}
 
 type RoomListProperties = Readonly<{
     loading: boolean,
@@ -145,7 +145,7 @@ type RoomListProperties = Readonly<{
     roomUpdates: () => () => void
 }>
 
-export const RoomList: FC<RoomListProperties> = ({ loading, error, data, roomUpdates }: RoomListProperties) => {
+export function RoomList({ loading, error, data, roomUpdates }: RoomListProperties): JSX.Element {
 
     useEffect(() => {
         roomUpdates();
@@ -197,7 +197,7 @@ export const RoomList: FC<RoomListProperties> = ({ loading, error, data, roomUpd
             }
         </Wrapper>
     );
-};
+}
 
 
 /**
@@ -275,7 +275,7 @@ const CREATE_NEW_ROOM_MUTATION = gql`
     }
 `;
 
-export const RoomCreationForm: FC = () => {
+export function RoomCreationForm(): JSX.Element {
     const [expanded, setExpanded] = useState(false);
     const toggleExpanded = () => setExpanded(!expanded);
 
@@ -314,9 +314,9 @@ export const RoomCreationForm: FC = () => {
             </RoomCreationPopupWrapper>)}
         </RoomCreationWrapper>
     );
-};
+}
 
-export const Rooms: FC = () => {
+export function Rooms(): JSX.Element {
     return (
         <div>
             <Header>
@@ -328,4 +328,4 @@ export const Rooms: FC = () => {
             <RoomListDataContainer />
         </div>
     );
-};
+}

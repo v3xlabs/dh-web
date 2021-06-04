@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -20,7 +20,7 @@ const Icon = styled.div`
     align-items: center;
     margin: 0 20px;
     color: inherit;
-    transition: color ${({theme}) => theme.animation.micro};
+    transition: color ${({ theme }) => theme.animation.micro};
     svg {
         fill: currentColor;
     }
@@ -36,8 +36,8 @@ const Input = styled.input`
     }
 `;
 
-const Underlay = styled.div<{show: boolean}>`
-    display: ${({show}) => show ? "block" : "none"};
+const Underlay = styled.div<{ show: boolean }>`
+    display: ${({ show }) => show ? "block" : "none"};
 
     position: absolute;
     left: -1rem;
@@ -50,24 +50,23 @@ const Underlay = styled.div<{show: boolean}>`
     box-shadow: rgb(0 0 0 / 70%) -3px 4px 14px;
     z-index: -1;
 
-    border-color: ${({theme}) => theme.palette.primary[700]};
-    background: ${({theme}) => theme.palette.primary[800]};
-    border-radius: ${({theme}) => theme.borderRadius};
+    border-color: ${({ theme }) => theme.palette.primary[700]};
+    background: ${({ theme }) => theme.palette.primary[800]};
+    border-radius: ${({ theme }) => theme.borderRadius};
 `;
 
-export const Search: FC = () => {
-
+export function Search(): JSX.Element {
     const [searchResults, setSearchResults] = useState(""); // change to [] of actual results
 
     return (
         <Wrapper>
             <Box>
-                <Input placeholder="Search for rooms, users or categories" onChange={(event) => {setSearchResults(event.target.value);}}/>
+                <Input placeholder="Search for rooms, users or categories" onChange={(event) => { setSearchResults(event.target.value); }} />
                 <Icon>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><g clipPath="url(#sm-solid-search_svg__clip0)" fillRule="evenodd" clipRule="evenodd"><path d="M7.212 1.803a5.409 5.409 0 100 10.818 5.409 5.409 0 000-10.818zM0 7.212a7.212 7.212 0 1114.424 0A7.212 7.212 0 010 7.212z"></path><path d="M11.03 11.03a.901.901 0 011.275 0l3.43 3.432a.902.902 0 01-1.274 1.275l-3.431-3.431a.901.901 0 010-1.275z"></path></g><defs><clipPath id="sm-solid-search_svg__clip0"><path d="M0 0h16v16H0z"></path></clipPath></defs></svg>
                 </Icon>
-                <Underlay show={searchResults.length > 0}/>
+                <Underlay show={searchResults.length > 0} />
             </Box>
         </Wrapper>
     );
-};
+}

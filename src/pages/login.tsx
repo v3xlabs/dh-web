@@ -1,5 +1,5 @@
 import { NextSeo } from "next-seo";
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import parseURL from "url-parse";
 
@@ -136,7 +136,7 @@ const Right = styled.div`
     gap: 4rem;
 `;
 
-const Login: FC = () => {
+function Login(): JSX.Element {
     const [github_uri, on_change_github_uri] = useState("https://auth.dogehouse.online/github/login");
     const [google_uri, on_change_google_uri] = useState("https://auth.dogehouse.online/google/login");
     const [discord_uri, on_change_discord_uri] = useState("http://auth.dogehouse.online/discord/login");
@@ -291,8 +291,6 @@ const Login: FC = () => {
             </Footer>
         </Wrapper>
     );
-};
-
-
+}
 
 export default Login;

@@ -21,14 +21,12 @@ const Wrapper = styled.div`
 `;
 
 interface NativeSelectProperties {
-    children?: any;
-    className?: any;
-    placeholder?: any;
+    children: React.ReactNode;
+    className?: string;
+    placeholder?: string;
 }
 
-export const Select: React.FC<
-    React.ComponentPropsWithoutRef<"select">
-> = ({ children, className, placeholder, ...properties }: NativeSelectProperties) => {
+export function Select({ children, className, placeholder, ...properties }: NativeSelectProperties): JSX.Element {
     return (
         <Wrapper>
             <select
@@ -43,4 +41,4 @@ export const Select: React.FC<
             </select>
         </Wrapper>
     );
-};
+}

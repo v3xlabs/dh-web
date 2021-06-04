@@ -1,9 +1,7 @@
 import { useRouter } from "next/router";
-import { FC } from "react";
 import styled from "styled-components";
 
 import { withAuth } from "../../library/auth/withAuth";
-
 
 const Wrapper = styled.div`
     width: 100vw;
@@ -15,8 +13,7 @@ const Wrapper = styled.div`
     }
 `;
 
-
-const Room: FC = () => {
+function Room(): JSX.Element {
     const router = useRouter();
 
     const { roomId } = router.query;
@@ -26,6 +23,6 @@ const Room: FC = () => {
             <p>Room with room id {roomId}</p>
         </Wrapper>
     );
-};
+}
 
 export default withAuth(Room);

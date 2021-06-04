@@ -1,5 +1,5 @@
 import { ApolloError, gql, useQuery } from "@apollo/client";
-import React, { FC } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { ScheduleQuery } from "../../__generated__/ScheduleQuery";
@@ -98,13 +98,13 @@ const SCHEDULE_QUERY = gql`
     }
 `;
 
-export const ScheduleDataContainer: FC = () => {
+export function ScheduleDataContainer(): JSX.Element {
     const { loading, data, error } = useQuery<ScheduleQuery>(
         SCHEDULE_QUERY,
         { fetchPolicy: "network-only" }
     );
     return (<Schedule loading={loading} data={data} error={error} />);
-};
+}
 
 type ScheduleProperties = Readonly<{
     data: ScheduleQuery;
@@ -113,7 +113,7 @@ type ScheduleProperties = Readonly<{
 }>
 
 
-export const Schedule: FC<ScheduleProperties> = ({ data, loading, error }: ScheduleProperties) => {
+export function Schedule({ data, loading, error }: ScheduleProperties): JSX.Element {
     if (loading || error) {
         return (
             <Card margin>
@@ -160,4 +160,4 @@ export const Schedule: FC<ScheduleProperties> = ({ data, loading, error }: Sched
             </Explore>
         </Card>
     );
-};
+}

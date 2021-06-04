@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Flex = styled.div`
@@ -16,15 +16,15 @@ const Wrapper = styled.div`
     grid-template-columns: 235px 640px 325px;
     column-gap: 60px;
 
-    @media(max-width: ${({theme}) => theme.breakpoints.three}px) {
+    @media(max-width: ${({ theme }) => theme.breakpoints.three}px) {
         grid-template-columns: 60px 640px 325px;
     }
 
-    @media(max-width: ${({theme}) => theme.breakpoints.two}px) {
+    @media(max-width: ${({ theme }) => theme.breakpoints.two}px) {
         grid-template-columns: 60px 640px;
     }
 
-    @media(max-width: ${({theme}) => theme.breakpoints.one}px) {
+    @media(max-width: ${({ theme }) => theme.breakpoints.one}px) {
         grid-template-columns: 100%;
         width: 100%;
         padding: 0 1rem;
@@ -35,8 +35,7 @@ type GridProperties = {
     children: React.ReactNode;
 };
 
-export const Grid: FC<GridProperties> = ({children}: GridProperties) => {
-
+export function Grid({ children }: GridProperties): JSX.Element {
     return (
         <Flex>
             <Wrapper>
@@ -44,4 +43,4 @@ export const Grid: FC<GridProperties> = ({children}: GridProperties) => {
             </Wrapper>
         </Flex>
     );
-};
+}

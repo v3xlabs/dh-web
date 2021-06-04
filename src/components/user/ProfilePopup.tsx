@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { FC } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
@@ -34,7 +34,7 @@ const Item = styled.div`
     }
 `;
 
-export const ProfilePopup: FC = () => {
+export function ProfilePopup(): JSX.Element {
     const router = useRouter();
     const github = "https://github.com/dogehousetv/web/issues";
     const dispatch = useDispatch();
@@ -61,4 +61,4 @@ export const ProfilePopup: FC = () => {
             </Item>
         </Wrapper>
     );
-};
+}
