@@ -130,6 +130,8 @@ export const Shell: FC<ShellProperties> = ({ children }: ShellProperties) => {
         uri: "wss://api.dogehouse.online/graphql",
         options: {
             reconnect: true,
+            lazy: true,
+            timeout: 3000,
             connectionParams: {
                 authorization: bearerString
             }
@@ -165,7 +167,9 @@ export const Shell: FC<ShellProperties> = ({ children }: ShellProperties) => {
 
     const client = new ApolloClient({
         link: from([errorLink, splitLink]),
-        cache: new InMemoryCache(),
+        cache: new InMemoryCache({typePolicies: {Room: {
+            keyFields: ["name"]
+        }}}),
     });
 
     return (
