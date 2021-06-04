@@ -2,3 +2,4 @@ src/__generated__/*
 src/__generated__
 node_modules
 node_modules/*
+.eslintrc.js

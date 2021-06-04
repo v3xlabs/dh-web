@@ -6,10 +6,12 @@ module.exports = {
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:unicorn/recommended",
-        "plugin:radar/recommended"
+        "plugin:radar/recommended",
+        "plugin:react/all",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -29,11 +31,12 @@ module.exports = {
     ],
     "ignorePatterns": [".eslintrc.cjs", "**/src/pages/_document.js", "**/__generated__"],
     "rules": {
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
+        "unicorn/prefer-spread": "off",
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
         "no-console": ["error", { allow: ["warn", "error"] }],
-        "indent": [
-            "error",
-            4
-        ],
         "linebreak-style": [
             "error",
             "unix"
@@ -46,10 +49,6 @@ module.exports = {
             "error",
             "always"
         ],
-        "react/no-array-index-key": "warn",
-        "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
-        "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
-        "react/react-in-jsx-scope": "off",
         "unicorn/filename-case": [
             "error", {
                 "cases": {
@@ -58,8 +57,5 @@ module.exports = {
                 }
             }
         ],
-        "unicorn/prefer-spread": "off",
-        "simple-import-sort/imports": "error",
-        "simple-import-sort/exports": "error",
     }
 };
