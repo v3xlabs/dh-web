@@ -30,7 +30,6 @@ Contributors helping to review/merge pull requests:
 - [@chalkedgoose](https://github.com/chalkedgoose)
 - [@4nkitd](https://github.com/4nkitd)
 - [@lucemans](https://github.com/lucemans)
-- [@CreedsCode](https://github.com/CreedsCode)
 
 ## Discord
 
