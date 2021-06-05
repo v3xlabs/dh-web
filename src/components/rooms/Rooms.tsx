@@ -50,8 +50,6 @@ const ProfilePicture = styled.div`
 `;
 
 const MemberCount = styled.div`
-    display: inline;
-    float: right;
     font-weight: 700;
     color: ${({ theme }) => theme.palette.primary[100]};
 `;
@@ -139,6 +137,12 @@ export const RoomListDataContainer: FC = () => {
     );
 };
 
+const Horizontal = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
 type RoomListProperties = Readonly<{
     loading: boolean,
     error: ApolloError,
@@ -169,10 +173,12 @@ export const RoomList: FC<RoomListProperties> = ({ loading, error, data, roomUpd
             {
                 data.rooms.map((room, index) => (
                     <Card padding key={index}>
-                        {room.name}
-                        <MemberCount>
-                            <Dot />{room.members?.length || 0}
-                        </MemberCount>
+                        <Horizontal>
+                            {room.name}
+                            <MemberCount>
+                                <Dot />{room.members?.length || 0}
+                            </MemberCount>
+                        </Horizontal>
 
 
                         <Description>
@@ -227,7 +233,6 @@ const RoomCreationWrapper = styled.div`
 `;
 
 const CloseButton = styled.span`
-    float: right;
     padding: 1rem;
     border-radius: 0.5em;
     cursor: pointer;
@@ -325,28 +330,28 @@ export const RoomCreationForm: FC = () => {
         return (<p>...Mutation Failed</p>);
     }
 
-    const roomForm = () => { return( 
-        <FormWrapper>
-            <FormHeader>
-                <Row>
-                    <div>
-                        <Title>New room</Title>
-                        <SubTitle>Fill the following fields to start a new room</SubTitle>
-                    </div>
-                    <div >
-                        <CloseButton style={{ float: "right" }} onClick={toggleExpanded} > X </CloseButton>
-                    </div>
-                </Row>
-            </FormHeader>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <input placeholder="Room Name" {...register("name")} />
-                <p>{errors.name?.message}</p>
-                <textarea placeholder="Room Description" {...register("description")} />
-                <p>{errors.description?.message}</p>
-                <input type="Submit" />
-            </form>
-        </FormWrapper>
-    ); };
+    const roomForm = () => {
+        return (
+            <FormWrapper>
+                <FormHeader>
+                    <Row>
+                        <div>
+                            <Title>New room</Title>
+                            <SubTitle>Fill the following fields to start a new room</SubTitle>
+                        </div>
+                        <CloseButton onClick={toggleExpanded} > X </CloseButton>
+                    </Row>
+                </FormHeader>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <input placeholder="Room Name" {...register("name")} />
+                    <p>{errors.name?.message}</p>
+                    <textarea placeholder="Room Description" {...register("description")} />
+                    <p>{errors.description?.message}</p>
+                    <input type="Submit" />
+                </form>
+            </FormWrapper>
+        );
+    };
 
     return (
         <RoomCreationWrapper>
@@ -355,7 +360,7 @@ export const RoomCreationForm: FC = () => {
                 <RoomCreationMenuItem>
                     {data ? (<Row>
                         <p>Room {data.createRoom.id}: {data.createRoom.name} created</p>
-                        <CloseButton style={{ float: "right" }} onClick={toggleExpanded} > X </CloseButton>
+                        <CloseButton onClick={toggleExpanded} > X </CloseButton>
                     </Row>) : (roomForm())}
                 </RoomCreationMenuItem>
             </Modal>)}
