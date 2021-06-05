@@ -223,33 +223,16 @@ const Title = styled.div`
 
 const RoomCreationWrapper = styled.div`
     position: relative;
-`;
-
-
-const RoomCreationPopupWrapper = styled.div`
-    position: absolute;
-    top: 100%;
-    margin-top: 1rem;
-    min-width: 20rem;
-    right: 0;
-    background: ${({ theme }) => theme.palette.primary[800]};
-    border: 1px solid ${({ theme }) => theme.palette.primary[600]};
-    border-radius: ${({ theme }) => theme.borderRadius};
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    overflow: hidden;
+    overflow: auto;
 `;
 
 const CloseButton = styled.span`
     float: right;
     padding: 1rem;
     border-radius: 0.5em;
-    background-color: ${({ theme }) => theme.palette.primary[700]};
+    cursor: pointer;
     &:hover{
         padding: 1rem;
-        background-color: ${({ theme }) => theme.palette.primary[600]};
     }
 `;
 
@@ -268,15 +251,18 @@ const FormWrapper = styled.div`
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden;
     input {
         margin: 1rem;
-        margin-left: 2rem;
-        width: 100%;
+        width: 95%;
     }
     textarea {
         margin: 1rem;
-        margin-left: 2rem;
-        width: 100%;
+        width: 95%;
+    }
+    p {
+        text-align: center;
+        color: ${({ theme }) => theme.palette.accent.default};
     }
 `;
 
@@ -291,7 +277,13 @@ const RoomCreationMenuItem = styled.div`
     justify-content: flex-start;
     align-items: center;
     padding: 1rem 1rem;
-    cursor: pointer;
+`;
+
+const Row = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
 `;
 
 type RoomCreationFormValidationVals = Readonly<{
@@ -333,29 +325,38 @@ export const RoomCreationForm: FC = () => {
         return (<p>...Mutation Failed</p>);
     }
 
-    const roomForm = <FormWrapper>
-        <FormHeader>
-            <Title>New room</Title>
-            <SubTitle>Fill the following fields to start a new room</SubTitle>
-        </FormHeader>
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <input placeholder="Room Name" {...register("name")} />
-            <p>{errors.name?.message}</p>
-            <textarea placeholder="Room Description" {...register("description")} />
-            <p>{errors.description?.message}</p>
-            <input type="Submit" />
-        </form>
-    </FormWrapper>;
+    const roomForm = () => { return( 
+        <FormWrapper>
+            <FormHeader>
+                <Row>
+                    <div>
+                        <Title>New room</Title>
+                        <SubTitle>Fill the following fields to start a new room</SubTitle>
+                    </div>
+                    <div >
+                        <CloseButton style={{ float: "right" }} onClick={toggleExpanded} > X </CloseButton>
+                    </div>
+                </Row>
+            </FormHeader>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <input placeholder="Room Name" {...register("name")} />
+                <p>{errors.name?.message}</p>
+                <textarea placeholder="Room Description" {...register("description")} />
+                <p>{errors.description?.message}</p>
+                <input type="Submit" />
+            </form>
+        </FormWrapper>
+    ); };
 
     return (
         <RoomCreationWrapper>
             <Button variant="ACCENT" onClick={toggleExpanded}>New room</Button>
             {expanded && (<Modal>
-                <CloseButton style={{float:"right"}} onClick={toggleExpanded} > X </CloseButton>
                 <RoomCreationMenuItem>
-                    {data ? (<div>
+                    {data ? (<Row>
                         <p>Room {data.createRoom.id}: {data.createRoom.name} created</p>
-                    </div>) : (roomForm)}
+                        <CloseButton style={{ float: "right" }} onClick={toggleExpanded} > X </CloseButton>
+                    </Row>) : (roomForm())}
                 </RoomCreationMenuItem>
             </Modal>)}
         </RoomCreationWrapper>
