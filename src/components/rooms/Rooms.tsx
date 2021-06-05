@@ -9,6 +9,7 @@ import { CreateNewRoomMutation, CreateNewRoomMutationVariables } from "../../__g
 import { RoomListQuery } from "../../__generated__/RoomListQuery";
 import { RoomListSubscription } from "../../__generated__/RoomListSubscription";
 import { notDraggable } from "../../library/mixin/mixin";
+import Modal from "../../library/portals/Modal";
 import { Button } from "../button/Button";
 import { Card } from "../card/Card";
 import { NoRooms } from "../logo/NoRooms";
@@ -49,8 +50,6 @@ const ProfilePicture = styled.div`
 `;
 
 const MemberCount = styled.div`
-    display: inline;
-    float: right;
     font-weight: 700;
     color: ${({ theme }) => theme.palette.primary[100]};
 `;
@@ -138,6 +137,12 @@ export const RoomListDataContainer: FC = () => {
     );
 };
 
+const Horizontal = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
 type RoomListProperties = Readonly<{
     loading: boolean,
     error: ApolloError,
@@ -168,12 +173,12 @@ export const RoomList: FC<RoomListProperties> = ({ loading, error, data, roomUpd
             {
                 data.rooms.map((room, index) => (
                     <Card padding key={index}>
-                        {room.name}
-                        <MemberCount>
-                            <Dot />{room.members?.length || 0}
-                        </MemberCount>
-
-
+                        <Horizontal>
+                            {room.name}
+                            <MemberCount>
+                                <Dot />{room.members?.length || 0}
+                            </MemberCount>
+                        </Horizontal>
                         <Description>
                             <ProfileContainer>
                                 {
@@ -222,23 +227,52 @@ const Title = styled.div`
 
 const RoomCreationWrapper = styled.div`
     position: relative;
+    overflow: auto;
 `;
 
+const CloseButton = styled.span`
+    padding: 1rem;
+    border-radius: 0.5em;
+    cursor: pointer;
+    &:hover{
+        padding: 1rem;
+    }
+`;
 
-const RoomCreationPopupWrapper = styled.div`
-    position: absolute;
-    top: 100%;
-    margin-top: 1rem;
-    min-width: 20rem;
-    right: 0;
-    background: ${({ theme }) => theme.palette.primary[800]};
-    border: 1px solid ${({ theme }) => theme.palette.primary[600]};
-    border-radius: ${({ theme }) => theme.borderRadius};
+const SubTitle = styled.div`
+    display: block;
+    font-size: 1.2rem;
+    line-height: 3.1rem;
+    font-weight: 700;
+    padding-top: 0.8rem;
+    padding: 0 0 0 2rem;
+    color: ${({ theme }) => theme.palette.primary[300]};
+`;
+
+const FormWrapper = styled.div`
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
+    justify-content: space-between;
     overflow: hidden;
+    input {
+        margin: 1rem;
+        width: 95%;
+    }
+    textarea {
+        margin: 1rem;
+        width: 95%;
+    }
+    p {
+        text-align: center;
+        color: ${({ theme }) => theme.palette.accent.default};
+    }
+`;
+
+const FormHeader = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 `;
 
 const RoomCreationMenuItem = styled.div`
@@ -246,15 +280,14 @@ const RoomCreationMenuItem = styled.div`
     justify-content: flex-start;
     align-items: center;
     padding: 1rem 1rem;
-    cursor: pointer;
-    &:hover {
-        background: ${({ theme }) => theme.palette.primary[700]};
-    }
 `;
 
-
-
-
+const Row = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+`;
 
 type RoomCreationFormValidationVals = Readonly<{
     name: string;
@@ -289,29 +322,46 @@ export const RoomCreationForm: FC = () => {
         createNewRoom({ variables: { name: data.name, description: data.description } });
     });
 
-
     if (loading) {
         return (<p>...Loading</p>);
     } else if (error) {
         return (<p>...Mutation Failed</p>);
     }
 
+    const RoomForm = ()=> {
+        return (
+            <FormWrapper>
+                <FormHeader>
+                    <Row>
+                        <div>
+                            <Title>New room</Title>
+                            <SubTitle>Fill the following fields to start a new room</SubTitle>
+                        </div>
+                        <CloseButton onClick={toggleExpanded} > X </CloseButton>
+                    </Row>
+                </FormHeader>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <input placeholder="Room Name" {...register("name")} />
+                    <p>{errors.name?.message}</p>
+                    <textarea placeholder="Room Description" {...register("description")} />
+                    <p>{errors.description?.message}</p>
+                    <input type="Submit" />
+                </form>
+            </FormWrapper>
+        );
+    };
+
     return (
         <RoomCreationWrapper>
             <Button variant="ACCENT" onClick={toggleExpanded}>New room</Button>
-            {expanded && (<RoomCreationPopupWrapper>
+            {expanded && (<Modal>
                 <RoomCreationMenuItem>
-                    {data ? (<div>
+                    {data ? (<Row>
                         <p>Room {data.createRoom.id}: {data.createRoom.name} created</p>
-                    </div>) : (<form onSubmit={handleSubmit(onSubmit)}>
-                        <input placeholder="Room Name" {...register("name")} />
-                        <p>{errors.name?.message}</p>
-                        <input placeholder="Room Description" {...register("description")} />
-                        <p>{errors.description?.message}</p>
-                        <input type="Submit" />
-                    </form>)}
+                        <CloseButton onClick={toggleExpanded} > X </CloseButton>
+                    </Row>) : (<RoomForm/>)}
                 </RoomCreationMenuItem>
-            </RoomCreationPopupWrapper>)}
+            </Modal>)}
         </RoomCreationWrapper>
     );
 };
