@@ -2,23 +2,26 @@ import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import parseURL from "url-parse";
 
+import { AuthResourceReducerAction } from "../../store/authResourceReducer";
+import store from "../../store/store";
+
 type AuthFunction = (page: React.ReactNode) => React.ReactNode;
 
-export const useAuth: AuthFunction = (Page: FC) => (() => {
+export const withAuth: AuthFunction = (Page: FC) => (() => {
 
     const [loggedIn, setLoggedIn] = useState(0);
     const router = useRouter();
 
+    const state: { authResourceReducer: { token: string } } = store.getState();
+    const authenticationToken = state.authResourceReducer.token;
+
     useEffect(() => {
         if (process.browser) {
             const query = parseURL(location.href, true).query;
-
-            let token = localStorage.getItem("@dh/token") || "";
-
+            let token = authenticationToken;
             if (query["token"]) {
-                localStorage.setItem("@dh/token", query["token"]);
+                store.dispatch({ type: AuthResourceReducerAction.AUTH_RESOURCE_WRITE, payload: query["token"] });
                 token = query["token"];
-                console.log("Updated token");
                 location.replace(location.href.split("?")[0]);
                 return;
             }
@@ -30,7 +33,7 @@ export const useAuth: AuthFunction = (Page: FC) => (() => {
 
             setLoggedIn(1);
         }
-    });
+    }, [authenticationToken, router]);
 
     if (loggedIn == 0) {
         return <></>;

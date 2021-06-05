@@ -11,7 +11,7 @@ import { ScheduleDataContainer } from "../components/schedule/Schedule";
 import { Search } from "../components/search/Search";
 import { ProfileIconDataContainer } from "../components/user/ProfileIcon";
 import { ProfileWidgetDataContainer } from "../components/user/ProfileWidget";
-import { useAuth } from "../library/auth/useAuth";
+import { withAuth } from "../library/auth/withAuth";
 
 const Column = styled.div`
     margin-top: 30px;
@@ -90,4 +90,4 @@ function Dashboard() {
     );
 }
 
-export default useAuth(Dashboard);
+export default withAuth(Dashboard);

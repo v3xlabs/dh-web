@@ -19,13 +19,13 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const ModalBody = styled.div`
-   background-color: #413b3b;
+    background-color: ${({ theme }) => theme.palette.primary[800]};
     position: absolute;
-    top: 10%;
-                right: 10%;
-                bottom: 10%;
-                left: 10%;
-                padding: 1em;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1em;
+    border-radius:  1% 1%;
 `;
 
 type ModalProperties = Readonly<{

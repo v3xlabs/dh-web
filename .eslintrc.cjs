@@ -21,6 +21,7 @@ module.exports = {
     },
     "plugins": [
         "react",
+        "react-hooks",
         "@typescript-eslint",
         "unicorn",
         "simple-import-sort",
@@ -28,6 +29,7 @@ module.exports = {
     ],
     "ignorePatterns": [".eslintrc.cjs", "**/src/pages/_document.js", "**/__generated__"],
     "rules": {
+        "no-console": ["error", { allow: ["warn", "error"] }],
         "indent": [
             "error",
             4
@@ -44,6 +46,9 @@ module.exports = {
             "error",
             "always"
         ],
+        "react/no-array-index-key": "warn",
+        "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+        "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
         "react/react-in-jsx-scope": "off",
         "unicorn/filename-case": [
             "error", {

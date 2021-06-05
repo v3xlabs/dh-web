@@ -7,6 +7,8 @@ const Flex = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    *::-moz-selection {background: ${({ theme }) => theme.palette.primary[500]};; color: white;}
+    *::selection {background: ${({ theme }) => theme.palette.primary[500]};; color: white;}
 `;
 
 const Wrapper = styled.div`

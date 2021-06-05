@@ -11,7 +11,7 @@ import { ScheduleDataContainer } from "../components/schedule/Schedule";
 import { Search } from "../components/search/Search";
 import { ProfileIcon } from "../components/user/ProfileIcon";
 import { ProfileWidgetDataContainer } from "../components/user/ProfileWidget";
-import { useAuth } from "../library/auth/useAuth";
+import { withAuth } from "../library/auth/withAuth";
 
 const Column = styled.div`
     margin-top: 30px;
@@ -67,7 +67,7 @@ const Profile: FC = () => {
                 <Column>
                     <SearchWrapper>
                         <Search />
-                        {!two && <ProfileIcon />}
+                        {/* {!two && <ProfileIcon />} */}
                     </SearchWrapper>
                     <div>
                         <ProfileWidgetDataContainer />
@@ -77,7 +77,7 @@ const Profile: FC = () => {
                     two &&
                     <Column>
                         <ProfileWrapper>
-                            <ProfileIcon />
+                            {/* <ProfileIcon /> */}
                         </ProfileWrapper>
                         <div>
                             <ProfileWidgetDataContainer />
@@ -90,4 +90,4 @@ const Profile: FC = () => {
     );
 };
 
-export default useAuth(Profile);
+export default withAuth(Profile);

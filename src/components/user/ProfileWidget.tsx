@@ -4,7 +4,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 import { ProfileWidgetQuery } from "../../__generated__/ProfileWidgetQuery";
-import { notDraggable } from "../../library/mixin/mixin";
+import { notDraggable, skeletonLoaderAttributes, skeletonLoaderBase } from "../../library/mixin/mixin";
 import { Card } from "../card/Card";
 
 /* Top */
@@ -25,6 +25,13 @@ const ProfilePicture = styled.div`
     }
 `;
 
+const ProfilePictureSkeletonLoader = styled.div.attrs(skeletonLoaderAttributes)`
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    ${skeletonLoaderBase}
+`;
+
 const ProfileNames = styled.div`
     margin: 1rem 0 0 1.5rem;
 `;
@@ -33,6 +40,21 @@ const ProfileUsername = styled.div`
     color: ${({ theme }) => theme.palette.primary[300]};
     font-weight: 10;
 `;
+
+
+const ProfileNamesSkeletonLoader = styled.div.attrs(skeletonLoaderAttributes)`
+    margin: 1rem 0 0 1.5rem;
+    width: 8rem;
+    height: 2rem;
+    border-radius: ${({ theme }) => theme.borderRadius};
+    ${skeletonLoaderBase}
+`;
+
+const ProfileNamesSkeletonFlexBox = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
 /* End Top */
 
 /* Bottom */
@@ -61,10 +83,31 @@ const ProfileStatsType = styled.div`
     font-weight: 10;
 `;
 
+const ProfileStatsSkeletonLoader = styled.div.attrs(skeletonLoaderAttributes)`
+    border-radius: ${({ theme }) => theme.borderRadius};
+    width: 9.31rem;
+    height: 3rem;
+    line-height: 3rem;
+    ${skeletonLoaderBase}
+`;
+
+const ProfileStatsSkeletonFlexBox = styled.div`
+    margin: 1.6rem 0rem 0 0rem;
+    display: flex;
+    gap: 10px;
+`;
+
 const ProfileBio = styled.div`
-    margin-top: 1.5rem;
     color: ${({ theme }) => theme.palette.primary[300]};
     font-weight: 10;
+`;
+
+const ProfileBioSkeletonLoader = styled.div.attrs(skeletonLoaderAttributes)`
+    width: 60%;
+    height: 1.6rem;
+    margin-top: 1.5rem;
+    border-radius: ${({ theme }) => theme.borderRadius};
+    ${skeletonLoaderBase}
 `;
 /* End Bottom */
 
@@ -105,9 +148,18 @@ export const ProfileWidget: FC<ProfileWidgetProperties> = ({ data, loading, erro
     if (loading || error) {
         return (
             <Card padding>
-                <ProfilePicture></ProfilePicture>
-                <TextPlaceholder />
-                <Link href="/profile">Profile</Link>
+                <ProfileContainer>
+                    <ProfilePictureSkeletonLoader />
+                    <ProfileNamesSkeletonFlexBox>
+                        <ProfileNamesSkeletonLoader />
+                        <ProfileNamesSkeletonLoader />
+                    </ProfileNamesSkeletonFlexBox>
+                </ProfileContainer>
+                <ProfileStatsSkeletonFlexBox>
+                    <ProfileStatsSkeletonLoader />
+                    <ProfileStatsSkeletonLoader />
+                </ProfileStatsSkeletonFlexBox>
+                <ProfileBioSkeletonLoader />
             </Card>
         );
     }

@@ -26,23 +26,21 @@ const SubTitle = styled.div`
 `;
 
 const ProfilePicture = styled.div`
-    margin-top: 15px;
-    margin-bottom: 15px;
     background: ${({ theme }) => theme.palette.primary[700]};
     border-radius: 50%;
     overflow: hidden;
-    width: 5rem;
-    height: 5rem;
+    width: 4rem;
+    height: 4rem;
     img {
-        width: 5rem;
-        height: 5rem;
+        width: 4rem;
+        height: 4rem;
         ${notDraggable}
     }
 `;
 
 const UserName = styled.div`
     font-weight: 700;
-    padding: 2rem;
+    padding-left: 2rem;
     display: inline;
     text-overflow: ellipsis;
 `;
@@ -51,6 +49,7 @@ const Line = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    position: relative;
 `;
 
 const UserRoom = styled.div`
@@ -64,13 +63,21 @@ const UserRoom = styled.div`
 `;
 
 const Dot = styled.div`
-    height: 8px;
-    width: 8px;
-    margin-left: -2rem;
-    margin-bottom: -3rem;
+    height: 12px;
+    width: 12px;
     background-color: ${({ theme }) => theme.palette.accent.default};
     border-radius: 50%;
     display: inline-block;
+    position: absolute;
+    left: 29px;
+    bottom: -2px;
+    border: 2px solid ${({ theme }) => theme.palette.primary[900]};
+`;
+
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap:30px;
 `;
 
 const FRIENDS_QUERY = gql`
@@ -101,7 +108,7 @@ export const FriendsList: FC = () => {
 
     if (loading || error) {
         return (
-            <div>
+            <Wrapper>
                 {
                     three &&
                     <Title>
@@ -111,12 +118,12 @@ export const FriendsList: FC = () => {
                         </SubTitle>
                     </Title>
                 }
-            </div>
+            </Wrapper>
         );
     }
 
     return (
-        <div>
+        <Wrapper>
             {
                 three &&
                 <Title>
@@ -146,6 +153,6 @@ export const FriendsList: FC = () => {
                     </Line>
                 ))
             }
-        </div>
+        </Wrapper>
     );
 };
