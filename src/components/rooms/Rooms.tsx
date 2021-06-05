@@ -179,8 +179,6 @@ export const RoomList: FC<RoomListProperties> = ({ loading, error, data, roomUpd
                                 <Dot />{room.members?.length || 0}
                             </MemberCount>
                         </Horizontal>
-
-
                         <Description>
                             <ProfileContainer>
                                 {
@@ -330,7 +328,7 @@ export const RoomCreationForm: FC = () => {
         return (<p>...Mutation Failed</p>);
     }
 
-    const roomForm = () => {
+    const RoomForm = ()=> {
         return (
             <FormWrapper>
                 <FormHeader>
@@ -361,7 +359,7 @@ export const RoomCreationForm: FC = () => {
                     {data ? (<Row>
                         <p>Room {data.createRoom.id}: {data.createRoom.name} created</p>
                         <CloseButton onClick={toggleExpanded} > X </CloseButton>
-                    </Row>) : (roomForm())}
+                    </Row>) : (<RoomForm/>)}
                 </RoomCreationMenuItem>
             </Modal>)}
         </RoomCreationWrapper>
