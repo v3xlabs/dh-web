@@ -3,7 +3,7 @@ import "nprogress/nprogress.css";
 import { AppProps } from "next/dist/next-server/lib/router/router";
 import Router from "next/router";
 import NProgress from "nprogress";
-import { FC } from "react";
+import React, { FC } from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
@@ -19,13 +19,15 @@ Router.events.on("routeChangeError", () => NProgress.done());
 const App: FC<AppProps> = ({ Component, pageProps }: AppProps) => {
 
     return (
-        <Provider store={store}>
-            <PersistGate loading={undefined} persistor={persistor}>
-                <Shell>
-                    <Component {...pageProps} />
-                </Shell>
-            </PersistGate>
-        </Provider>
+        <React.StrictMode>
+            <Provider store={store}>
+                <PersistGate loading={undefined} persistor={persistor}>
+                    <Shell>
+                        <Component {...pageProps} />
+                    </Shell>
+                </PersistGate>
+            </Provider>
+        </React.StrictMode>
     );
 };
 
