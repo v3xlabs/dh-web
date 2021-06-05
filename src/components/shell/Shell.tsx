@@ -50,7 +50,7 @@ const GlobalStyle = createGlobalStyle`
         box-shadow: rgb(0 0 0 / 10%) -3px 4px 14px;
         z-index: -1;
         border-color: ${({ theme }) => theme.palette.primary[700]};
-        background: ${({ theme }) => theme.palette.primary[800]};
+        background: ${({ theme }) => theme.palette.primary[700]};
         border-radius: ${({ theme }) => theme.borderRadius};
         flex: 1;
     }
