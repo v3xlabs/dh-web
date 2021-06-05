@@ -5,7 +5,7 @@ import ClientOnlyPortal from "./ClientOnlyPortal";
 
 const Backdrop = styled.div`
   position: fixed;
-  background-color: rgba(27, 23, 23, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   top: 0;
   right: 0;
   bottom: 0;
