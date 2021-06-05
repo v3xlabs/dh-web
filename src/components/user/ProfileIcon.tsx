@@ -3,6 +3,7 @@ import React, { FC, useState } from "react";
 import styled from "styled-components";
 
 import { ProfileIconQuery } from "../../__generated__/ProfileIconQuery";
+import { skeletonLoaderAttributes, skeletonLoaderBase } from "../../library/mixin/mixin";
 import { ProfilePopup } from "./ProfilePopup";
 
 const Wrapper = styled.div`
@@ -17,6 +18,12 @@ const Icon = styled.img`
     cursor: pointer;
 `;
 
+const IconSkeletonLoader = styled.div.attrs(skeletonLoaderAttributes)`
+ width: 4rem;
+ height: 4rem;
+ border-radius: 50%;
+ ${skeletonLoaderBase}
+`;
 
 const PROFILE_ICON_QUERY = gql`
     query ProfileIconQuery {
@@ -49,7 +56,7 @@ export const ProfileIcon: FC<ProfileIconProperties> = ({ loading, error, data }:
     if (loading || error) {
         return (
             <Wrapper>
-                <Icon />
+                <IconSkeletonLoader />
             </Wrapper>
         );
     }
