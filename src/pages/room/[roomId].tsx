@@ -11,7 +11,7 @@ import { Logo } from "../../components/logo/Logo";
 import { Search } from "../../components/search/Search";
 import { ProfileIconDataContainer } from "../../components/user/ProfileIcon";
 import { withAuth } from "../../library/auth/withAuth";
-import useMediaQuery from "../library/hooks/useMediaQuery";
+import useMediaQuery from "../../library/hooks/useMediaQuery";
 
 const SearchWrapper = styled.div`
     width: 100%;
