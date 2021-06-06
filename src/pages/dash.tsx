@@ -1,4 +1,4 @@
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import useMediaQuery from "../library/hooks/useMediaQuery";
 import { NextSeo } from "next-seo";
 import React from "react";
 import styled, { useTheme } from "styled-components";

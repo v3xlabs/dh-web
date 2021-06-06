@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import useMediaQuery from "../../library/hooks/useMediaQuery";
 import gql from "graphql-tag";
 import React, { FC } from "react";
 import styled, { useTheme } from "styled-components";
