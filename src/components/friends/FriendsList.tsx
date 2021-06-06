@@ -137,7 +137,7 @@ export const FriendsList: FC = () => {
                 data.me.following.map(({following: user}, index) => (
                     <Line key={index}>
                         <ProfilePicture>
-                            <img src={user.avatar} />
+                            <img src={user.avatar} alt="User Avatar" />
                         </ProfilePicture>
                         { user && <Dot />}
                         { three &&
