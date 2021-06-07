@@ -2,9 +2,9 @@ import { NextSeo } from "next-seo";
 import { FC } from "react";
 import styled, { useTheme } from "styled-components";
 
+import { ChatBoard } from "../../components/chats/chat";
 import { FriendsList } from "../../components/friends/FriendsList";
 import { Grid } from "../../components/grid/Grid";
-import { Input } from "../../components/inputs/input";
 import { Logo } from "../../components/logo/Logo";
 import { MainRoomComponent } from "../../components/rooms/MainRoomComponent";
 import { Search } from "../../components/search/Search";
@@ -31,46 +31,6 @@ const Column = styled.div`
     row-gap: 60px;
 `;
 
-const ChatCard = styled.div`
-    background-color: ${({ theme }) => theme.palette.primary[800]};
-    border-radius: 1rem;
-    display: flex;
-    flex-direction: column;
-`;
-
-const ChatWarper = styled.div`
-    text-overflow: ellipsis;
-    font-size: 1.2rem;
-    font-weight: 600;
-    bottom: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-`;
-
-const ChatContainer = styled.div`
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 2rem;
-    overflow-y: auto;
-`;
-
-const MessageSender = styled.span`
-    color: red;
-    ::after {
-        content: ":";
-        color: ${({ theme }) => theme.palette.primary[100]};
-    }
-`;
-
-const MessageContainer = styled.div`
-    display: flex;
-    gap: 10px;
-`;
-
 const Room: FC = () => {
 
     // const router = useRouter();
@@ -87,7 +47,7 @@ const Room: FC = () => {
         <>
             <NextSeo
                 defaultTitle="Dogehouse Revived"
-                title={`${roomName} | Dogehouse Revived` }
+                title={`${roomName} | Dogehouse Revived`}
                 description="Taking voice conversations to the moon 🚀"
                 additionalLinkTags={[
                     {
@@ -111,10 +71,10 @@ const Room: FC = () => {
                 }
                 <Column>
                     <SearchWrapper>
-                        <Search/>
+                        <Search />
                         {!two && <ProfileIconDataContainer />}
                     </SearchWrapper>
-                    <MainRoomComponent/>
+                    <MainRoomComponent />
                 </Column>
                 {
                     two &&
@@ -122,21 +82,7 @@ const Room: FC = () => {
                         <ProfileWrapper>
                             <ProfileIconDataContainer />
                         </ProfileWrapper>
-                        <ChatCard>
-                            <ChatContainer>
-                                {/* { arr.each((msg)=>{ */}
-                                <MessageContainer>
-                                    <MessageSender>
-                                        {"4nkitd"}
-                                    </MessageSender>
-                                    {"msd"}
-                                </MessageContainer>
-                                {/* }) */}
-                            </ChatContainer>
-                            <ChatWarper>
-                                <Input placeholder="Room Name" />
-                            </ChatWarper>
-                        </ChatCard>
+                        <ChatBoard />
                     </Column>
                 }
             </Grid>
