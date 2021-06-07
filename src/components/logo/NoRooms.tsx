@@ -7,13 +7,13 @@ const Wrapper = styled.div<{ small: boolean }>`
     align-items: center;
     flex: 1 100%;
     padding: 10rem;
-    cursor: pointer;
 `;
 
 const Icon = styled.div`
     border-radius: ${({ theme }) => theme.borderRadius};
     height: auto;
     flex: 1 100%;
+    pointer-events: none;
 `;
 
 const Text = styled.div`
