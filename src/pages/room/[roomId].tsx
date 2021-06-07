@@ -1,4 +1,3 @@
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { NextSeo } from "next-seo";
 import { FC } from "react";
 import styled, { useTheme } from "styled-components";
@@ -11,6 +10,7 @@ import { MainRoomComponent } from "../../components/rooms/MainRoomComponent";
 import { Search } from "../../components/search/Search";
 import { ProfileIconDataContainer } from "../../components/user/ProfileIcon";
 import { withAuth } from "../../library/auth/withAuth";
+import useMediaQuery from "../../library/hooks/useMediaQuery";
 
 const SearchWrapper = styled.div`
     width: 100%;

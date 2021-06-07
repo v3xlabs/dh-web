@@ -1,4 +1,3 @@
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { NextSeo } from "next-seo";
 import React from "react";
 import styled, { useTheme } from "styled-components";
@@ -12,6 +11,7 @@ import { Search } from "../components/search/Search";
 import { ProfileIconDataContainer } from "../components/user/ProfileIcon";
 import { ProfileWidgetDataContainer } from "../components/user/ProfileWidget";
 import { withAuth } from "../library/auth/withAuth";
+import useMediaQuery from "../library/hooks/useMediaQuery";
 
 const Column = styled.div`
     margin-top: 30px;
