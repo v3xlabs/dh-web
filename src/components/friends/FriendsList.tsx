@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import gql from "graphql-tag";
 import React, { FC } from "react";
 import styled, { useTheme } from "styled-components";
 
 import { FriendsQuery } from "../../__generated__/FriendsQuery";
+import useMediaQuery from "../../library/hooks/useMediaQuery";
 import { notDraggable } from "../../library/mixin/mixin";
 
 const Title = styled.div`
