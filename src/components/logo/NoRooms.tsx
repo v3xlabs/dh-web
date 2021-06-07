@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
+import { notDraggable } from "../../library/mixin/mixin";
+
 const Wrapper = styled.div<{ small: boolean }>`
     display: flex;
     justify-content: ${({ small }) => small ? "center" : "flex-start"};
@@ -14,6 +16,7 @@ const Icon = styled.div`
     height: auto;
     flex: 1 100%;
     pointer-events: none;
+    ${notDraggable}
 `;
 
 const Text = styled.div`
