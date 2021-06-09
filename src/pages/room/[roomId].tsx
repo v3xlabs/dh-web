@@ -34,9 +34,6 @@ const Column = styled.div`
 
 const Room: FC = () => {
 
-    const router = useRouter();
-    // const { roomId } = router.query;
-
     const theme = useTheme();
     const one = useMediaQuery(`(min-width:${theme.breakpoints.one + 1}px)`);
     const two = useMediaQuery(`(min-width:${theme.breakpoints.two + 1}px)`);

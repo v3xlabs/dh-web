@@ -153,10 +153,10 @@ export const MainRoomComponent: FC<{ room_id: string }> = ({ room_id }: { room_i
         <RoomCard>
             <RoomHeader>
                 <Title>{data.room.name}</Title>
-                <SubTitle>
+                {/*<SubTitle> // TODO: Impelement as soon as API Endpoints are available
                     with
                     <span>{"owner"}</span>
-                </SubTitle>
+                </SubTitle> */}
                 <Description>{data.room.description}</Description>
             </RoomHeader>
             <RoomMembers>
