@@ -1,5 +1,5 @@
-import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
+import { NextSeo } from "next-seo";
 import { FC } from "react";
 import styled, { useTheme } from "styled-components";
 
@@ -35,7 +35,6 @@ const Column = styled.div`
 const Room: FC = () => {
 
     const router = useRouter();
-    console.log({r: router.query});
     // const { roomId } = router.query;
 
     const theme = useTheme();

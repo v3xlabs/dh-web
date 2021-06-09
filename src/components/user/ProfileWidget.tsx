@@ -1,13 +1,13 @@
 import { ApolloError, ApolloQueryResult, gql, useMutation, useQuery } from "@apollo/client";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { FC } from "react";
 import styled from "styled-components";
 
 import { ProfileWidgetQuery } from "../../__generated__/ProfileWidgetQuery";
 import { notDraggable, skeletonLoaderAttributes, skeletonLoaderBase } from "../../library/mixin/mixin";
-import { Card } from "../card/Card";
 import { Button } from "../button/Button";
-import { useRouter } from "next/router";
+import { Card } from "../card/Card";
 
 /* Top */
 const ProfileContainer = styled.div`

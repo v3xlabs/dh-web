@@ -107,11 +107,11 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (networkError) {
         console.error(`[Network error]: ${networkError}`);
         // if (networkError.message.includes("500")) {
-            // console.error("500 Yup");
-            // if (!location.href.includes("/login")) {
-            //     store.dispatch({ type: AuthResourceReducerAction.AUTH_RESOURCE_RESET });
-            //     location.replace("/login?redirect_uri=" + encodeURIComponent(location.href));
-            // }
+        // console.error("500 Yup");
+        // if (!location.href.includes("/login")) {
+        //     store.dispatch({ type: AuthResourceReducerAction.AUTH_RESOURCE_RESET });
+        //     location.replace("/login?redirect_uri=" + encodeURIComponent(location.href));
+        // }
         // }
     }
 });

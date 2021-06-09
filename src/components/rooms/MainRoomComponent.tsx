@@ -111,18 +111,7 @@ export const RoomComponent: FC = () => {
 
     const router = useRouter();
 
-    // const { data, loading, error } = useQuery(USER_ROOM);
-    // const { data: roomData, loading: roomLoading, error: roomError } = useQuery(ROOM_DATA, { variables: { room_id: router.query["roomId"] || "" }, errorPolicy: "all" });
-
-    // console.log(data, roomData);
-
     const [joinRoom, { data, error, loading }] = useMutation(ROOM_JOIN_QUERY, { errorPolicy: "all" });
-
-    // const join = useCallback(async () => {
-    //     const f = await joinRoom({ variables: { room_id: router.query["roomId"] || "" } });
-    //     console.log(f);
-    // }, []);
-    // const router = useRouter();
 
     useEffect(() => {
         if (router.query["roomId"]) {
