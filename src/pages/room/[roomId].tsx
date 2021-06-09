@@ -1,4 +1,5 @@
 import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
 import { FC } from "react";
 import styled, { useTheme } from "styled-components";
 
@@ -6,7 +7,7 @@ import { ChatBoard } from "../../components/chats/chat";
 import { FriendsList } from "../../components/friends/FriendsList";
 import { Grid } from "../../components/grid/Grid";
 import { Logo } from "../../components/logo/Logo";
-import { MainRoomComponent } from "../../components/rooms/MainRoomComponent";
+import { MainRoomComponent, RoomComponent } from "../../components/rooms/MainRoomComponent";
 import { Search } from "../../components/search/Search";
 import { ProfileIconDataContainer } from "../../components/user/ProfileIcon";
 import { withAuth } from "../../library/auth/withAuth";
@@ -33,7 +34,8 @@ const Column = styled.div`
 
 const Room: FC = () => {
 
-    // const router = useRouter();
+    const router = useRouter();
+    console.log({r: router.query});
     // const { roomId } = router.query;
 
     const theme = useTheme();
@@ -74,7 +76,7 @@ const Room: FC = () => {
                         <Search />
                         {!two && <ProfileIconDataContainer />}
                     </SearchWrapper>
-                    <MainRoomComponent />
+                    <RoomComponent />
                 </Column>
                 {
                     two &&

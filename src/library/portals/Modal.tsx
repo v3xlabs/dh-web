@@ -10,6 +10,10 @@ const Backdrop = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -20,10 +24,7 @@ const GlobalStyle = createGlobalStyle`
 
 const ModalBody = styled.div`
     background-color: ${({ theme }) => theme.palette.primary[800]};
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    max-width: calc(100vw - 1rem);
     padding: 1em;
     border-radius:  1% 1%;
 `;

@@ -88,7 +88,9 @@ const FRIENDS_QUERY = gql`
                     avatar
                     username
                     current_room {
-                        name
+                        room {
+                            name
+                        }
                     }
                 }
             }
@@ -134,7 +136,7 @@ export const FriendsList: FC = () => {
                 </Title>
             }
             {
-                data.me.following.map(({following: user}, index) => (
+                data.me.following.map(({ following: user }, index) => (
                     <Line key={index}>
                         <ProfilePicture>
                             <img src={user.avatar} alt="User Avatar" />

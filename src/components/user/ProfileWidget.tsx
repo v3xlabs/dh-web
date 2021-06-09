@@ -1,4 +1,4 @@
-import { ApolloError, gql, useQuery } from "@apollo/client";
+import { ApolloError, ApolloQueryResult, gql, useMutation, useQuery } from "@apollo/client";
 import Link from "next/link";
 import React, { FC } from "react";
 import styled from "styled-components";
@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { ProfileWidgetQuery } from "../../__generated__/ProfileWidgetQuery";
 import { notDraggable, skeletonLoaderAttributes, skeletonLoaderBase } from "../../library/mixin/mixin";
 import { Card } from "../card/Card";
+import { Button } from "../button/Button";
+import { useRouter } from "next/router";
 
 /* Top */
 const ProfileContainer = styled.div`
@@ -111,6 +113,44 @@ const ProfileBioSkeletonLoader = styled.div.attrs(skeletonLoaderAttributes)`
 `;
 /* End Bottom */
 
+const HoriSplit = styled.div`
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    ${Button} {
+        padding: 1rem;
+        height: 3.8rem;
+        width: 3.8rem;
+    }
+`;
+
+const RoomName = styled.div`
+    max-width: 100%;
+    height: 4rem;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    line-height: 2.8rem;
+`;
+
+const MemberList = styled.div`
+    color: ${({theme}) => theme.palette.primary[300]};
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: normal;
+`;
+
+const ListenTime = styled.div`
+    font-weight: normal;
+    color: ${({theme}) => theme.palette.accent.default};
+`;
+
+const Flex = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+`;
+
 const TextPlaceholder = styled.div<{ w?: string }>`
     height: 1em;
     width: ${({ w }) => w ? w : "10em"};
@@ -125,26 +165,49 @@ const PROFILE_WIDGET_QUERY = gql`
             username
             follower_count
             following_count
+            current_room {
+                room {
+                    id
+                    name
+                    description
+                    members {
+                        user {
+                            id
+                            username
+                        }
+                    }
+                }
+            }
         }
     }
 `;
 
 export const ProfileWidgetDataContainer: FC = () => {
-    const { loading, data, error } = useQuery<ProfileWidgetQuery>(
+    const { loading, data, error, refetch } = useQuery<ProfileWidgetQuery>(
         PROFILE_WIDGET_QUERY,
         { fetchPolicy: "network-only" }
     );
 
-    return <ProfileWidget data={data} loading={loading} error={error}></ProfileWidget>;
+    return <ProfileWidget data={data} loading={loading} error={error} refetch={refetch}></ProfileWidget>;
 };
+
+const LEAVE_ROOM = gql`
+    mutation LeaveRoom2 {
+        leaveRoom
+    }
+`;
 
 type ProfileWidgetProperties = Readonly<{
     data: ProfileWidgetQuery;
     loading: boolean;
     error: ApolloError;
+    refetch: () => Promise<ApolloQueryResult<unknown>>;
 }>
 
-export const ProfileWidget: FC<ProfileWidgetProperties> = ({ data, loading, error }: ProfileWidgetProperties) => {
+export const ProfileWidget: FC<ProfileWidgetProperties> = ({ data, loading, error, refetch }: ProfileWidgetProperties) => {
+    const router = useRouter();
+    const [leaveRoom] = useMutation(LEAVE_ROOM);
+
     if (loading || error) {
         return (
             <Card padding>
@@ -164,7 +227,33 @@ export const ProfileWidget: FC<ProfileWidgetProperties> = ({ data, loading, erro
         );
     }
 
-    const { avatar, username, follower_count, following_count, bio } = data.me;
+    const { avatar, username, follower_count, following_count, bio, current_room } = data.me;
+
+    if (current_room) {
+        return (
+            <Card padding red>
+                <RoomName>{current_room.room.name}</RoomName>
+                <ListenTime>Listener - 00:00:00</ListenTime>
+                <MemberList>{current_room.room.members.map(member => member.user.username).join(", ")}</MemberList>
+                <Flex>
+                    <HoriSplit>
+                        <Button variant="PRIMARY">
+
+                        </Button>
+                        <Button variant="PRIMARY" onClick={() => router.push("/room/" + current_room.room.id)}>
+
+                        </Button>
+                    </HoriSplit>
+                    <Button variant="PRIMARY" onClick={async () => {
+                        await leaveRoom();
+                        await refetch();
+                    }}>
+                        Leave
+                    </Button>
+                </Flex>
+            </Card>
+        );
+    }
 
     return (
         <Card padding>

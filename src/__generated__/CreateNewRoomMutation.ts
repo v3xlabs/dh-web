@@ -9,7 +9,7 @@
 
 export interface CreateNewRoomMutation_createRoom {
   __typename: "Room";
-  id: number;
+  id: string;
   name: string;
 }
 

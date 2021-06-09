@@ -106,13 +106,13 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     }
     if (networkError) {
         console.error(`[Network error]: ${networkError}`);
-        if (networkError.message.includes("500")) {
-            console.error("500 Yup");
-            if (!location.href.includes("/login")) {
-                store.dispatch({ type: AuthResourceReducerAction.AUTH_RESOURCE_RESET });
-                location.replace("/login?redirect_uri=" + encodeURIComponent(location.href));
-            }
-        }
+        // if (networkError.message.includes("500")) {
+            // console.error("500 Yup");
+            // if (!location.href.includes("/login")) {
+            //     store.dispatch({ type: AuthResourceReducerAction.AUTH_RESOURCE_RESET });
+            //     location.replace("/login?redirect_uri=" + encodeURIComponent(location.href));
+            // }
+        // }
     }
 });
 
@@ -166,13 +166,7 @@ export const Shell: FC<ShellProperties> = ({ children }: ShellProperties) => {
 
     const client = new ApolloClient({
         link: from([errorLink, splitLink]),
-        cache: new InMemoryCache({
-            typePolicies: {
-                Room: {
-                    keyFields: ["name"]
-                }
-            }
-        }),
+        cache: new InMemoryCache(),
     });
 
     return (
