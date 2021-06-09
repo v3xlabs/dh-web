@@ -313,8 +313,8 @@ type RoomCreationFormValidationVals = Readonly<{
 }>;
 
 const roomCreationFormValidationSchema = yup.object().shape({
-    name: yup.string().required(),
-    description: yup.string().optional(),
+    name: yup.string().min(3).max(60).required(),
+    description: yup.string().max(500).optional(),
 });
 
 const CREATE_NEW_ROOM_MUTATION = gql`
