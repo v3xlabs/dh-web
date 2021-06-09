@@ -166,13 +166,7 @@ export const Shell: FC<ShellProperties> = ({ children }: ShellProperties) => {
 
     const client = new ApolloClient({
         link: from([errorLink, splitLink]),
-        cache: new InMemoryCache({
-            typePolicies: {
-                Room: {
-                    keyFields: ["name"]
-                }
-            }
-        }),
+        cache: new InMemoryCache(),
     });
 
     return (

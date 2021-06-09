@@ -9,6 +9,7 @@
 
 export interface RoomListSubscription_roomChange_room_members_user {
   __typename: "User";
+  id: number;
   avatar: string;
   username: string;
 }
@@ -20,7 +21,7 @@ export interface RoomListSubscription_roomChange_room_members {
 
 export interface RoomListSubscription_roomChange_room {
   __typename: "Room";
-  id: number;
+  id: string;
   name: string;
   members: RoomListSubscription_roomChange_room_members[];
 }
@@ -28,7 +29,8 @@ export interface RoomListSubscription_roomChange_room {
 export interface RoomListSubscription_roomChange {
   __typename: "RoomChangePayload";
   event: string;
-  room: RoomListSubscription_roomChange_room;
+  room_id: string | null;
+  room: RoomListSubscription_roomChange_room | null;
 }
 
 export interface RoomListSubscription {

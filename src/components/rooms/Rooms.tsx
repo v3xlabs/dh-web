@@ -1,5 +1,6 @@
 import { ApolloError, gql, useMutation, useQuery } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
@@ -11,13 +12,17 @@ import { RoomListSubscription } from "../../__generated__/RoomListSubscription";
 import { notDraggable } from "../../library/mixin/mixin";
 import Modal from "../../library/portals/Modal";
 import { Button } from "../button/Button";
-import { Card } from "../card/Card";
+import { Card as CardOriginal } from "../card/Card";
 import { NoRooms } from "../logo/NoRooms";
 
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
+`;
+
+const Card = styled(CardOriginal)`
+    cursor: pointer;
 `;
 
 const Description = styled.div`
@@ -77,6 +82,7 @@ const ROOM_LIST_QUERY = gql`
             name
             members {
                 user {
+                    id
                     avatar
                     username
                 }
@@ -89,12 +95,14 @@ const ROOM_LIST_SUBSCRIPTION = gql`
     subscription RoomListSubscription {
         roomChange {
             event
+            room_id
             room {
                 id
                 name
                 members {
                     user {
-                        avatar 
+                        id
+                        avatar
                         username
                     }
                 }
@@ -131,6 +139,12 @@ export const RoomListDataContainer: FC = () => {
                         };
                     }
 
+                    if (subscriptionData.data.roomChange.event === "UPDATE") {
+                        return {
+                            ...previous,
+                            rooms: previous.rooms.map(room => room.id === subscriptionData.data.roomChange.room.id ? subscriptionData.data.roomChange.room : room)
+                        };
+                    }
                     return previous;
                 }
             })} />
@@ -152,6 +166,8 @@ type RoomListProperties = Readonly<{
 
 export const RoomList: FC<RoomListProperties> = ({ loading, error, data, roomUpdates }: RoomListProperties) => {
 
+    const router = useRouter();
+
     useEffect(() => {
         roomUpdates();
     }, [0]);
@@ -171,8 +187,10 @@ export const RoomList: FC<RoomListProperties> = ({ loading, error, data, roomUpd
     return (
         <Wrapper>
             {
-                data.rooms.map((room, index) => (
-                    <Card padding key={index}>
+                data.rooms.filter(room => room.members.length).map((room) => (
+                    <Card padding key={room.id} onClick={() => {
+                        router.push("/room/" + room.id);
+                    }}>
                         <Horizontal>
                             {room.name}
                             <MemberCount>
@@ -182,8 +200,8 @@ export const RoomList: FC<RoomListProperties> = ({ loading, error, data, roomUpd
                         <Description>
                             <ProfileContainer>
                                 {
-                                    room.members.map((member, index) => (
-                                        <ProfilePicture key={index}>
+                                    room.members.map((member) => (
+                                        <ProfilePicture key={member.user.id}>
                                             <img srcSet={member.user.avatar} src={member.user.avatar} alt="Avatar" />
                                         </ProfilePicture>
                                     ))
@@ -311,6 +329,7 @@ const CREATE_NEW_ROOM_MUTATION = gql`
 export const RoomCreationForm: FC = () => {
     const [expanded, setExpanded] = useState(false);
     const toggleExpanded = () => setExpanded(!expanded);
+    const router = useRouter();
 
     const { register, handleSubmit, formState: { errors } } = useForm<RoomCreationFormValidationVals>({
         resolver: yupResolver(roomCreationFormValidationSchema)
@@ -318,8 +337,10 @@ export const RoomCreationForm: FC = () => {
 
     const [createNewRoom, { data, loading, error }] = useMutation<CreateNewRoomMutation, CreateNewRoomMutationVariables>(CREATE_NEW_ROOM_MUTATION);
 
-    const onSubmit = handleSubmit((data) => {
-        createNewRoom({ variables: { name: data.name, description: data.description } });
+    const onSubmit = handleSubmit(async (data) => {
+        setExpanded(false);
+        const f = await createNewRoom({ variables: { name: data.name, description: data.description } });
+        router.push("/room/" + f.data.createRoom.id);
     });
 
     if (loading) {
@@ -328,7 +349,7 @@ export const RoomCreationForm: FC = () => {
         return (<p>...Mutation Failed</p>);
     }
 
-    const RoomForm = ()=> {
+    const RoomForm = () => {
         return (
             <FormWrapper>
                 <FormHeader>
@@ -356,10 +377,7 @@ export const RoomCreationForm: FC = () => {
             <Button variant="ACCENT" onClick={toggleExpanded}>New room</Button>
             {expanded && (<Modal>
                 <RoomCreationMenuItem>
-                    {data ? (<Row>
-                        <p>Room {data.createRoom.id}: {data.createRoom.name} created</p>
-                        <CloseButton onClick={toggleExpanded} > X </CloseButton>
-                    </Row>) : (<RoomForm/>)}
+                    <RoomForm />
                 </RoomCreationMenuItem>
             </Modal>)}
         </RoomCreationWrapper>
