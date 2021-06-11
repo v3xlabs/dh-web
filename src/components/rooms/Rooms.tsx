@@ -13,7 +13,6 @@ import { notDraggable } from "../../library/mixin/mixin";
 import Modal from "../../library/portals/Modal";
 import { Button } from "../button/Button";
 import { Card as CardOriginal } from "../card/Card";
-import { Input, TextArea } from "../inputs/input";
 import { NoRooms } from "../logo/NoRooms";
 
 const Wrapper = styled.div`
@@ -363,11 +362,11 @@ export const RoomCreationForm: FC = () => {
                     </Row>
                 </FormHeader>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Input placeholder="Room Name" {...register("name")} />
+                    <input placeholder="Room Name" {...register("name")} />
                     <p>{errors.name?.message}</p>
-                    <TextArea placeholder="Room Description" {...register("description")} />
+                    <textarea placeholder="Room Description" {...register("description")} />
                     <p>{errors.description?.message}</p>
-                    <Input type="Submit" />
+                    <input type="Submit" />
                 </form>
             </FormWrapper>
         );

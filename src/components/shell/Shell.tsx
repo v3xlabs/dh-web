@@ -38,7 +38,24 @@ const GlobalStyle = createGlobalStyle`
         font-size: 10px;
         line-height: 21px;
     }
-
+    input, textarea {
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 100%;
+        color: inherit;
+        font-family: inherit;
+        line-height: inherit;
+        padding: 1rem 1rem;
+        box-shadow: rgb(0 0 0 / 10%) -3px 4px 14px;
+        border-color: ${({ theme }) => theme.palette.primary[700]};
+        background: ${({ theme }) => theme.palette.primary[700]};
+        border-radius: ${({ theme }) => theme.borderRadius};
+        flex: 1;
+    }
+    input::placeholder, textarea::placeholder {
+        color: ${({ theme }) => theme.palette.primary[300]};
+    }
     a {
         text-decoration: none;
     }
