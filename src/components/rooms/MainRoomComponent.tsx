@@ -1,10 +1,10 @@
-import { gql, useMutation, useQuery, useSubscription } from "@apollo/client";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { Router, useRouter } from "next/router";
-import { FC, useCallback, useEffect, useState } from "react";
-import styled, { useTheme } from "styled-components";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
+import { FC, useEffect } from "react";
+import styled from "styled-components";
 
 import { RoomDataQuery } from "../../__generated__/RoomDataQuery";
+import { RoomJoinQuery } from "../../__generated__/RoomJoinQuery";
 import { Button } from "../../components/button/Button";
 
 
@@ -32,18 +32,18 @@ const Title = styled.div`
     color: ${({ theme }) => theme.palette.primary[100]};
 `;
 
-const SubTitle = styled.div`
-    display: block;
-    text-overflow: ellipsis;
-    font-size: 1.2rem;
-    font-weight: 600;
-    padding-top: 0.5rem;
-    color: ${({ theme }) => theme.palette.primary[400]};
-    span {
-        margin-left: 1rem;
-        color: ${({ theme }) => theme.palette.primary[100]};
-    }
-`;
+// const SubTitle = styled.div`
+//     display: block;
+//     text-overflow: ellipsis;
+//     font-size: 1.2rem;
+//     font-weight: 600;
+//     padding-top: 0.5rem;
+//     color: ${({ theme }) => theme.palette.primary[400]};
+//     span {
+//         margin-left: 1rem;
+//         color: ${({ theme }) => theme.palette.primary[100]};
+//     }
+// `;
 
 const Description = styled.div`
     display: block;
@@ -96,7 +96,7 @@ const ROOM_DATA = gql`
 `;
 
 const ROOM_JOIN_QUERY = gql`
-    mutation ROOMJOIN($room_id: String!) {
+    mutation RoomJoinQuery($room_id: String!) {
         joinRoom(room_id: $room_id)
     }
 `;
@@ -111,45 +111,43 @@ export const RoomComponent: FC = () => {
 
     const router = useRouter();
 
-    const [joinRoom, { data, error, loading }] = useMutation(ROOM_JOIN_QUERY, { errorPolicy: "all" });
+    const [joinRoom, { error, loading }] = useMutation<RoomJoinQuery>(ROOM_JOIN_QUERY, { errorPolicy: "all" });
 
     useEffect(() => {
         if (router.query["roomId"]) {
             joinRoom({ variables: { room_id: router.query["roomId"] || "" } });
         }
-    }, [router.query]);
+    }, [joinRoom, router.query]);
 
-    if (error) {
-        return (
-            <>Error, probably doesnt exist</>
-        );
-    }
+    if (error) return (<p>{error.message}</p>);
+    if (loading) return (<p>...Loading</p>);
 
-    if (!data)
-        return (<></>);
 
     return (
         <MainRoomComponent room_id={router.query["roomId"].toString() || ""} />
     );
 };
 
-export const MainRoomComponent: FC<{ room_id: string }> = ({ room_id }: { room_id: string }) => {
+type MainRoomComponentProperties = Readonly<{
+    room_id: string;
+}>
+
+export const MainRoomComponent: FC<MainRoomComponentProperties> = ({ room_id }: MainRoomComponentProperties) => {
 
     const { data, error, loading } = useQuery<RoomDataQuery>(ROOM_DATA, { variables: { room_id } });
-    const [leaveRoom, _] = useMutation(LEAVE_ROOM);
+    const [leaveRoom] = useMutation(LEAVE_ROOM);
     const router = useRouter();
 
-    const theme = useTheme();
-    const one = useMediaQuery(`(min-width:${theme.breakpoints.one + 1}px)`);
-    const two = useMediaQuery(`(min-width:${theme.breakpoints.two + 1}px)`);
-    const three = useMediaQuery(`(min-width:${theme.breakpoints.three + 1}px)`);
+    // const theme = useTheme();
+    // const one = useMediaQuery(`(min-width:${theme.breakpoints.one + 1}px)`);
+    // const two = useMediaQuery(`(min-width:${theme.breakpoints.two + 1}px)`);
+    // const three = useMediaQuery(`(min-width:${theme.breakpoints.three + 1}px)`);
 
     if (loading || error) {
         return <></>;
     }
 
     return (
-
         <RoomCard>
             <RoomHeader>
                 <Title>{data.room.name}</Title>

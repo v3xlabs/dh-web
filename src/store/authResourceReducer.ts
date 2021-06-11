@@ -1,3 +1,4 @@
+import { RootState } from "./store";
 import { CustomReducerAction } from "./storeTypes";
 
 export enum AuthResourceReducerAction {
@@ -5,12 +6,16 @@ export enum AuthResourceReducerAction {
     AUTH_RESOURCE_RESET = "auth_resource/reset",
 }
 
-const initialAuthResourceReducerState = { token: "" };
+type AuthResourceReducerState = Readonly<{
+    token: string;
+}>
+
+const initialState: AuthResourceReducerState = { token: "" };
 
 const authResourceReducer = (
-    state = initialAuthResourceReducerState,
+    state = initialState,
     action: CustomReducerAction<AuthResourceReducerAction, string>,
-) => {
+): AuthResourceReducerState => {
     switch (action.type) {
     case AuthResourceReducerAction.AUTH_RESOURCE_WRITE:
         return { token: action.payload };
@@ -21,7 +26,7 @@ const authResourceReducer = (
     }
 };
 
-export const getAuthenticationToken = state => state.authResourceReducer.token;
+export const getAuthenticationToken = (state: RootState): string => state.authResourceReducer.token;
 
 
 export default authResourceReducer;
