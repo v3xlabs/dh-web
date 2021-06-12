@@ -129,6 +129,10 @@ export const Schedule: FC<ScheduleProperties> = ({ data, loading, error }: Sched
         );
     }
 
+    /**
+     * @TODO Replace key={index.toString()} with room id or something.
+     * once that data is available.
+     */
     return (
         <Card margin>
             <Title>
@@ -142,7 +146,7 @@ export const Schedule: FC<ScheduleProperties> = ({ data, loading, error }: Sched
                     { name: "Hello World2", time: "10:00 PM", owner: data?.me },
                     { name: "Hello World3", time: "11:00 PM", owner: data?.me }
                 ].map((room, index) => (
-                    <React.Fragment key={index}>
+                    <React.Fragment key={index.toString()}>
                         <ScheduleEntry>
                             <Time>{room.time}</Time>
                             <Text>{room.name}</Text>

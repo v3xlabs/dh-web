@@ -8,7 +8,6 @@ import { Grid } from "../components/grid/Grid";
 import { Logo } from "../components/logo/Logo";
 import { ScheduleDataContainer } from "../components/schedule/Schedule";
 import { Search } from "../components/search/Search";
-import { ProfileIcon } from "../components/user/ProfileIcon";
 import { ProfileWidgetDataContainer } from "../components/user/ProfileWidget";
 import { withAuth } from "../library/auth/withAuth";
 import useMediaQuery from "../library/hooks/useMediaQuery";
