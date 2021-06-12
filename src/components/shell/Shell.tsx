@@ -12,6 +12,7 @@ import ws from "ws";
 import NoSsr from "../../library/ssr/NoSsr";
 import { DarkTheme } from "../../library/theme";
 import { AuthResourceReducerAction, getAuthenticationToken } from "../../store/authResourceReducer";
+import { selectDerivedTheme } from "../../store/dynamicThemeReducer";
 import store from "../../store/store";
 
 type ShellProperties = {
@@ -117,6 +118,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 export const Shell: FC<ShellProperties> = ({ children }: ShellProperties) => {
+    const derivedTheme = useSelector(selectDerivedTheme);
 
     // get the authentication token from local storage if it exists
     const authToken = useSelector(getAuthenticationToken);
@@ -170,7 +172,7 @@ export const Shell: FC<ShellProperties> = ({ children }: ShellProperties) => {
     });
 
     return (
-        <ThemeProvider theme={DarkTheme}>
+        <ThemeProvider theme={derivedTheme}>
             <ApolloProvider client={client}>
                 <GlobalStyle />
                 <Head>

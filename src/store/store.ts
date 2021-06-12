@@ -3,6 +3,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import authResourceReducer from "./authResourceReducer";
+import dynamicThemeReducer from "./dynamicThemeReducer";
 
 /**
  * Only Whitelist Reducer groups we want 
@@ -11,8 +12,8 @@ import authResourceReducer from "./authResourceReducer";
 const persistedReducer = persistReducer({
     key: "root",
     storage,
-    whitelist: ["authResourceReducer"]
-}, combineReducers({ authResourceReducer }));
+    whitelist: ["authResourceReducer", "dynamicThemeReducer"]
+}, combineReducers({ authResourceReducer, dynamicThemeReducer }));
 
 const composeEnhancers = process.browser &&
     window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] as typeof compose || compose;

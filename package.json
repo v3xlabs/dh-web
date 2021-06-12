@@ -22,6 +22,7 @@
     "@apollo/client": "^3.3.19",
     "@hookform/resolvers": "^2.5.2",
     "@material-ui/core": "^4.11.4",
+    "@reduxjs/toolkit": "^1.6.0",
     "@types/graphql": "^14.5.0",
     "@types/next-seo": "^2.1.2",
     "@types/nprogress": "^0.2.0",

@@ -35,7 +35,6 @@ export const DarkTheme: DefaultTheme = {
     }
 };
 
-
 export const LightTheme: DefaultTheme = {
     borderRadius: "0px",
     palette: {
@@ -69,4 +68,50 @@ export const LightTheme: DefaultTheme = {
         two: 1265,
         three: 1336
     }
+};
+
+export const PreDefinedThemes = {
+    DarkTheme, LightTheme
+};
+
+export const themeSerializer = (theme: DefaultTheme): string => JSON.stringify(theme, undefined, 4);
+export const themeDeserializer = (theme: string): DefaultTheme => JSON.parse(theme);
+
+/**
+ * Ensures that passed-in theme sets contain
+ * all the properties from the default theme.
+ * It is used for validation when inputting new themes. 
+ * It currently does not validate styled property values.
+ */
+export const validateThemeContainsKeys = (theme: DefaultTheme, defaultThemeObject = DarkTheme): boolean => {
+
+    /**
+     * Converts all nested and root level properties
+     * into a flat array of keys using recursion.
+     * @example {key: {nestedProp: ""}} => ["key", "key.nestedProp"]
+     */
+    const keyify = (object: DefaultTheme, prefix = ""): Array<string> =>
+        // eslint-disable-next-line unicorn/no-array-reduce
+        Object.keys(object).reduce((results, element) => {
+            if (Array.isArray(object[element])) {
+                return results;
+            } else if (typeof object[element] === "object" && object[element] !== null) {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                return [...results, ...keyify(object[element], prefix + element + ".")];
+            }
+            return [...results, prefix + element];
+        }, []);
+
+    const passedInThemeKeys = keyify(theme);
+    const defaultThemeObjectKeys = keyify(defaultThemeObject);
+
+    const isInsidePassedInKeys = (currentValue: string) => passedInThemeKeys.includes(currentValue);
+
+    /** Checking that the passed in theme contains all of the 
+     * keys that exist in the default theme. And making sure 
+     * that the keys are of the same length. There should be
+     * no more and no less keys than in the default theme. 
+     */
+    return defaultThemeObjectKeys.every((element) => isInsidePassedInKeys(element))
+        && passedInThemeKeys.length === defaultThemeObjectKeys.length;
 };
