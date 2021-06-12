@@ -45,8 +45,8 @@ export const ProfilePopup: FC = () => {
                 [
                     { label: "Profile", route: "/profile" },
                     { label: "Report A Bug", route: github },
-                ].map((entry, index) => (
-                    <Link href={entry.route} key={index}>
+                ].map((entry) => (
+                    <Link href={entry.route} key={entry.route}>
                         <Item>
                             {entry.label}
                         </Item>

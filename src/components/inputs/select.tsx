@@ -21,9 +21,9 @@ const Wrapper = styled.div`
 `;
 
 interface NativeSelectProperties {
-    children?: any;
-    className?: any;
-    placeholder?: any;
+    children?: React.ReactNode;
+    className?: string;
+    placeholder?: string;
 }
 
 export const Select: React.FC<

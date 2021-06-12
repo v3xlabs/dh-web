@@ -170,7 +170,7 @@ export const RoomList: FC<RoomListProperties> = ({ loading, error, data, roomUpd
 
     useEffect(() => {
         roomUpdates();
-    }, [0]);
+    }, [roomUpdates]);
 
     if (loading) {
         return (<p>...Loading</p>);
@@ -335,7 +335,7 @@ export const RoomCreationForm: FC = () => {
         resolver: yupResolver(roomCreationFormValidationSchema)
     });
 
-    const [createNewRoom, { data, loading, error }] = useMutation<CreateNewRoomMutation, CreateNewRoomMutationVariables>(CREATE_NEW_ROOM_MUTATION);
+    const [createNewRoom, { loading, error }] = useMutation<CreateNewRoomMutation, CreateNewRoomMutationVariables>(CREATE_NEW_ROOM_MUTATION);
 
     const onSubmit = handleSubmit(async (data) => {
         setExpanded(false);

@@ -1,5 +1,4 @@
 import { ApolloError, ApolloQueryResult, gql, useMutation, useQuery } from "@apollo/client";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import styled from "styled-components";
@@ -133,7 +132,7 @@ const RoomName = styled.div`
 `;
 
 const MemberList = styled.div`
-    color: ${({theme}) => theme.palette.primary[300]};
+    color: ${({ theme }) => theme.palette.primary[300]};
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -142,7 +141,7 @@ const MemberList = styled.div`
 
 const ListenTime = styled.div`
     font-weight: normal;
-    color: ${({theme}) => theme.palette.accent.default};
+    color: ${({ theme }) => theme.palette.accent.default};
 `;
 
 const Flex = styled.div`
@@ -151,10 +150,10 @@ const Flex = styled.div`
     margin-top: 2rem;
 `;
 
-const TextPlaceholder = styled.div<{ w?: string }>`
-    height: 1em;
-    width: ${({ w }) => w ? w : "10em"};
-`;
+// const TextPlaceholder = styled.div<{ w?: string }>`
+//     height: 1em;
+//     width: ${({ w }) => w ? w : "10em"};
+// `;
 
 const PROFILE_WIDGET_QUERY = gql`
     query ProfileWidgetQuery {

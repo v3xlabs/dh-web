@@ -85,6 +85,7 @@ const FRIENDS_QUERY = gql`
         me {
             following {
                 following {
+                    id
                     avatar
                     username
                     current_room {
@@ -98,6 +99,10 @@ const FRIENDS_QUERY = gql`
     }
 `;
 
+/**
+ * @TODO (Real Time Feedback) implement subscription
+ * to update friends list when user activity changes.
+ */
 export const FriendsList: FC = () => {
 
     const { loading, data, error } = useQuery<FriendsQuery>(
@@ -136,8 +141,8 @@ export const FriendsList: FC = () => {
                 </Title>
             }
             {
-                data.me.following.map(({ following: user }, index) => (
-                    <Line key={index}>
+                data.me.following.map(({ following: user }) => (
+                    <Line key={user.id}>
                         <ProfilePicture>
                             <img src={user.avatar} alt="User Avatar" />
                         </ProfilePicture>
@@ -147,7 +152,7 @@ export const FriendsList: FC = () => {
                                 {user.username}
                                 {user.current_room &&
                                     <UserRoom>
-                                        {user.current_room.name}
+                                        {user.current_room.room.name}
                                     </UserRoom>
                                 }
                             </UserName>

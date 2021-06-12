@@ -19,6 +19,7 @@ export interface FriendsQuery_me_following_following_current_room {
 
 export interface FriendsQuery_me_following_following {
   __typename: "User";
+  id: number;
   avatar: string;
   username: string;
   current_room: FriendsQuery_me_following_following_current_room | null;
