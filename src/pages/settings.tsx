@@ -1,22 +1,19 @@
-import { NextSeo } from "next-seo";
-import React from "react";
-import { useState } from "react";
-import { FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { PreDefinedThemes, themeDeserializer, themeSerializer, validateThemeContainsKeys } from "../library/theme";
+import React, { FC, useState } from "react";
+import { resetTheme, selectTheme, writeTheme } from "../store/dynamicThemeReducer";
 import styled, { useTheme } from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Button } from "../components/button/Button";
 import { FriendsList } from "../components/friends/FriendsList";
 import { Grid } from "../components/grid/Grid";
-import { TextArea } from "../components/inputs/input";
 import { Logo } from "../components/logo/Logo";
-import { ScheduleDataContainer } from "../components/schedule/Schedule";
+import { NextSeo } from "next-seo";
 import { ProfileWidgetDataContainer } from "../components/user/ProfileWidget";
-import useMediaQuery from "../library/hooks/useMediaQuery";
-import { PreDefinedThemes, themeDeserializer, themeSerializer, validateThemeContainsKeys } from "../library/theme";
-import { resetTheme, selectTheme, writeTheme } from "../store/dynamicThemeReducer";
+import { ScheduleDataContainer } from "../components/schedule/Schedule";
+import { TextArea } from "../components/inputs/input";
 import store from "../store/store";
-
+import useMediaQuery from "../library/hooks/useMediaQuery";
 
 const Column = styled.div`
     margin-top: 30px;
@@ -60,6 +57,7 @@ const SettingsPage: FC = () => {
 
     const theme = useTheme();
     const dispatch = useDispatch();
+
     const one = useMediaQuery(`(min-width:${theme.breakpoints.one + 1}px)`);
     const two = useMediaQuery(`(min-width:${theme.breakpoints.two + 1}px)`);
     const three = useMediaQuery(`(min-width:${theme.breakpoints.three + 1}px)`);
@@ -70,6 +68,7 @@ const SettingsPage: FC = () => {
     const [editorTheme, setEditorTheme] = useState(reducerAppTheme);
     const [selectedPredefinedTheme, setPredefinedTheme] = useState("");
     const [isThemeValid, setIsThemeValid] = useState(true);
+    const [themeValidationErrorMessage, setThemeValidationErrorMessage] = useState("");
     /* Used to generate rows for the editor textarea */
     const editorThemeNewLines = (editorTheme.match(/\n/g) || "").length + 1;
 
@@ -85,7 +84,7 @@ const SettingsPage: FC = () => {
         }
     };
 
-    const handleThemeSubmission = () => {
+    const handleThemeSubmission = async () => {
         if (editorTheme !== reducerAppTheme) {
             /**
              * @TODO add styled-components schema 
@@ -93,10 +92,11 @@ const SettingsPage: FC = () => {
              * valid if they exist. Currently only checking
              * for existence.
              */
-            const isSubmittedThemeValid = validateThemeContainsKeys(themeDeserializer(editorTheme));
+            const {success: isSubmittedThemeValid, error}  = await validateThemeContainsKeys(themeDeserializer(editorTheme));
 
             if (!isSubmittedThemeValid) {
                 setIsThemeValid(false);
+                setThemeValidationErrorMessage(error.message);
                 return;
             }
 
@@ -113,6 +113,7 @@ const SettingsPage: FC = () => {
         setEditorTheme(store.getState().dynamicThemeReducer.theme);
         // the default theme will always be valid
         setIsThemeValid(true);
+        setThemeValidationErrorMessage("");
     };
 
     return <>
@@ -146,7 +147,12 @@ const SettingsPage: FC = () => {
                     <ThemeEditorBox>
                         <SettingTitle>Theme Editor</SettingTitle>
                         {/* @TODO implement a bit of a nicer Error box. */}
-                        {!isThemeValid && (<p>Theme is not valid try to reset it or make sure all properties are accounted for.</p>)}
+                        {(!isThemeValid && themeValidationErrorMessage) && (
+                            <>
+                                <p>Theme is not valid try to reset it or make sure all properties are accounted for.</p>
+                                <p>{themeValidationErrorMessage}</p>
+                            </>
+                        )}
                         <div style={{
                             alignSelf: "flex-end"
                         }}>

@@ -1,3 +1,5 @@
+import * as yup from "yup";
+
 import { DefaultTheme } from "styled-components";
 
 export const DarkTheme: DefaultTheme = {
@@ -77,41 +79,69 @@ export const PreDefinedThemes = {
 export const themeSerializer = (theme: DefaultTheme): string => JSON.stringify(theme, undefined, 4);
 export const themeDeserializer = (theme: string): DefaultTheme => JSON.parse(theme);
 
+
+type ValidateThemeReturnValue = Readonly<{
+    success: boolean
+    error?: Error
+}>
 /**
  * Ensures that passed-in theme sets contain
  * all the properties from the default theme.
  * It is used for validation when inputting new themes. 
  * It currently does not validate styled property values.
  */
-export const validateThemeContainsKeys = (theme: DefaultTheme, defaultThemeObject = DarkTheme): boolean => {
-
-    /**
-     * Converts all nested and root level properties
-     * into a flat array of keys using recursion.
-     * @example {key: {nestedProp: ""}} => ["key", "key.nestedProp"]
-     */
-    const keyify = (object: DefaultTheme, prefix = ""): Array<string> =>
-        // eslint-disable-next-line unicorn/no-array-reduce
-        Object.keys(object).reduce((results, element) => {
-            if (Array.isArray(object[element])) {
-                return results;
-            } else if (typeof object[element] === "object" && object[element] !== null) {
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                return [...results, ...keyify(object[element], prefix + element + ".")];
-            }
-            return [...results, prefix + element];
-        }, []);
-
-    const passedInThemeKeys = keyify(theme);
-    const defaultThemeObjectKeys = keyify(defaultThemeObject);
-
-    const isInsidePassedInKeys = (currentValue: string) => passedInThemeKeys.includes(currentValue);
-
-    /** Checking that the passed in theme contains all of the 
-     * keys that exist in the default theme. And making sure 
-     * that the keys are of the same length. There should be
-     * no more and no less keys than in the default theme. 
-     */
-    return defaultThemeObjectKeys.every((element) => isInsidePassedInKeys(element))
-        && passedInThemeKeys.length === defaultThemeObjectKeys.length;
+export const validateThemeContainsKeys = async (theme: DefaultTheme): Promise<ValidateThemeReturnValue> => {
+    try {
+        await validation.validate(theme, {abortEarly: false});
+        return  {
+            success: true,
+            error: undefined
+        };
+    } catch (error) {
+       
+        return {
+            success: false,
+            error: error
+        };
+    }
 };
+
+
+
+export const validation = yup.object().shape({
+    borderRadius: yup.string().required(),
+    palette: yup.object().shape({
+        primary: yup.object().shape({
+            100: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+            200: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+            300: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+            400: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+            500: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+            600: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+            700: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+            800: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+            900: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+        }),
+        accent:yup.object().shape({
+            default: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+            disabled: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+            hover: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+        }),
+        secondary:  yup.object().shape({
+            default: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+            washedOut: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+        }),
+        buttonText:yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),   
+
+    }),
+    animation: yup.object().shape({
+
+        micro: yup.string().required(),
+    }),
+    breakpoints: yup.object().shape({
+        one: yup.number().positive().integer().required(),
+        two:yup.number().positive().integer().required(),
+        three: yup.number().positive().integer().required(),
+
+    })
+});
