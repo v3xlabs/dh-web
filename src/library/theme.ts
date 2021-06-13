@@ -1,8 +1,12 @@
+import { DefaultTheme } from "styled-components";
 import * as yup from "yup";
 
-import { DefaultTheme } from "styled-components";
-
 export const DarkTheme: DefaultTheme = {
+    /* 
+        Warning!!!
+        Changes made in structure of this object needs to be added in 
+        yup validation schema named "themeValidationSchema" which is located in this file at the bottom
+    */
     borderRadius: "8px",
     palette: {
         primary: {
@@ -38,6 +42,11 @@ export const DarkTheme: DefaultTheme = {
 };
 
 export const LightTheme: DefaultTheme = {
+    /* 
+        Warning!!!
+        Changes made in structure of this object needs to be added in 
+        yup validation schema named "themeValidationSchema" which is located in this file at the bottom
+    */
     borderRadius: "0px",
     palette: {
         primary: {
@@ -92,7 +101,7 @@ type ValidateThemeReturnValue = Readonly<{
  */
 export const validateThemeContainsKeys = async (theme: DefaultTheme): Promise<ValidateThemeReturnValue> => {
     try {
-        await validation.validate(theme, {abortEarly: false});
+        await themeValidationSchema.validate(theme, {abortEarly: false});
         return  {
             success: true,
             error: undefined
@@ -108,35 +117,49 @@ export const validateThemeContainsKeys = async (theme: DefaultTheme): Promise<Va
 
 
 
-export const validation = yup.object().shape({
-    borderRadius: yup.string().required(),
+const themeValidationSchema = yup.object().shape({
+    borderRadius: yup.string().required().matches(/(\d*\.?\d+)\s?(px|em|ex|%|in|cn|mm|pt|pc+)/gi),
     palette: yup.object().shape({
         primary: yup.object().shape({
-            100: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
-            200: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
-            300: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
-            400: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
-            500: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
-            600: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
-            700: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
-            800: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
-            900: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+            100: yup.string().required()
+                .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),
+            200: yup.string().required()
+                .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),
+            300: yup.string().required()
+                .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),
+            400: yup.string().required()
+                .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),
+            500: yup.string().required()
+                .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),
+            600: yup.string().required()
+                .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),
+            700: yup.string().required()
+                .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),
+            800: yup.string().required()
+                .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),
+            900: yup.string().required()
+                .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),
         }),
         accent:yup.object().shape({
-            default: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
-            disabled: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
-            hover: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+            default: yup.string().required()
+                .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),
+            disabled: yup.string().required()
+                .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),
+            hover: yup.string().required()
+                .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),
         }),
         secondary:  yup.object().shape({
-            default: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
-            washedOut: yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),
+            default: yup.string().required()
+                .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),
+            washedOut: yup.string().required()
+                .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),
         }),
-        buttonText:yup.string().required().matches(/^#([\da-f]{3}|[\da-f]{6})$/i),   
+        buttonText:yup.string().required()
+            .matches(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/i),   
 
     }),
     animation: yup.object().shape({
-
-        micro: yup.string().required(),
+        micro: yup.string().required().matches(/\d+ms/i),
     }),
     breakpoints: yup.object().shape({
         one: yup.number().positive().integer().required(),
