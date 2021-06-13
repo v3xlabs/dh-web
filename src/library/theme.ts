@@ -1,6 +1,5 @@
-import * as yup from "yup";
-
 import { DefaultTheme } from "styled-components";
+import * as yup from "yup";
 
 export const DarkTheme: DefaultTheme = {
     borderRadius: "8px",

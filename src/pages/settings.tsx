@@ -1,19 +1,19 @@
-import { PreDefinedThemes, themeDeserializer, themeSerializer, validateThemeContainsKeys } from "../library/theme";
+import { NextSeo } from "next-seo";
 import React, { FC, useState } from "react";
-import { resetTheme, selectTheme, writeTheme } from "../store/dynamicThemeReducer";
-import styled, { useTheme } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import styled, { useTheme } from "styled-components";
 
 import { Button } from "../components/button/Button";
 import { FriendsList } from "../components/friends/FriendsList";
 import { Grid } from "../components/grid/Grid";
-import { Logo } from "../components/logo/Logo";
-import { NextSeo } from "next-seo";
-import { ProfileWidgetDataContainer } from "../components/user/ProfileWidget";
-import { ScheduleDataContainer } from "../components/schedule/Schedule";
 import { TextArea } from "../components/inputs/input";
-import store from "../store/store";
+import { Logo } from "../components/logo/Logo";
+import { ScheduleDataContainer } from "../components/schedule/Schedule";
+import { ProfileWidgetDataContainer } from "../components/user/ProfileWidget";
 import useMediaQuery from "../library/hooks/useMediaQuery";
+import { PreDefinedThemes, themeDeserializer, themeSerializer, validateThemeContainsKeys } from "../library/theme";
+import { resetTheme, selectTheme, writeTheme } from "../store/dynamicThemeReducer";
+import store from "../store/store";
 
 const Column = styled.div`
     margin-top: 30px;

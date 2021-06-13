@@ -10,7 +10,6 @@ import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import ws from "ws";
 
 import NoSsr from "../../library/ssr/NoSsr";
-import { DarkTheme } from "../../library/theme";
 import { AuthResourceReducerAction, getAuthenticationToken } from "../../store/authResourceReducer";
 import { selectDerivedTheme } from "../../store/dynamicThemeReducer";
 import store from "../../store/store";
