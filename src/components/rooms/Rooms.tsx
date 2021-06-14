@@ -16,8 +16,6 @@ import { Card as CardOriginal } from "../card/Card";
 import { Input, TextArea } from "../inputs/input";
 import { NoRooms } from "../logo/NoRooms";
 
-
-
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
