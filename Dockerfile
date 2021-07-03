@@ -2,14 +2,15 @@ FROM node:16-buster
 
 WORKDIR /app
 
-COPY *.json ./
-COPY yarn.lock ./
+COPY --chown=node:node *.json ./
+COPY --chown=node:node yarn.lock ./
 
 RUN yarn
 
-COPY . .
+COPY --chown=node:node . .
 
 # RUN yarn res:build
 RUN yarn build
 
+USER node
 CMD ["yarn", "start"]
